@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Bootstrap, from LayoutIt!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+	<!--script src="js/less-1.3.3.min.js"></script-->
+	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<h3>
+				A Framework for Setting and Assessing Programming Exercises
+			</h3>
+			<div class="row-fluid">
+				<div class="span3">
+					<div id="menu">
+						<ul class="nav nav-list">
+							<li class="nav-header">
+								Menu
+							</li>
+							<li class="active">
+								<a href="#">Overview</a>
+							</li>
+							<li>
+								<a href="#">Set exercise</a>
+							</li>
+							<li class="nav-header">
+							</ul>
+						</div>
+					</div>
+					<div class="span6">
+						<div id="page-content">
+							<h2>
+								Overview
+							</h2>
+							<script>
+							$(document).ready(function () {
+								$('label.tree-toggler').click(function () {
+									$(this).parent().children('ul.tree').toggle(300);
+								});
+								$('.table').hide();
+							});
+							</script>
+							<div class="well" style=" padding: 8px 0;">
+								<div style="">
+									<ul class="nav nav-list">
+										<li><label class="tree-toggler nav-header">Year 1</label>
+											<ul class="nav nav-list tree">
+												<li><a href="#" id="year-1-class-a">Class A</a>
+													<ul class="nav nav-list tree">
+														<li>
+															<table class="table" id="year-1-class-a-table">
+																<thead>
+																	<tr>
+																		<th>#</th>
+																		<th>Chapter</th>
+																		<th>Problem name</th>
+																		<th>Student name</th>
+																		<th>Grade</th>
+																		<th style="width: 36px;"></th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>1</td>
+																		<td>Variable assignment</td>
+																		<td>Addition</td>
+																		<td>Mihai</td>
+																		<td>40%</td>
+																	</tr>
+																	<tr>
+																		<td>2</td>
+																		<td>Conditionals</td>
+																		<td>If-else-if</td>
+																		<td>Mihai</td>
+																		<td>70%</td>
+																	</tr>
+																	<tr>
+																		<td>2</td>
+																		<td>Conditionals</td>
+																		<td>If-else-if</td>
+																		<td>Rohan</td>
+																		<td>120%</td>
+																	</tr>
+																</tbody>
+															</table>
+														</li>
+													</ul>
+												</li>
+											</li>
+											<li><a href="#" id="year-1-class-b">Class B</a>
+												<ul class="nav nav-list tree">
+													<li>
+														<table class="table" id="year-1-class-b-table">
+															<thead>
+																<tr>
+																	<th>#</th>
+																	<th>Chapter</th>
+																	<th>Problem name</th>
+																	<th>Student name</th>
+																	<th>Grade</th>
+																	<th style="width: 36px;"></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>1</td>
+																	<td>Variable assignment</td>
+																	<td>Addition</td>
+																	<td>Mihai</td>
+																	<td>40%</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>Conditionals</td>
+																	<td>If-else-if</td>
+																	<td>Mihai</td>
+																	<td>70%</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>Conditionals</td>
+																	<td>If-else-if</td>
+																	<td>Rohan</td>
+																	<td>120%</td>
+																</tr>
+															</tbody>
+														</table>
+													</li>
+												</ul>
+											</li>
+										</li>
+
+										<li><a href="#" id="year-1-class-c">Class C</a>
+											<ul class="nav nav-list tree">
+												<li>
+													<table class="table" id="year-1-class-c-table">
+														<thead>
+															<tr>
+																<th>#</th>
+																<th>Chapter</th>
+																<th>Problem name</th>
+																<th>Student name</th>
+																<th>Grade</th>
+																<th style="width: 36px;"></th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td>Variable assignment</td>
+																<td>Addition</td>
+																<td>Mihai</td>
+																<td>40%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Mihai</td>
+																<td>70%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Rohan</td>
+																<td>120%</td>
+															</tr>
+														</tbody>
+													</table>
+												</li>
+											</ul>
+										</li>
+									</li>
+								</ul>
+							</li>
+							<li class="divider"></li>
+							<li><label class="tree-toggler nav-header">Year 2</label>
+								<ul class="nav nav-list tree">
+									<li><a href="#" id="year-2-class-a">Class A</a>
+										<ul class="nav nav-list tree">
+											<li>
+												<table class="table" id="year-2-class-a-table">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>Chapter</th>
+															<th>Problem name</th>
+															<th>Student name</th>
+															<th>Grade</th>
+															<th style="width: 36px;"></th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>1</td>
+															<td>Variable assignment</td>
+															<td>Addition</td>
+															<td>Mihai</td>
+															<td>40%</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>Conditionals</td>
+															<td>If-else-if</td>
+															<td>Mihai</td>
+															<td>70%</td>
+														</tr>
+														<tr>
+															<td>2</td>
+															<td>Conditionals</td>
+															<td>If-else-if</td>
+															<td>Rohan</td>
+															<td>120%</td>
+														</tr>
+													</tbody>
+												</table>
+											</li>
+										</ul>
+									</li>
+								</li>
+								<li><a href="#" id="year-2-class-b">Class B</a>
+									<ul class="nav nav-list tree">
+										<li>
+											<table class="table" id="year-2-class-b-table">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Chapter</th>
+														<th>Problem name</th>
+														<th>Student name</th>
+														<th>Grade</th>
+														<th style="width: 36px;"></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>1</td>
+														<td>Variable assignment</td>
+														<td>Addition</td>
+														<td>Mihai</td>
+														<td>40%</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>Conditionals</td>
+														<td>If-else-if</td>
+														<td>Mihai</td>
+														<td>70%</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>Conditionals</td>
+														<td>If-else-if</td>
+														<td>Rohan</td>
+														<td>120%</td>
+													</tr>
+												</tbody>
+											</table>
+										</li>
+									</ul>
+								</li>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+$('#year-1-class-a').click(function () {
+	$('#year-1-class-a-table').toggle();
+});
+$('#year-1-class-b').click(function () {
+	$('#year-1-class-b-table').toggle();
+});
+$('#year-1-class-c').click(function () {
+	$('#year-1-class-c-table').toggle();
+});
+$('#year-2-class-a').click(function () {
+	$('#year-2-class-a-table').toggle();
+});
+$('#year-2-class-b').click(function () {
+	$('#year-2-class-b-table').toggle();
+});
+</script>
+</body>
+</html>
