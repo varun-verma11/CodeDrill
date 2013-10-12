@@ -1,0 +1,8 @@
+-in set exercise
+--show code for each exercise, syntax highlight with google-pretify
+--highlight selection
+--answer after clicking submit, replace selection text
+--provide option to view all categories
+
+-in overview
+--provide option to view all categories

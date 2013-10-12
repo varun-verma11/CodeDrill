@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Bootstrap, from LayoutIt!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
 	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
 	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
@@ -16,70 +15,175 @@
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 
-  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
-  <![endif]-->
+    <![endif]-->
 
-  <!-- Fav and touch icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
-  <link rel="shortcut icon" href="img/favicon.png">
-  
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span12">
-			<h3>
-				A Framework for Setting and Assessing Programming Exercises
-			</h3>
-			<div class="row-fluid">
-				<div class="span3">
-					<div id="menu">
-						<ul class="nav nav-list">
-							<li class="nav-header">
-								Menu
-							</li>
-							<li>
-								<a href="teacher_view.html">Overview</a>
-							</li>
-							<li class="active">
-								<a href="#">Set exercise</a>
-							</li>
-							<li class="nav-header">
-						</ul>
-					</div>
-				</div>
-				<div class="span6">
-					<div id="page-content">
-						<form>
-							<fieldset>
-								 <legend>Submit code</legend>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<h3>
+					A Framework for Setting and Assessing Programming Exercises
+				</h3>
+				<div class="row-fluid">
+					<div class="span3">
+						<div id="menu">
+							<ul class="nav nav-list">
+								<li class="nav-header">
+									Menu
+								</li>
+								<li>
+									<a href="teacher_view.html">Overview</a>
+								</li>
+								<li class="active">
+									<a href="#">Set exercise</a>
+								</li>
+								<li class="nav-header">
+								</ul>
+							</div>
+						</div>
+						<div class="span6">
+							<div id="page-content">
+								<form>
+									<fieldset>
+										<legend>Set an exercise</legend>
 
-								 <label>Exercise name</label>
-								 <input type="text">
-
-								 <label>Code</label>
-								 <input type="text" height="100">
-								 <button type="submit" class="btn">Submit</button>
-							</fieldset>
-						</form>
-						<div class="progress">
-							<div class="bar">
+										<label>Choose exercise</label>
+										<script>
+										$(document).ready(function () {
+											$('label.tree-toggler').click(function () {
+												$(this).parent().children('ul.tree').toggle(300);
+											});
+											$('.tree').hide();
+											$('#selection-text').hide();
+											$('#submit-btn').attr('disabled', 'disabled');
+										});
+										</script>
+										<div class="well" style=" padding: 8px 0;">
+											<div style="">
+												<ul class="nav nav-list">
+													<li><label class="tree-toggler nav-header" id="var">Variable assignment</label>
+														<ul class="nav nav-list tree">
+															<li><a href="#" id="var-add">Addition</a></li>
+															<li><a href="#" id="var-sub">Subtraction</a></li>
+														</ul>
+													</li>
+												</ul>
+												<ul class="nav nav-list">
+													<li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
+														<ul class="nav nav-list tree">
+															<li><a href="#" id="cond-i">If</a></li>
+															<li><a href="#" id="cond-iei">If-else-if</a></li>
+														</ul>
+													</li>
+												</ul>
+												<ul class="nav nav-list">
+													<li><label class="tree-toggler nav-header" id="for">For loop</label>
+														<ul class="nav nav-list tree">
+															<li><a href="#" id="for-print">Print 10 numbers</a></li>
+															<li><a href="#" id="for-sum">Sum</a></li>
+														</ul>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<label>Choose class</label>
+										<div class="well" style=" padding: 8px 0;">
+											<div style="">
+												<ul class="nav nav-list">
+													<li><label class="tree-toggler nav-header">Year 1</label>
+														<ul class="nav nav-list tree">
+															<li><a href="#" id="year-1-class-a">Class A</a></li>
+															<li><a href="#" id="year-1-class-b">Class B</a></li>
+															<li><a href="#" id="year-1-class-c">Class C</a></li>
+														</ul>
+													</li>
+												</ul>
+												<ul class="nav nav-list">
+													<li><label class="tree-toggler nav-header">Year 2</label>
+														<ul class="nav nav-list tree">
+															<li><a href="#" id="year-2-class-a">Class A</a></li>
+															<li><a href="#" id="year-2-class-b">Class B</a></li>
+														</ul>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div id="selection-text"></div>
+										<br>
+										<button onclick="submit" type="submit" class="btn" id="submit-btn">Send</button>
+									</fieldset>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</div>
-</body>
-</html>
+		<script>
+		var exercise = "";
+		var group = "";
+		var text = $('#selection-text');
+		$('#var-add').click(function(){
+			exercise = "Addition";
+			set();
+		});
+		$('#var-sub').click(function(){
+			exercise = "Subtraction";
+			set();
+		});
+		$('#cond-i').click(function(){
+			exercise = "If";
+			set();
+		});
+		$('#cond-iei').click(function(){
+			exercise = "If-else-if";
+			set();
+		});
+		$('#for-print').click(function(){
+			exercise = "Print 10 numbers";
+			set();
+		});
+		$('#for-sum').click(function(){
+			exercise = "Sum";
+			set();
+		});
+
+		$('#year-1-class-a').click(function(){
+			group = "1A";
+			set();
+		});
+		$('#year-1-class-b').click(function(){
+			group = "1B";
+			set();
+		});
+		$('#year-1-class-c').click(function(){
+			group = "1C";
+			set();
+		});
+		$('#year-2-class-a').click(function(){
+			group = "2A";
+			set();
+		});
+		$('#year-2-class-b').click(function(){
+			group = "2B";
+			set();
+		});
+		function set() {
+			if (exercise != "" && group != "") {
+				text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
+				text.hide();
+				text.fadeIn("slow");
+				$('#submit-btn').removeAttr('disabled');
+			}
+		}
+		</script>
+	</body>
+	</html>
