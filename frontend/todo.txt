@@ -6,3 +6,9 @@
 
 -in overview
 --provide option to view all categories
+
+-in index.html
+--code highlight
+--text boxes
+--confirmation red/green on submit
+--change form code to code on submit
