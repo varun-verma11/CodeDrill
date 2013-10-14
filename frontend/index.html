@@ -40,43 +40,50 @@
 								<li class="nav-header">
 									Menu
 								</li>
-								<li class="active">
-									<a href="index.html">Code</a>
+								<li class="dropdown all-camera-dropdown" data-toggle="dropdown">
+									<a class="active dropdown-toggle" data-toggle="dropdown" href="#">Code
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">  
+										<li data-filter-camera-type="all"><a data-toggle="tab" href="#">HTML5</a></li>  
+										<li data-filter-camera-type="Alpha"><a data-toggle="tab" href="#">PHP</a></li>  
+										<li data-filter-camera-type="Zed"><a data-toggle="tab" href="#">MySQL</a></li>  
+										<li data-filter-camera-type="Bravo"><a data-toggle="tab" href="#">JavaScript</a></li>  
+									</ul>  
 								</li>
 								<li>
 									<a href="grades.html">Grades</a>
 								</li>
-								<li class="nav-header">
-								</ul>
-							</div>
+							</ul>
 						</div>
-						<div class="span6">
-							<div id="page-content">
-								<script>
-								$(document).ready(function () {
-									$('label.tree-toggler').click(function () {
-										$(this).parent().children('ul.tree').toggle(300);
-									});
+					</div>
+					<div class="span6">
+						<div id="page-content">
+							<script>
+							$(document).ready(function () {
+								$('label.tree-toggler').click(function () {
+									$(this).parent().children('ul.tree').toggle(300);
 								});
-								</script>
-								<div class="well" style=" padding: 8px 0;">
-									<div style="">
-										<ul class="nav nav-list">
-											<li><label class="tree-toggler nav-header">Variable Assignment</label>
-												<ul class="nav nav-list tree">
-													<li><a href="#" id="var-sub">Subtraction</a></li>
-													<div id="var-sub-ex">
-														<pre class="prettyprint" id="python">
-#!/usr/bin/python2.4
-a = 2
-b = 3</pre>
+							});
+							</script>
+							<div class="well" style=" padding: 8px 0;">
+								<div style="">
+									<ul class="nav nav-list">
+										<li><label class="tree-toggler nav-header">Variable Assignment</label>
+											<ul class="nav nav-list tree">
+												<li><a href="#" id="var-sub">Subtraction</a></li>
+												<div id="var-sub-ex">
+													<pre class="prettyprint" id="python">
+														#!/usr/bin/python2.4
+														a = 2
+														b = 3</pre>
 														<form accept-charset="UTF-8" action="" method="POST">
 															<textarea class="span10" placeholder="Place here the piece of code that is missing." rows="6" cols="200"></textarea>
 															<br>
 															<button class="btn btn-info" id="var-sub-send">Submit</button>
 															<div id="var-sub-sent">awesome!</div>
 														</form>
-<pre class="prettyprint" id="python">print 'a - b is', c</pre>
+														<pre class="prettyprint" id="python">print 'a - b is', c</pre>
 													</div>
 												</ul>
 											</li>
@@ -109,28 +116,28 @@ b = 3</pre>
 		</div>
 	</div>
 	<script>
-		$('#var-sub-ex').hide();
-		$('#cond-i-ex').hide();
-		$('#for-print-ex').hide();
-		$('#for-sum-ex').hide();
+	$('#var-sub-ex').hide();
+	$('#cond-i-ex').hide();
+	$('#for-print-ex').hide();
+	$('#for-sum-ex').hide();
 
-		$('#ok').hide();
-		$('#var-sub').click(function () {
-			$('#var-sub-ex').toggle(300);
-		});
-		$('#cond-i').click(function () {
-			$('#cond-i-ex').toggle(300);
-		});
-		$('#for-print').click(function () {
-			$('#for-print-ex').toggle(300);
-		});
-		$('#for-sum').click(function () {
-			$('#for-sum-ex').toggle(300);
-		});
-		$('#var-sub-send').click(function () {
-			$('#ok').show();
-			return false;
-		})
+	$('#ok').hide();
+	$('#var-sub').click(function () {
+		$('#var-sub-ex').toggle(300);
+	});
+	$('#cond-i').click(function () {
+		$('#cond-i-ex').toggle(300);
+	});
+	$('#for-print').click(function () {
+		$('#for-print-ex').toggle(300);
+	});
+	$('#for-sum').click(function () {
+		$('#for-sum-ex').toggle(300);
+	});
+	$('#var-sub-send').click(function () {
+		$('#ok').show();
+		return false;
+	})
 
 	</script>
 </body>
