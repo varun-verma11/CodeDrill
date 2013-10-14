@@ -40,17 +40,21 @@
 								<li class="nav-header">
 									Menu
 								</li>
-								<li class="dropdown all-camera-dropdown" data-toggle="dropdown">
-									<a class="active dropdown-toggle" data-toggle="dropdown" href="#">Code
-										<b class="caret"></b>
+								
+									
+									<div class="dropdown" id="outer-dropdown">
+  <a class="active dropdown-toggle" data-toggle="dropdown" href="#">Code
+										<b class="caret" id="arrow"></b>
 									</a>
-									<ul class="dropdown-menu">  
-										<li data-filter-camera-type="all"><a data-toggle="tab" href="#">HTML5</a></li>  
-										<li data-filter-camera-type="Alpha"><a data-toggle="tab" href="#">PHP</a></li>  
-										<li data-filter-camera-type="Zed"><a data-toggle="tab" href="#">MySQL</a></li>  
-										<li data-filter-camera-type="Bravo"><a data-toggle="tab" href="#">JavaScript</a></li>  
-									</ul>  
-								</li>
+  <ul class="dropdown-menu" >
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.html">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="grades.html">Another action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+    <li role="presentation" class="divider"></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+  </ul>
+</div>
+
 								<li>
 									<a href="grades.html">Grades</a>
 								</li>
@@ -116,6 +120,10 @@
 		</div>
 	</div>
 	<script>
+	$('#arrow').click(function() {
+		$('#dropdown').show();
+	});
+
 	$('#var-sub-ex').hide();
 	$('#cond-i-ex').hide();
 	$('#for-print-ex').hide();
