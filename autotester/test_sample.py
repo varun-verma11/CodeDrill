@@ -1,15 +1,14 @@
-# input: program that prints first 5 numbers
-# output: "1\r\n2\r\n3\r\n4\r\n5\r\n"
-# it creates a subprocess that runs student_prog.py, which has code to print out numbers 1 to 5
-# it gets this output from the subprocess and matches/tests it
+import student_prog
+import unittest
+'''
+	A simple unit test that verifies if the student manage to add the first
+	six natural numbers into an array
+'''
 
-class Tester:
-    def test_one(expected_output):
-        import subprocess
-        student_output = subprocess.Popen(["python", "student_prog.py"], stdout=subprocess.PIPE).communicate()[0]
-        ascii_output = student_output.decode('ascii')
-        assert ascii_output == "1\r\n2\r\n3\r\n4\r\n5\r\n" #change with expected_output when we link everything
-    
-    
+class Tester(unittest.TestCase):
+    def test_1to5(self):
+        student_output = student_prog.from1to5()
+        self.assertListEqual(student_output, [0, 1, 2, 3, 4, 5])
 
-        
+if __name__ == "__main__":
+	unittest.main()

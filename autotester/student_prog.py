@@ -1,1 +1,7 @@
-for b in range(1, 6): print (b)
+
+def from1to5():
+    ret = []
+    for i in range(6):
+        ret.append(i)
+
+    return ret
