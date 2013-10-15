@@ -28,80 +28,97 @@
   <body>
     <div class="container-fluid">
      <div class="row-fluid">
-      <div class="span12">
        <h3>
         A Framework for Setting and Assessing Programming Exercises
       </h3>
-      <div class="row-fluid">
         <div class="span3">
-         <div id="menu">
+      <div id="menu">
+          <script>
+           $(document).ready(function () {
+            $('ul.menu-list').toggle();
+            $('label.tree-toggler').click(function () {
+             $(this).parent().children('ul.tree').toggle(200);
+           });
+          });
+          </script>
           <ul class="nav nav-list">
-           <li class="nav-header">
-            Menu
+            <li class="nav-header">
+             Menu
+           </li>
+           <li>
+            <a href="index.html">Code</a>
+            <ul class="nav nav-list">
+              <li><label class="tree-toggler nav-header">Variable Assignment</label>
+                <ul class="nav nav-list tree menu-list">
+                  <li><a href="#">Subtraction</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav nav-list">
+              <li><label class="tree-toggler nav-header">Conditionals</label>
+                <ul class="nav nav-list tree menu-list">
+                  <li><a href="#">If</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav nav-list">
+              <li><label class="tree-toggler nav-header">For loop</label>
+                <ul class="nav nav-list tree menu-list">
+                  <li><a href="#">Print 10 numbers</a></li>
+                  <li><a href="#">Sum</a></li>
+                </ul>
+              </li>
+            </ul>
           </li>
-          <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Code
-                    <b class="caret pull-right"></b>
-                  </a>
-                  <ul class="dropdown-menu" >
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.html">View all</a></li>
-                    <li role="presentation" class="divider"></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.html">Subtraction</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.html">If</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.html">Print 10 numbers</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="index.html">Sum</a></li>
-                  </ul>
-                </li>
           <li class="active">
-            <a href="#">Grades</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="span6">
-     <div id="page-content">
-      <div class="well">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Chapter</th>
-              <th>Problem name</th>
-              <th>Grade</th>
-              <th style="width: 36px;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Variable assignment</td>
-              <td>Addition</td>
-              <td>40%</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Conditionals</td>
-              <td>If-else-if</td>
-              <td>70%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pagination">
-        <ul>
-          <li><a href="#">Last term</a></li>
-          <li><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">Next term</a></li>
-        </ul>
-      </div>
+           <a href="#">Grades</a>
+         </li>
+       </ul>
+     </div>
+   </div>
+     </div>
+     <div class="span6">
+       <div id="page-content">
+        <div class="well">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Chapter</th>
+                <th>Problem name</th>
+                <th>Grade</th>
+                <th style="width: 36px;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Variable assignment</td>
+                <td>Addition</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Conditionals</td>
+                <td>If-else-if</td>
+                <td>70%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <ul>
+            <li><a href="#">Last term</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">Next term</a></li>
+          </ul>
+        </div>
 
-    </div>
   </div>
-</div>
 </div>
 </div>
 </div>
