@@ -1,7 +1,12 @@
 from django.conf.urls import patterns, include, url
 
+import sys
+sys.path.insert(0, '/Users/varunverma/Documents/Work/CodeDrill/djangoSRV')
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from grades_test import getGrades
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,4 +19,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^grades/$', getGrades)
 )
