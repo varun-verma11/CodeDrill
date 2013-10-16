@@ -3,8 +3,8 @@ from django.conf.urls import patterns, include, url
 import sys
 import os
 
-sys.path.insert(0, '../frontend/')
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)) + '/frontend')
+sys.path.append('../frontend/')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/frontend')
 from django.contrib import admin
 from grades import getGrades
 

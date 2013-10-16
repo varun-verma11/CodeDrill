@@ -3,9 +3,9 @@
 from django.http import HttpResponse
 import haml
 import mako.template
-
+import os, sys
 def getGrades(request):
-	haml_source_file = open("/home/varun/Work/CodeDrill/djangoSRV/djangoSRV/helloWorld.haml", "r")
+	haml_source_file = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "helloWorld.haml"), "r")
 	haml_source = ""
 	while 1 :
 		line = haml_source_file.readline();
