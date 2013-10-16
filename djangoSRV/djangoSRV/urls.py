@@ -7,6 +7,7 @@ sys.path.append('../frontend/')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/frontend')
 from django.contrib import admin
 from grades import getGrades
+from teacher import listAllTeachers
 
 admin.autodiscover()
 
@@ -20,5 +21,6 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^grades/$', getGrades)
+    url(r'^grades/$', getGrades),
+    url(r'^teacher/', listAllTeachers)
 )
