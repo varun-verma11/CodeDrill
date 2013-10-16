@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 
 import sys
-sys.path.insert(0, '/home/varun/Work/CodeDrill/djangoSRV/frontend/')
+import os
 
-# Uncomment the next two lines to enable the admin:
+sys.path.insert(0, '../frontend/')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)) + '/frontend')
 from django.contrib import admin
-from grades_test import getGrades
+from grades import getGrades
 
 admin.autodiscover()
 
