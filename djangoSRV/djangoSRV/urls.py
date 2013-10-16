@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 
 import sys
-sys.path.insert(0, '/Users/varunverma/Documents/Work/CodeDrill/djangoSRV')
+sys.path.insert(0, '/home/varun/Work/CodeDrill/djangoSRV/frontend/')
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin

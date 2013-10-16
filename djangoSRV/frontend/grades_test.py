@@ -5,7 +5,7 @@ import haml
 import mako.template
 
 def getGrades(request):
-	haml_source_file = open("/home/varun/Work/CodeDrill/djangoSRV/helloWorld.haml", "r")
+	haml_source_file = open("/home/varun/Work/CodeDrill/djangoSRV/frontend/helloWorld.haml", "r")
 	haml_source = ""
 	while 1 :
 		line = haml_source_file.readline();
