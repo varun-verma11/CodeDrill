@@ -12,12 +12,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'django',                      # Or path to database file if using sqlite3.
+        'NAME': 'codedrill2',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'root',
-        'PASSWORD': 'SticksAndStones',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'USER': 'codedrill2',
+        'PASSWORD': 'Sticks%2',
+        'HOST': 'codedrill2.db.11959920.hostedresource.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '3306',                      # Set to empty string for default.
     }
 }
 
