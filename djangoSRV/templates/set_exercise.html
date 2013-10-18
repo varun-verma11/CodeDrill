@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
+	<link href="{% static "css/bootstrap-responsive.min.css"%}" rel="stylesheet">
+	<link href="{% static "css/style.css"%}" rel="stylesheet">
+
+	<script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
+	<script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
+	<script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
+
+	<title> {{name}} | Teaching Overview </title>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<h3>
+					Teach Kids Code
+				</h3>
+				<div class="row-fluid">
+					<div class="span3">
+						<div id="menu">
+							<ul class="nav nav-list">
+								<li class="nav-header">
+									Menu
+								</li>
+								<li>
+									<a href="/teacher_view/">Overview</a>
+								</li>
+								<li class="active">
+									<a href="#">Set exercise</a>
+								</li>
+								<li class="nav-header">
+								</ul>
+							</div>
+						</div>
+						<div class="span6">
+							<div id="page-content">
+								<form>
+									<fieldset>
+										<legend>Set an exercise</legend>
+
+										<label>Choose exercise</label>
+										<script>
+										$(document).ready(function () {
+											$('label.tree-toggler').click(function () {
+												$(this).parent().children('ul.tree').toggle(300);
+											});
+											$('.tree').hide();
+											$('#selection-text').hide();
+											$('#submit-btn').attr('disabled', 'disabled');
+										});
+										</script>
+										<div class="well" style=" padding: 8px 0;">
+											<div style="">
+												{% for chapter in assignment_book.get_chapters %}
+													<ul class="nav nav-list">
+													<li><label class="tree-toggler nav-header" id="{{ chapter.get_name }}">{{ chapter.get_name }}</label>
+														<ul class="nav nav-list tree">
+														{% for assignment in chapter.get_assignments %}
+															<li><a href="#" id="{{ chapter.get_name }}-{{ assignment.get_name }}"> {{ assignment.get_name }}</a></li>
+														{% endfor %}
+														</ul>
+													</ul>
+												{% endfor %}
+											</div>
+										</div>
+										<label>Choose class</label>
+										<div class="well" style=" padding: 8px 0;">
+											<div style="">
+												{% for year in teaching_hierarchy.get_teaching_years %}
+													<ul class="nav nav-list">
+														<li><label class="tree-toggler nav-header">Year {{ year.name }}</label>
+														<ul class="nav nav-list tree">
+														{% for cls in year.get_teaching_classes %}
+															<li><a href="#" id="year-{{ year.get_name }}-class-{{ cls.get_name }}">Class {{cls.get_name}}</a></li>
+														{% endfor %}
+														</ul>
+													</li>
+													</ul>
+												{% endfor %}
+											</div>
+										</div>
+										<div id="selection-text"></div>
+										<br>
+										<button onclick="submit" type="submit" class="btn" id="submit-btn">Send</button>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		var exercise = "";
+		var group = "";
+		var text = $('#selection-text');
+
+		{% for chapter in assignment_book.get_chapters %}
+			{% for assignment in chapter.get_assignments %}
+				$('#{{ chapter.get_name }}-{{ assignment.get_name }}').click(function(){
+					exercise = "{{ assignment.get_name }}";
+					set();
+				});
+			{% endfor %}
+		{% endfor %}
+
+		{% for year in teaching_hierarchy.get_teaching_years %}
+			{% for cls in year.get_teaching_classes %}
+				$("#year-{{ year.get_name }}-class-{{ cls.get_name }}").click(function(){
+					group = "{{ year.get_name }}{{ cls.get_name }}";
+					set();
+				});
+			{% endfor %}
+		{% endfor %}
+	
+		function set() {
+			if (exercise != "" && group != "") {
+				text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
+				text.hide();
+				text.fadeIn("slow");
+				$('#submit-btn').removeAttr('disabled');
+			}
+		}
+		</script>
+	</body>
+	</html>

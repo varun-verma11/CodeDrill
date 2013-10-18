@@ -11,6 +11,7 @@ from grades_view import get_grades_view
 from django.contrib import admin
 from teacher import listAllTeachers
 from teacher_view import get_teacher_view
+from set_exercise import get_set_exercise_page
 
 admin.autodiscover()
 
@@ -18,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^grades/', get_grades_view),
     url(r'^teacher/', listAllTeachers),
-    url(r'^teacher_view/', get_teacher_view)
+    url(r'^teacher_view/', get_teacher_view),
+    url(r'^set_exercise/', get_set_exercise_page)
 )
