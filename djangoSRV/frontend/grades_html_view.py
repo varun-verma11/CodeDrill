@@ -16,8 +16,8 @@ def get_grades_page(request):
 
 
 def __get_student_grades(student_id):
-	return [["Variable Assignment", "Addition", 40] ,
-			["Conditionals", "If-then-else", 70]
+	return [["1", "Variable Assignment", "Addition", 40] ,
+			["2", "Conditionals", "If-then-else", 70]
 			]
 
 def __get_student_name(student_id):
@@ -34,7 +34,7 @@ def __get_page_header(student_name):
 		 	<link href="css/bootstrap.min.css" rel="stylesheet">
 		  	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 			<link href="css/style.css" rel="stylesheet">
-			
+
 			<script type="text/javascript" src="js/jquery.min.js"></script>
 			<script type="text/javascript" src="js/bootstrap.min.js"></script>
 			<script type="text/javascript" src="js/scripts.js"></script>
