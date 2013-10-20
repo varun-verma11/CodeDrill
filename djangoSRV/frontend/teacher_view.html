@@ -33,172 +33,40 @@
 			</h3>
 			<div class="row-fluid">
 				<div class="span2">
-					<div id="menu">
-						<ul class="nav nav-list">
-							<li class="nav-header">
-								Menu
-							</li>
-							<li class="active">
-								<a href="#">Overview</a>
-							</li>
-							<li>
-								<a href="set_exercise.html">Set exercise</a>
-							</li>
-							<li class="nav-header">
-							</ul>
-						</div>
+					<ul class="nav nav-list">
+						<li class="nav-header">
+							Menu
+						</li>
+						<li class="active">
+							<a href="#">Overview</a>
+						</li>
+						<li>
+							<a href="set_exercise.html">Set exercise</a>
+						</li>
+						<li class="nav-header">
+						</ul>
 					</div>
 					<div class="span10">
-						<div id="page-content">
-							<h2>
-								Overview
-							</h2>
-							<script>
-							$(document).ready(function () {
-								$('label.tree-toggler').click(function () {
-									$(this).parent().children('ul.tree').toggle(300);
-								});
-								$('.table').hide();
+						<h2>
+							Overview
+						</h2>
+						<script>
+						$(document).ready(function () {
+							$('label.tree-toggler').click(function () {
+								$(this).parent().children('ul.tree').toggle(300);
 							});
-							</script>
-							<div class="well" style=" padding: 8px 0;">
-								<div style="">
-									<ul class="nav nav-list">
-										<li><label class="tree-toggler nav-header">Year 1</label>
-											<ul class="nav nav-list tree">
-												<li><a href="#" id="year-1-class-a">Class A</a>
-													<ul class="nav nav-list tree">
-														<li>
-															<table class="table" id="year-1-class-a-table">
-																<thead>
-																	<tr>
-																		<th>#</th>
-																		<th>Chapter</th>
-																		<th>Problem name</th>
-																		<th>Student name</th>
-																		<th>Grade</th>
-																		<th style="width: 36px;"></th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr>
-																		<td>1</td>
-																		<td>Variable assignment</td>
-																		<td>Addition</td>
-																		<td>Mihai</td>
-																		<td>40%</td>
-																	</tr>
-																	<tr>
-																		<td>2</td>
-																		<td>Conditionals</td>
-																		<td>If-else-if</td>
-																		<td>Mihai</td>
-																		<td>70%</td>
-																	</tr>
-																	<tr>
-																		<td>2</td>
-																		<td>Conditionals</td>
-																		<td>If-else-if</td>
-																		<td>Rohan</td>
-																		<td>120%</td>
-																	</tr>
-																</tbody>
-															</table>
-														</li>
-													</ul>
-												</li>
-											</li>
-											<li><a href="#" id="year-1-class-b">Class B</a>
-												<ul class="nav nav-list tree">
-													<li>
-														<table class="table" id="year-1-class-b-table">
-															<thead>
-																<tr>
-																	<th>#</th>
-																	<th>Chapter</th>
-																	<th>Problem name</th>
-																	<th>Student name</th>
-																	<th>Grade</th>
-																	<th style="width: 36px;"></th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>1</td>
-																	<td>Variable assignment</td>
-																	<td>Addition</td>
-																	<td>Mihai</td>
-																	<td>40%</td>
-																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>Conditionals</td>
-																	<td>If-else-if</td>
-																	<td>Mihai</td>
-																	<td>70%</td>
-																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>Conditionals</td>
-																	<td>If-else-if</td>
-																	<td>Rohan</td>
-																	<td>120%</td>
-																</tr>
-															</tbody>
-														</table>
-													</li>
-												</ul>
-											</li>
-											<li><a href="#" id="year-1-class-c">Class C</a>
-												<ul class="nav nav-list tree">
-													<li>
-														<table class="table" id="year-1-class-c-table">
-															<thead>
-																<tr>
-																	<th>#</th>
-																	<th>Chapter</th>
-																	<th>Problem name</th>
-																	<th>Student name</th>
-																	<th>Grade</th>
-																	<th style="width: 36px;"></th>
-																</tr>
-															</thead>
-															<tbody>
-																<tr>
-																	<td>1</td>
-																	<td>Variable assignment</td>
-																	<td>Addition</td>
-																	<td>Mihai</td>
-																	<td>40%</td>
-																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>Conditionals</td>
-																	<td>If-else-if</td>
-																	<td>Mihai</td>
-																	<td>70%</td>
-																</tr>
-																<tr>
-																	<td>2</td>
-																	<td>Conditionals</td>
-																	<td>If-else-if</td>
-																	<td>Rohan</td>
-																	<td>120%</td>
-																</tr>
-															</tbody>
-														</table>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</li>
-									<li class="divider"></li>
-									<li><label class="tree-toggler nav-header">Year 2</label>
+							$('.table').hide();
+						});
+						</script>
+						<div class="well" style=" padding: 8px 0;">
+							<div style="">
+								<ul class="nav nav-list">
+									<li><label class="tree-toggler nav-header">Year 1</label>
 										<ul class="nav nav-list tree">
-											<li><a href="#" id="year-2-class-a">Class A</a>
+											<li><a href="#" id="year-1-class-a">Class A</a>
 												<ul class="nav nav-list tree">
 													<li>
-														<table class="table" id="year-2-class-a-table">
+														<table class="table" id="year-1-class-a-table">
 															<thead>
 																<tr>
 																	<th>#</th>
@@ -235,59 +103,187 @@
 														</table>
 													</li>
 												</ul>
-												<li><a href="#" id="year-2-class-b">Class B</a>
-													<ul class="nav nav-list tree">
-														<li>
-															<table class="table" id="year-2-class-b-table">
-																<thead>
-																	<tr>
-																		<th>#</th>
-																		<th>Chapter</th>
-																		<th>Problem name</th>
-																		<th>Student name</th>
-																		<th>Grade</th>
-																		<th style="width: 36px;"></th>
-																	</tr>
-																</thead>
-																<tbody>
-																	<tr>
-																		<td>1</td>
-																		<td>Variable assignment</td>
-																		<td>Addition</td>
-																		<td>Mihai</td>
-																		<td>40%</td>
-																	</tr>
-																	<tr>
-																		<td>2</td>
-																		<td>Conditionals</td>
-																		<td>If-else-if</td>
-																		<td>Mihai</td>
-																		<td>70%</td>
-																	</tr>
-																	<tr>
-																		<td>2</td>
-																		<td>Conditionals</td>
-																		<td>If-else-if</td>
-																		<td>Rohan</td>
-																		<td>120%</td>
-																	</tr>
-																</tbody>
-															</table>
-														</li>
-													</ul>
-												</li>
 											</li>
-										</ul>
-									</li>
-								</ul>
-							</div>
+										</li>
+										<li><a href="#" id="year-1-class-b">Class B</a>
+											<ul class="nav nav-list tree">
+												<li>
+													<table class="table" id="year-1-class-b-table">
+														<thead>
+															<tr>
+																<th>#</th>
+																<th>Chapter</th>
+																<th>Problem name</th>
+																<th>Student name</th>
+																<th>Grade</th>
+																<th style="width: 36px;"></th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td>Variable assignment</td>
+																<td>Addition</td>
+																<td>Mihai</td>
+																<td>40%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Mihai</td>
+																<td>70%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Rohan</td>
+																<td>120%</td>
+															</tr>
+														</tbody>
+													</table>
+												</li>
+											</ul>
+										</li>
+										<li><a href="#" id="year-1-class-c">Class C</a>
+											<ul class="nav nav-list tree">
+												<li>
+													<table class="table" id="year-1-class-c-table">
+														<thead>
+															<tr>
+																<th>#</th>
+																<th>Chapter</th>
+																<th>Problem name</th>
+																<th>Student name</th>
+																<th>Grade</th>
+																<th style="width: 36px;"></th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td>Variable assignment</td>
+																<td>Addition</td>
+																<td>Mihai</td>
+																<td>40%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Mihai</td>
+																<td>70%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Rohan</td>
+																<td>120%</td>
+															</tr>
+														</tbody>
+													</table>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li class="divider"></li>
+								<li><label class="tree-toggler nav-header">Year 2</label>
+									<ul class="nav nav-list tree">
+										<li><a href="#" id="year-2-class-a">Class A</a>
+											<ul class="nav nav-list tree">
+												<li>
+													<table class="table" id="year-2-class-a-table">
+														<thead>
+															<tr>
+																<th>#</th>
+																<th>Chapter</th>
+																<th>Problem name</th>
+																<th>Student name</th>
+																<th>Grade</th>
+																<th style="width: 36px;"></th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td>Variable assignment</td>
+																<td>Addition</td>
+																<td>Mihai</td>
+																<td>40%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Mihai</td>
+																<td>70%</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>Conditionals</td>
+																<td>If-else-if</td>
+																<td>Rohan</td>
+																<td>120%</td>
+															</tr>
+														</tbody>
+													</table>
+												</li>
+											</ul>
+											<li><a href="#" id="year-2-class-b">Class B</a>
+												<ul class="nav nav-list tree">
+													<li>
+														<table class="table" id="year-2-class-b-table">
+															<thead>
+																<tr>
+																	<th>#</th>
+																	<th>Chapter</th>
+																	<th>Problem name</th>
+																	<th>Student name</th>
+																	<th>Grade</th>
+																	<th style="width: 36px;"></th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>1</td>
+																	<td>Variable assignment</td>
+																	<td>Addition</td>
+																	<td>Mihai</td>
+																	<td>40%</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>Conditionals</td>
+																	<td>If-else-if</td>
+																	<td>Mihai</td>
+																	<td>70%</td>
+																</tr>
+																<tr>
+																	<td>2</td>
+																	<td>Conditionals</td>
+																	<td>If-else-if</td>
+																	<td>Rohan</td>
+																	<td>120%</td>
+																</tr>
+															</tbody>
+														</table>
+													</li>
+												</ul>
+											</li>
+										</li>
+									</ul>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-<script>
+	<script>
 	$('#year-1-class-a').click(function () {
 		$('#year-1-class-a-table').toggle();
 	});
@@ -303,6 +299,6 @@
 	$('#year-2-class-b').click(function () {
 		$('#year-2-class-b-table').toggle();
 	});
-</script>
+	</script>
 </body>
 </html>

@@ -11,7 +11,7 @@
 	<!--script src="js/less-1.3.3.min.js"></script-->
 	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 	
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 
@@ -34,88 +34,84 @@
 				</h3>
 				<div class="row-fluid">
 					<div class="span2">
-						<div id="menu">
-							<ul class="nav nav-list">
-								<li class="nav-header">
-									Menu
-								</li>
-								<li>
-									<a href="teacher_view.html">Overview</a>
-								</li>
-								<li class="active">
-									<a href="#">Set exercise</a>
-								</li>
-								<li class="nav-header">
-								</ul>
-							</div>
+						<ul class="nav nav-list">
+							<li class="nav-header">
+								Menu
+							</li>
+							<li>
+								<a href="teacher_view.html">Overview</a>
+							</li>
+							<li class="active">
+								<a href="#">Set exercise</a>
+							</li>
+							<li class="nav-header">
+							</ul>
 						</div>
 						<div class="span10">
-							<div id="page-content">
-								<legend>Set an exercise</legend>
+							<legend>Set an exercise</legend>
 
-								<label>Choose exercise</label>
-								<script>
-								$(document).ready(function () {
-									$('label.tree-toggler').click(function () {
-										$(this).parent().children('ul.tree').toggle(300);
-									});
-									$('.tree').hide();
+							<label>Choose exercise</label>
+							<script>
+							$(document).ready(function () {
+								$('label.tree-toggler').click(function () {
+									$(this).parent().children('ul.tree').toggle(300);
+								});
+									//$('.tree').hide();
 									$('#selection-text').hide();
 									$('#submit-btn').attr('disabled', 'disabled');
 								});
-								</script>
-								<div class="span5">
-									<div class="well" style=" padding: 8px 0;">
-										<div style="">
-											<ul class="nav nav-list">
-												<li><label class="tree-toggler nav-header" id="var">Variable assignment</label>
-													<ul class="nav nav-list tree">
-														<li><a href="#" id="var-add">Addition</a></li>
-														<li><a href="#" id="var-sub">Subtraction</a></li>
-													</ul>
-												</li>
-											</ul>
-											<ul class="nav nav-list">
-												<li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
-													<ul class="nav nav-list tree">
-														<li><a href="#" id="cond-i">If</a></li>
-														<li><a href="#" id="cond-iei">If-else-if</a></li>
-													</ul>
-												</li>
-											</ul>
-											<ul class="nav nav-list">
-												<li><label class="tree-toggler nav-header" id="for">For loop</label>
-													<ul class="nav nav-list tree">
-														<li><a href="#" id="for-print">Print 10 numbers</a></li>
-														<li><a href="#" id="for-sum">Sum</a></li>
-													</ul>
-												</li>
-											</ul>
-										</div>
+							</script>
+							<div class="span5">
+								<div class="well" style=" padding: 8px 0;">
+									<div style="">
+										<ul class="nav nav-list">
+											<li><label class="tree-toggler nav-header" id="var">Variable assignment</label>
+												<ul class="nav nav-list tree">
+													<li><a href="#" id="var-add">Addition</a></li>
+													<li><a href="#" id="var-sub">Subtraction</a></li>
+												</ul>
+											</li>
+										</ul>
+										<ul class="nav nav-list">
+											<li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
+												<ul class="nav nav-list tree">
+													<li><a href="#" id="cond-i">If</a></li>
+													<li><a href="#" id="cond-iei">If-else-if</a></li>
+												</ul>
+											</li>
+										</ul>
+										<ul class="nav nav-list">
+											<li><label class="tree-toggler nav-header" id="for">For loop</label>
+												<ul class="nav nav-list tree">
+													<li><a href="#" id="for-print">Print 10 numbers</a></li>
+													<li><a href="#" id="for-sum">Sum</a></li>
+												</ul>
+											</li>
+										</ul>
 									</div>
 								</div>
-								<div class="span5">
-									<label>Choose class</label>
-									<div class="well" style=" padding: 8px 0;">
-										<div style="">
-											<ul class="nav nav-list">
-												<li><label class="tree-toggler nav-header">Year 1</label>
-													<ul class="nav nav-list tree">
-														<li><a href="#" id="year-1-class-a">Class A</a></li>
-														<li><a href="#" id="year-1-class-b">Class B</a></li>
-														<li><a href="#" id="year-1-class-c">Class C</a></li>
-													</ul>
-												</li>
-											</ul>
-											<ul class="nav nav-list">
-												<li><label class="tree-toggler nav-header">Year 2</label>
-													<ul class="nav nav-list tree">
-														<li><a href="#" id="year-2-class-a">Class A</a></li>
-														<li><a href="#" id="year-2-class-b">Class B</a></li>
-													</ul>
-												</li>
-											</ul>
-										</div>
+							</div>
+							<div class="span5">
+								<label>Choose class</label>
+								<div class="well" style=" padding: 8px 0;">
+									<div style="">
+										<ul class="nav nav-list">
+											<li><label class="tree-toggler nav-header">Year 1</label>
+												<ul class="nav nav-list tree">
+													<li><a href="#" id="year-1-class-a">Class A</a></li>
+													<li><a href="#" id="year-1-class-b">Class B</a></li>
+													<li><a href="#" id="year-1-class-c">Class C</a></li>
+												</ul>
+											</li>
+										</ul>
+										<ul class="nav nav-list">
+											<li><label class="tree-toggler nav-header">Year 2</label>
+												<ul class="nav nav-list tree">
+													<li><a href="#" id="year-2-class-a">Class A</a></li>
+													<li><a href="#" id="year-2-class-b">Class B</a></li>
+												</ul>
+											</li>
+										</ul>
 									</div>
 								</div>
 							</div>
