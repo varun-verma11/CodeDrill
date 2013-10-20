@@ -144,11 +144,23 @@
 	var exercisesDivs = ['var-add', 'var-sub', 'cond-i', 'cond-iei', 'for-print', 'for-sum'];
 	var groups = ["1A", "1B", "1C", "2A", "2B"];
 	var groupsDivs = ['year-1-class-a', 'year-1-class-b', 'year-1-class-c', 'year-2-class-a', 'year-2-class-b'];
+	var highlighted = false;
 
 	for (i = 0; i < exercisesDivs.length; i++) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
-			exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
-			set();
+			
+			target = "#" + event.currentTarget.id;
+			
+			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
+				$(target).removeAttr("style");
+				highlighted = false;
+			} else if (!highlighted) {
+				$(target).css("background-color","#ffb07a");
+				highlighted = true;
+				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				console.log(exercise);
+				set();
+			}
 		});
 	}
 
@@ -161,8 +173,8 @@
 
 	function set() {
 		if (exercise != "" && group != "") {
-			text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
 			text.hide();
+			text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
 			text.fadeIn("slow");
 			$('#submit-btn').removeAttr('disabled');
 		}
