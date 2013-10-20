@@ -49,87 +49,74 @@
 								</ul>
 							</div>
 						</div>
-						<div class="span6">
+						<div class="span10">
 							<div id="page-content">
-								<fieldset>
-									<legend>Set an exercise</legend>
-									
-									<label>Choose exercise</label>
-									<script>
-									$(document).ready(function () {
-										$('label.tree-toggler').click(function () {
-											$(this).parent().children('ul.tree').toggle(300);
-										});
-										$('.tree').hide();
-										$('#selection-text').hide();
-										$('#submit-btn').attr('disabled', 'disabled');
+								<legend>Set an exercise</legend>
+
+								<label>Choose exercise</label>
+								<script>
+								$(document).ready(function () {
+									$('label.tree-toggler').click(function () {
+										$(this).parent().children('ul.tree').toggle(300);
 									});
-									</script>
-									<div class="span5">
-										<div class="well" style=" padding: 8px 0;">
-											<div style="">
-												<ul class="nav nav-list">
-													<li><label class="tree-toggler nav-header" id="var">Variable assignment</label>
-														<ul class="nav nav-list tree">
-															<li><a href="#" id="var-add">Addition</a></li>
-															<li><a href="#" id="var-sub">Subtraction</a></li>
-														</ul>
-													</li>
-												</ul>
-												<ul class="nav nav-list">
-													<li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
-														<ul class="nav nav-list tree">
-															<li><a href="#" id="cond-i">If</a></li>
-															<li><a href="#" id="cond-iei">If-else-if</a></li>
-														</ul>
-													</li>
-												</ul>
-												<ul class="nav nav-list">
-													<li><label class="tree-toggler nav-header" id="for">For loop</label>
-														<ul class="nav nav-list tree">
-															<li><a href="#" id="for-print">Print 10 numbers</a></li>
-															<li><a href="#" id="for-sum">Sum</a></li>
-														</ul>
-													</li>
-												</ul>
-											</div>
+									$('.tree').hide();
+									$('#selection-text').hide();
+									$('#submit-btn').attr('disabled', 'disabled');
+								});
+								</script>
+								<div class="span5">
+									<div class="well" style=" padding: 8px 0;">
+										<div style="">
+											<ul class="nav nav-list">
+												<li><label class="tree-toggler nav-header" id="var">Variable assignment</label>
+													<ul class="nav nav-list tree">
+														<li><a href="#" id="var-add">Addition</a></li>
+														<li><a href="#" id="var-sub">Subtraction</a></li>
+													</ul>
+												</li>
+											</ul>
+											<ul class="nav nav-list">
+												<li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
+													<ul class="nav nav-list tree">
+														<li><a href="#" id="cond-i">If</a></li>
+														<li><a href="#" id="cond-iei">If-else-if</a></li>
+													</ul>
+												</li>
+											</ul>
+											<ul class="nav nav-list">
+												<li><label class="tree-toggler nav-header" id="for">For loop</label>
+													<ul class="nav nav-list tree">
+														<li><a href="#" id="for-print">Print 10 numbers</a></li>
+														<li><a href="#" id="for-sum">Sum</a></li>
+													</ul>
+												</li>
+											</ul>
 										</div>
-
-										<div id="selection-text"></div>
-										<br>
-
-										<form>
-											<button onclick="submit" type="submit" class="btn" id="submit-btn">Send</button>
-
-										</form>
 									</div>
-									<div class="span5">
-										<label>Choose class</label>
-										<div class="well" style=" padding: 8px 0;">
-											<div style="">
-												<ul class="nav nav-list">
-													<li><label class="tree-toggler nav-header">Year 1</label>
-														<ul class="nav nav-list tree">
-															<li><a href="#" id="year-1-class-a">Class A</a></li>
-															<li><a href="#" id="year-1-class-b">Class B</a></li>
-															<li><a href="#" id="year-1-class-c">Class C</a></li>
-														</ul>
-													</li>
-												</ul>
-												<ul class="nav nav-list">
-													<li><label class="tree-toggler nav-header">Year 2</label>
-														<ul class="nav nav-list tree">
-															<li><a href="#" id="year-2-class-a">Class A</a></li>
-															<li><a href="#" id="year-2-class-b">Class B</a></li>
-														</ul>
-													</li>
-												</ul>
-											</div>
+								</div>
+								<div class="span5">
+									<label>Choose class</label>
+									<div class="well" style=" padding: 8px 0;">
+										<div style="">
+											<ul class="nav nav-list">
+												<li><label class="tree-toggler nav-header">Year 1</label>
+													<ul class="nav nav-list tree">
+														<li><a href="#" id="year-1-class-a">Class A</a></li>
+														<li><a href="#" id="year-1-class-b">Class B</a></li>
+														<li><a href="#" id="year-1-class-c">Class C</a></li>
+													</ul>
+												</li>
+											</ul>
+											<ul class="nav nav-list">
+												<li><label class="tree-toggler nav-header">Year 2</label>
+													<ul class="nav nav-list tree">
+														<li><a href="#" id="year-2-class-a">Class A</a></li>
+														<li><a href="#" id="year-2-class-b">Class B</a></li>
+													</ul>
+												</li>
+											</ul>
 										</div>
-
-										
-										
-									</fieldset>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -137,63 +124,53 @@
 				</div>
 			</div>
 		</div>
-		<script>
-		var exercise = "";
-		var group = "";
-		var text = $('#selection-text');
-		$('#var-add').click(function(){
-			exercise = "Addition";
-			set();
-		});
-		$('#var-sub').click(function(){
-			exercise = "Subtraction";
-			set();
-		});
-		$('#cond-i').click(function(){
-			exercise = "If";
-			set();
-		});
-		$('#cond-iei').click(function(){
-			exercise = "If-else-if";
-			set();
-		});
-		$('#for-print').click(function(){
-			exercise = "Print 10 numbers";
-			set();
-		});
-		$('#for-sum').click(function(){
-			exercise = "Sum";
-			set();
-		});
+	</div>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class ="span2"></div>
+				<div class="span10">
+					<div id="selection-text"></div>
+					<br>
+					<form>
+						<button onclick="submit" type="submit" class="btn" id="submit-btn">Send</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-		$('#year-1-class-a').click(function(){
-			group = "1A";
+	<script>
+	var exercise = "";
+	var group = "";
+	var text = $('#selection-text');
+	var exercises = ["Addition", "Subtraction", "If", "If-else-if", "Print 10 numbers", "Sum"];
+	var exercisesDivs = ['var-add', 'var-sub', 'cond-i', 'cond-iei', 'for-print', 'for-sum'];
+	var groups = ["1A", "1B", "1C", "2A", "2B"];
+	var groupsDivs = ['year-1-class-a', 'year-1-class-b', 'year-1-class-c', 'year-2-class-a', 'year-2-class-b'];
+
+	for (i = 0; i < exercisesDivs.length; i++) {
+		$(("#" + exercisesDivs[i])).click(function (event) {
+			exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
 			set();
 		});
-		$('#year-1-class-b').click(function(){
-			group = "1B";
+	}
+
+	for (i = 0; i < groupsDivs.length; i++) {
+		$(("#" + groupsDivs[i])).click(function (event) {
+			group = groups[groupsDivs.indexOf(event.currentTarget.id)];
 			set();
 		});
-		$('#year-1-class-c').click(function(){
-			group = "1C";
-			set();
-		});
-		$('#year-2-class-a').click(function(){
-			group = "2A";
-			set();
-		});
-		$('#year-2-class-b').click(function(){
-			group = "2B";
-			set();
-		});
-		function set() {
-			if (exercise != "" && group != "") {
-				text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
-				text.hide();
-				text.fadeIn("slow");
-				$('#submit-btn').removeAttr('disabled');
-			}
+	}
+
+	function set() {
+		if (exercise != "" && group != "") {
+			text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
+			text.hide();
+			text.fadeIn("slow");
+			$('#submit-btn').removeAttr('disabled');
 		}
-		</script>
-	</body>
-	</html>
+	}
+	</script>
+</body>
+</html>
