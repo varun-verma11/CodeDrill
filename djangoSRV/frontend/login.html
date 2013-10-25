@@ -30,72 +30,112 @@
         <h3>
          A Framework for Setting and Assessing Programming Exercises
        </h3>
-       <div class="span3">
+       <div class="span2">
         <p> --> Learn to code </p>
         <p> --> Teach coding </p>
-       </div>
-       <div class="span6">
-         <div class="" id="loginModal">
-          <div class="modal-header">
-          </div>
-          <div class="modal-body">
-            <div class="well">
-              <ul class="nav nav-tabs">
-                <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
-                <li><a href="#create" data-toggle="tab">Create Account</a></li>
-              </ul>
-              <div id="myTabContent" class="tab-content">
-                <div class="tab-pane active in" id="login">
-                  <form class="form-horizontal" action='' method="POST">
-                    <fieldset>
-                      <div id="legend">
-                        <legend class="">Login</legend>
+      </div>
+      <div class="span9">
+       <div class="" id="loginModal">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body" style="max-height:800px;">
+          <div class="well">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+              <li><a href="#create" data-toggle="tab">Create Account</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+              <div class="tab-pane active in" id="login">
+                <form class="form-horizontal" action='' method="POST">
+                  <fieldset>
+                    <div class="control-group">
+                      <!-- Username -->
+                      <label class="control-label" for="username">Username</label>
+                      <div class="controls">
+                        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
                       </div>
-                      <div class="control-group">
-                        <!-- Username -->
-                        <label class="control-label" for="username">Username</label>
-                        <div class="controls">
-                          <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-                        </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="password">Password</label>
+                      <div class="controls">
+                        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
                       </div>
-                      <div class="control-group">
-                        <!-- Password-->
-                        <label class="control-label" for="password">Password</label>
-                        <div class="controls">
-                          <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-                        </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Button -->
+                      <div class="controls">
+                        <button class="btn btn-success">Login</button>
                       </div>
-                      <div class="control-group">
-                        <!-- Button -->
-                        <div class="controls">
-                          <button class="btn btn-success">Login</button>
-                        </div>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+              <div id="create" class="tab-pane fade">
+                <form class="form-horizontal" action='' method="POST">
+                  <fieldset>
+                    <div class="control-group">
+                      <!-- Username -->
+                      <label class="control-label" for="username">Username</label>
+                      <div class="controls">
+                        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="firstname">First Name</label>
+                      <div class="controls">
+                        <input type="text" id="firstname" name="firstname" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="lastname">Last Name</label>
+                      <div class="controls">
+                        <input type="text" id="lastname" name="lastname" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="email">E-mail</label>
+                      <div class="controls">
+                        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="school">School</label>
+                      <div class="controls">
+                        <input type="text" id="school" name="school" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="year">Year</label>
+                      <div class="controls">
+                        <input type="text" id="year" name="year" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="class">Class</label>
+                      <div class="controls">
+                        <input type="text" id="class" name="class" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="password">Password</label>
+                      <div class="controls">
+                        <input type="text" id="password" name="password" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Button -->
+                      <div class="controls">
+                        <button class="btn btn-success" id="submit">Submit</button>
                       </div>
                     </fieldset>
-                  </form>
-                </div>
-                <div class="tab-pane fade" id="create">
-                  <form id="tab" height="1000px">
-                    <label>Username</label>
-                    <input type="text" value="" class="input-xlarge" id="user">
-                    <label>First Name</label>
-                    <input type="text" value="" class="input-xlarge" id="name">
-                    <label>Last Name</label>
-                    <input type="text" value="" class="input-xlarge" id="last_name">
-                    <label>Email</label>
-                    <input type="text" value="" class="input-xlarge" id="email">
-                    <label>School name</label>
-                    <input type="text" value="" class="input-xlarge" id="school">
-                    <label>Year</label>
-                    <input type="text" value="" class="input-xlarge" id="year">
-                    <label>Class</label>
-                    <input type="text" value="" class="input-xlarge" id="class">
-                    <label>Password</label>
-                    <input type="password" id="password" class="input-xlarge">
-                    </textarea>
-                    <div>
-                      <button class="btn btn-primary">Create Account</button>
-                    </div>
                   </form>
                 </div>
               </div>
@@ -105,5 +145,6 @@
       </div>
     </div>
   </div>
+</div>
 </body>
 </html>

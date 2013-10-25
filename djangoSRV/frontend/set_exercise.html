@@ -148,7 +148,7 @@
 
 	for (i = 0; i < exercisesDivs.length; i++) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
-			
+
 			target = "#" + event.currentTarget.id;
 			
 			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
@@ -160,6 +160,10 @@
 				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
 				console.log(exercise);
 				set();
+			} else {
+				text.replaceWith("");
+				text.fadeIn("slow");
+				$('#submit-btn').addAttr('disabled');
 			}
 		});
 	}
