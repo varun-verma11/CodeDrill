@@ -31,13 +31,12 @@
       </div>
       <div class="span9">
        <div class="" id="loginModal">
-        <div class="modal-header">
-        </div>
         <div class="modal-body" style="max-height:800px;">
           <div class="well">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
-              <li><a href="#create" data-toggle="tab">Create Account</a></li>
+              <li><a href="#createstudentaccount" data-toggle="tab">Student Account</a></li>
+              <li><a href="#createteacheraccount" data-toggle="tab">Teacher Account</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane active in" id="login">
@@ -66,7 +65,7 @@
                   </fieldset>
                 </form>
               </div>
-              <div id="create" class="tab-pane fade">
+              <div id="createstudentaccount" class="tab-pane fade">
                 <form class="form-horizontal" action='' method="POST">
                   <fieldset>
                     <div class="control-group">
@@ -116,6 +115,59 @@
                       <label class="control-label" for="class">Class</label>
                       <div class="controls">
                         <input type="text" id="class" name="class" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="password">Password</label>
+                      <div class="controls">
+                        <input type="text" id="password" name="password" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Button -->
+                      <div class="controls">
+                        <button class="btn btn-success" id="submit">Submit</button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+                  <div id="createteacheraccount" class="tab-pane fade">
+                <form class="form-horizontal" action='' method="POST">
+                  <fieldset>
+                    <div class="control-group">
+                      <!-- Username -->
+                      <label class="control-label" for="username">Username</label>
+                      <div class="controls">
+                        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="firstname">First Name</label>
+                      <div class="controls">
+                        <input type="text" id="firstname" name="firstname" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="lastname">Last Name</label>
+                      <div class="controls">
+                        <input type="text" id="lastname" name="lastname" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="email">E-mail</label>
+                      <div class="controls">
+                        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                      </div>
+                    </div>
+                    <div class="control-group">
+                      <!-- Password-->
+                      <label class="control-label" for="school">School</label>
+                      <div class="controls">
+                        <input type="text" id="school" name="school" placeholder="" class="input-xlarge">
                       </div>
                     </div>
                     <div class="control-group">
