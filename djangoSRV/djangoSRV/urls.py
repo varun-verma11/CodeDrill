@@ -2,16 +2,15 @@ import sys
 import os
 #sys.path.append('../frontend/')
 # sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../frontend')
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../Views')
+#sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../Views')
 
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from grades_view import get_grades_view
-from django.contrib import admin
+from Views.grades_view import get_grades_view
 from teacher import listAllTeachers
-from teacher_view import get_teacher_view
-from set_exercise import get_set_exercise_page
+from Views.teacher_view import get_teacher_view
+from Views.set_exercise import get_set_exercise_page
 
 admin.autodiscover()
 
