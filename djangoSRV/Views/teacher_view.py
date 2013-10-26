@@ -15,13 +15,18 @@ def get_teacher_view(request):
     # a key named 'user_id' representing a teacher
 
     teacher_id = "mmj211"
-    teaching_hierarchy = __get_teaching_hierarchy(teacher_id)
+    return get_teacher_view_with_username(teacher_id)
+    
 
     # teaching_hierarchy = __get_teaching_hierarchy(request.session['user_id'])
+    
+def get_teacher_view_with_username(teacher_id):
+    teaching_hierarchy = __get_teaching_hierarchy(teacher_id)
     template = get_template("teacher_view.html")
     context = Context( {'name': "Mihai Jiplea", 
-						'teaching_hierarchy' : teaching_hierarchy})
+                        'teaching_hierarchy' : teaching_hierarchy})
     return HttpResponse(template.render(context))
+
 
 def __get_teaching_hierarchy(teacher_id):
 

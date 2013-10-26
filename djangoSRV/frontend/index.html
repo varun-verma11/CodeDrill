@@ -117,40 +117,29 @@
 </div>
 </div>
 </div>
-<script>  
-$('#var-sub-ex').hide();
-$('#cond-i-ex').hide();
-$('#for-print-ex').hide();
-$('#for-sum-ex').hide();
+<script>
+var divsNames = new Array();
+divsNames = ["var-sub", "cond-i", "for-print", "for-sum"];
 
-$('#var-sub').click(function () {
- $('#var-sub-ex').toggle(300);
-});
-$('#cond-i').click(function () {
- $('#cond-i-ex').toggle(300);
-});
-$('#for-print').click(function () {
- $('#for-print-ex').toggle(300);
-});
-$('#for-sum').click(function () {
- $('#for-sum-ex').toggle(300);
-});
+hideAll();
+addClickHandlers();
 
-$('#all').click(function () {
- $('#page-content').show();
-});
-$('#sub').click(function () {
- $('#page-content').hide();
-});
-$('#if').click(function () {
- $('#page-content').hide();
-});
-$('#print').click(function () {
- $('#page-content').hide();
-});
-$('#sum').click(function () {
- $('#page-content').hide();
-});
+function hideAll() {
+  for (var i = 0; i < divsNames.length; i++) {
+    $('#' + divsNames[i] + '-ex').hide();
+  }
+}
+
+function addClickHandlers() {
+  for (var i = 0; i < divsNames.length; i++)
+  {
+    console.log(i);
+    $('#' + divsNames[i]).click(function (event)
+    {
+      $('#' + event.currentTarget.id + '-ex').toggle(300);
+    });
+  }
+}
 </script>
 </body>
 </html>
