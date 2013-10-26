@@ -200,7 +200,7 @@
                     <div class="control-group">
                       <!-- Button -->
                       <div class="controls">
-                        <button type="submit" class="btn btn-success" id="submitT">Submit</button>
+                        <button type="submit" class="btn btn-success" id="submitT" onclick="checkTForms()">Submit</button>
                       </div>
                     </fieldset>
                   </form>
@@ -316,6 +316,10 @@ function validateEmail($email) {
   } else {
     return true;
   }
+}
+
+function checkTForms() {
+  return false;
 }
 </script>
 </body>
