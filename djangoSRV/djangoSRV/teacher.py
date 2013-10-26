@@ -10,7 +10,7 @@ def listAllTeachers(request):
     return ret
 
 def viewSubmissions(request):
-    print request.method
+    #print request.method
     submissions = StudentSubmission.objects.all()
     ret = []
     for submission in submissions:
@@ -31,4 +31,14 @@ def sendExercisesToClass(request):
     pass
 
 def viewSubmissionMark(request):
-    pass
+    students = Student.objects.all()
+    submissions = StudentSubmission.objects.all()
+    ret = []
+    for student in students:
+        ret_aux = []
+        submission = StudentSubmission.objects.filter(stu_id__exact=student.stu_id)
+        ret_aux.append(student.name)
+        ret_aux.append(submission[0].result)
+        #print ret_aux
+        ret.append(ret_aux)
+    return ret

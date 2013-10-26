@@ -17,7 +17,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^grades/', get_grades_view),
-    url(r'^teacher/', viewSubmissions),
+    url(r'^teacher/', viewSubmissionMark),
     url(r'^teacher_view/', get_teacher_view),
     url(r'^set_exercise/', get_set_exercise_page)
 )
