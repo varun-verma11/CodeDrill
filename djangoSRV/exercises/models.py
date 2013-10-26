@@ -3,14 +3,14 @@ from django.db import models
 # Create your models here.
 # DID: explicit reference for foreign keys;
 #      many-to-many relationship for course registration
-# TODO: think about separating whether centralising it like this is optimal
-
-# easier to just use this as choices for school years in course 
+# TODO: think whether centralising it like this is optimal
+#       password hiding
 
 
 class Exercise(models.Model):
     ex_id = models.AutoField('Exercise ID', primary_key=True)
     title = models.CharField('Title', max_length=100)
+    category = models.CharField('Category', max_length=100)
     content = models.TextField('Content', blank=True)
     description = models.TextField('Description')
 
@@ -23,9 +23,11 @@ class ModelSolution(models.Model):
 class StudentSubmission(models.Model):
     stu_id = models.ForeignKey('Student', to_field='stu_id')
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
+    course = models.ForeignKey('Course', to_field='c_id')
     content = models.TextField('Content', blank=True)
     submit_time = models.DateTimeField('Time of Submission',
         auto_now_add=True)
+    result = models.DecimalField(max_digits=3, decimal_places=2)
 
 
 class Test(models.Model):
@@ -61,6 +63,7 @@ class Course(models.Model):
 class Teacher(models.Model):
     tch_id = models.AutoField('Teacher ID', primary_key=True)
     name = models.CharField('Name', max_length=50)
+    pw = models.CharField('Password', max_length=50)
 
     def __unicode__(self):
         return self.name
@@ -70,6 +73,8 @@ class Student(models.Model):
     stu_id = models.AutoField('Student ID', primary_key=True)
     name = models.CharField('Name', max_length=50)
     # Course has a Many to Many relationship with this, so you can find things
+    pw = models.CharField('Password', max_length=50)
+
     def __unicode__(self):
         return self.name
     
