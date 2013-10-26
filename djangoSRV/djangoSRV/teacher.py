@@ -24,11 +24,17 @@ def viewSubmissions(request):
         ret.append(ret2)
     return ret
 
-def authenticateStudent(request):
-    pass
+def authenticateTeacher(request):
+    parameters = request.GET
+    teacher = Teacher.objects.filter(uname__exact = parameters['username'], pw = parameters['password'])
+    return len(teacher) == 1
 
 def sendExercisesToClass(request):
-    pass
+    parameters = request.GET
+    ex_id = parameters['ex_id']
+    c_id = parameters['c_id']
+    row = AssignedExercises(ex_id=ex_id, c_id=c_id)
+    row.save()    
 
 def viewSubmissionMark(request):
     students = Student.objects.all()
