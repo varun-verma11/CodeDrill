@@ -61,7 +61,8 @@ class Course(models.Model):
         return self.name + ' - Year ' + str(self.year)
 
 class Teacher(models.Model):
-    tch_id = models.CharField('Teacher ID', max_length=15, primary_key=True)
+    tch_id = models.AutoField(primary_key=True)
+    uname = models.CharField('Teacher ID', max_length=15, unique=True)
     name = models.CharField('Name', max_length=50)
     pw = models.CharField('Password', max_length=50)
 
@@ -70,7 +71,8 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
-    stu_id = models.CharField('Student ID', max_length=15, primary_key=True)
+    stu_id = models.AutoField(primary_key=True)
+    uname = models.CharField('Student ID', max_length=15, unique=True)
     name = models.CharField('Name', max_length=50)
     # Course has a Many to Many relationship with this, so you can find things
     pw = models.CharField('Password', max_length=50)
