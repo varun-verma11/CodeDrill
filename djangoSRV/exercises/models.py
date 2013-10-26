@@ -34,6 +34,9 @@ class Test(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     test_content = models.TextField('Test Content')
 
+class AssignedExercises(models.Model):
+    ex_id = models.ForeignKey('Exercise', to_field='ex_id')
+    c_id = models.ForeignKey('Course', to_field='c_id')
 
 class Course(models.Model):
     # easier to just use this as choices for school years in course 
