@@ -117,6 +117,8 @@
 	var exercisesDivs = new Array();
 	var groups = new Array();
 	var groupsDivs = new Array();
+	var hlE = false, hlG = false;
+
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
 			groupsDivs.push("year-{{ year.get_name }}-class-{{ cls.get_name }}");
@@ -133,24 +135,71 @@
 
 	for (i = 0; i < exercisesDivs.length; i++) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
-			exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
-			set();
+
+			target = "#" + event.currentTarget.id;
+			
+			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
+				$(target).attr("style", false);
+				hlE = false;
+			} else if (!hlE) {
+				$(target).css("background-color","#ffb07a");
+				hlE = true;
+				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				console.log(exercise);
+				set();
+			} else {
+				clean(exercisesDivs);
+				$(target).css("background-color","#ffb07a");
+				hlE = true;
+				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				console.log(exercise);
+				set();
+				text.fadeIn("slow");
+				$('#submit-btn').attr('disabled', true);
+			}
 		});
 	}
 
 	for (i = 0; i < groupsDivs.length; i++) {
 		$(("#" + groupsDivs[i])).click(function (event) {
-			group = groups[groupsDivs.indexOf(event.currentTarget.id)];
-			set();
+			target = "#" + event.currentTarget.id;
+			
+			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
+				$(target).attr("style", false);
+				hlG = false;
+			} else if (!hlG) {
+				$(target).css("background-color","#ffb07a");
+				hlG = true;
+				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
+				console.log(group);
+				set();
+			} else {
+				clean(groupsDivs);
+				$(target).css("background-color","#ffb07a");
+				hlG = true;
+				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
+				console.log(group);
+				set();
+				text.fadeIn("slow");
+				$('#submit-btn').attr('disabled', true);
+			}
 		});
+	}
+
+	function clean(divsList) {
+		for (i = 0; i < groupsDivs.length; i++) {
+			$(("#" + divsList[i])).attr("style", false);
+		}
 	}
 
 	function set() {
 		if (exercise != "" && group != "") {
-			text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
+			text.text("Exercise " + exercise + " will be sent to class " + group + ".");
 			text.hide();
 			text.fadeIn("slow");
-			$('#submit-btn').removeAttr('disabled');
+			$('#submit-btn').attr('disabled', false);
+		} else {
+			text.text("");
 		}
 	}
 	</script>
