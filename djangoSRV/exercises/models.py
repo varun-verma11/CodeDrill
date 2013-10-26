@@ -60,9 +60,12 @@ class Teacher(models.Model):
     tch_id = models.AutoField('Teacher ID', primary_key=True)
     name = models.CharField('Name', max_length=50)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Student(models.Model):
     stu_id = models.AutoField('Teacher ID', primary_key=True)
     name = models.CharField('Name', max_length=50)
-
+    
 

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 from auth import auth_utils
-from exercises.models import Teacher, Course, 
+from exercises.models import Teacher, Course 
 
 def get_teacher_view(request):
     if not auth_utils.is_authenticated_session(request.session):
@@ -18,13 +18,11 @@ def get_teacher_view(request):
     # teaching_hierarchy
     #     = __get_teaching_hierarchy(teacher_id)
 
-    teaching_hierarchy
-        = __get_teaching_hierarchy(request.session['user_id'])
+    teaching_hierarchy = __get_teaching_hierarchy(request.session['user_id'])
     template = get_template("teacher_view.html")
     context = Context( {'name': "Mihai Jiplea", 
 						'teaching_hierarchy' : teaching_hierarchy})
-
-	return HttpResponse(template.render(context))
+    return HttpResponse(template.render(context))
 
 def __get_teaching_hierarchy(teacher_id):
     

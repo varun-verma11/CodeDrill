@@ -13,7 +13,7 @@ def has_permission(request):
 
 # redirects to the login page
 # STUB
-def redirect_to_login(request)
+def redirect_to_login(request):
     return redirect('login');
 
 
