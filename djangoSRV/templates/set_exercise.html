@@ -141,21 +141,20 @@
 			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
 				$(target).attr("style", false);
 				hlE = false;
+				exercise = "";
+				set();
 			} else if (!hlE) {
 				$(target).css("background-color","#ffb07a");
 				hlE = true;
 				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
-				console.log(exercise);
 				set();
 			} else {
 				clean(exercisesDivs);
+				hlE = false;
 				$(target).css("background-color","#ffb07a");
 				hlE = true;
 				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
-				console.log(exercise);
 				set();
-				text.fadeIn("slow");
-				$('#submit-btn').attr('disabled', true);
 			}
 		});
 	}
@@ -167,21 +166,20 @@
 			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
 				$(target).attr("style", false);
 				hlG = false;
+				group = "";
+				set();
 			} else if (!hlG) {
 				$(target).css("background-color","#ffb07a");
 				hlG = true;
 				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
-				console.log(group);
 				set();
 			} else {
 				clean(groupsDivs);
+				hlG = false;
 				$(target).css("background-color","#ffb07a");
 				hlG = true;
 				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
-				console.log(group);
 				set();
-				text.fadeIn("slow");
-				$('#submit-btn').attr('disabled', true);
 			}
 		});
 	}
@@ -200,6 +198,9 @@
 			$('#submit-btn').attr('disabled', false);
 		} else {
 			text.text("");
+			text.hide();
+			text.fadeIn("slow");
+			$('#submit-btn').attr('disabled', true);
 		}
 	}
 	</script>
