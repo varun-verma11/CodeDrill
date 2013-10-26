@@ -15,7 +15,7 @@
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
 
-  <title>{{title}}</title>
+  <title>Student Login</title>
   </head>
 
   <body>
@@ -38,7 +38,7 @@
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane active in" id="login">
-                <form class="form-horizontal" action='/authenticate_{{type}}/' method="POST">
+                <form class="form-horizontal" action='/authenticate/' method="POST">
                   {% csrf_token %}
                   {{ login_form.non_field_errors }}
                   <fieldset>
@@ -108,22 +108,20 @@
                         {{register_form.school}}
                       </div>
                     </div>
-                    {% if type|stringformat:"s" == "student"%}
-                      <div class="control-group">
-                        {{ register_form.year.errors}}
-                        <label class="control-label" for="year">Year</label>
-                        <div class="controls">
-                          {{register_form.year}}
-                        </div>
+                    <div class="control-group">
+                      {{ register_form.year.errors}}
+                      <label class="control-label" for="year">Year</label>
+                      <div class="controls">
+                        {{register_form.year}}
                       </div>
-                      <div class="control-group">
-                        {{register_form.Class.errors}}
-                        <label class="control-label" for="class">Class</label>
-                        <div class="controls">
-                          {{register_form.Class}}
-                        </div>
+                    </div>
+                    <div class="control-group">
+                      {{register_form.Class.errors}}
+                      <label class="control-label" for="class">Class</label>
+                      <div class="controls">
+                        {{register_form.Class}}
                       </div>
-                    {% endif %}
+                    </div>
                     <div class="control-group">
                       {{register_form.password.errors}}
                       <label class="control-label" for="password">Password</label>

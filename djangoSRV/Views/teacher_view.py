@@ -20,7 +20,7 @@ def get_teacher_view(request):
 
     # teaching_hierarchy = __get_teaching_hierarchy(request.session['user_id'])
     
-def get_teacher_view_with_username(user_id):
+def get_teacher_view_with_username(teacher_id):
     teaching_hierarchy = __get_teaching_hierarchy(teacher_id)
     template = get_template("teacher_view.html")
     context = Context( {'name': "Mihai Jiplea", 

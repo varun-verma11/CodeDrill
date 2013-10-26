@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+	<!--script src="js/less-1.3.3.min.js"></script-->
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+  </head>
+
+  <body>
+  	<div class="container-fluid">
+  		<div class="row-fluid">
+        <h3>
+         A Framework for Setting and Assessing Programming Exercises
+       </h3>
+       <div class="span2">
+        <p> --> Learn to code </p>
+        <p> --> Teach coding </p>
+      </div>
+      <div class="span9">
+        <form>
+          <div class="control-group">
+            <label class="control-label">Choose your profile type</label>
+            <div class="controls">
+              <label class="radio inline">
+                <input type="radio" name="radio" id="r1"/>
+                Student
+              </label>
+              <label class="radio inline">
+                <input type="radio" name="radio" id="r2"/>
+                Teacher
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success" id="submit">Enter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#submit').click(function () {
+    console.log($('#r1').is(":checked"));
+    if ($('#r1').is(":checked")) {
+      window.open("student_login.html", "_self");
+    } else if ($('#r2').is(":checked")) {
+      window.open("teacher_login.html", "_self");
+    }
+  });
+</script>
+</body>
+</html>
