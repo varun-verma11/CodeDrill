@@ -121,20 +121,22 @@
                       <!-- Password-->
                       <label class="control-label" for="password">Password</label>
                       <div class="controls">
-                        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                        <input type="password" id="passwords" name="password" placeholder="" class="input-xlarge">
+                        <div id="divCheckPasswordValidS"></div>
                       </div>
                     </div>
                     <div class="control-group">
                       <!-- Password-->
                       <label class="control-label" for="passwordconf">Re-enter your password</label>
                       <div class="controls">
-                        <input type="password" id="passwordconf" name="passwordconf" placeholder="" class="input-xlarge">
+                        <input type="password" id="passwordconfs" name="passwordconf" placeholder="" class="input-xlarge">
+                        <div id="divCheckPasswordMatchS"></div>
                       </div>
                     </div>
                     <div class="control-group">
                       <!-- Button -->
                       <div class="controls">
-                        <button class="btn btn-success" id="submit">Submit</button>
+                        <button class="btn btn-success" id="submitS">Submit</button>
                       </div>
                     </fieldset>
                   </form>
@@ -181,20 +183,22 @@
                       <!-- Password-->
                       <label class="control-label" for="password">Password</label>
                       <div class="controls">
-                        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                        <input type="password" id="passwordt" name="password" placeholder="" class="input-xlarge">
+                        <div id="divCheckPasswordValidT"></div>
                       </div>
                     </div>
                     <div class="control-group">
                       <!-- Password-->
                       <label class="control-label" for="passwordconf">Re-enter your password</label>
                       <div class="controls">
-                        <input type="password" id="passwordconf" name="passwordconf" placeholder="" class="input-xlarge">
+                        <input type="password" id="passwordconft" name="passwordconf" placeholder="" class="input-xlarge">
+                        <div id="divCheckPasswordMatchT"></div>
                       </div>
                     </div>
                     <div class="control-group">
                       <!-- Button -->
                       <div class="controls">
-                        <button class="btn btn-success" id="submit">Submit</button>
+                        <button type="submit" class="btn btn-success" id="submitT">Submit</button>
                       </div>
                     </fieldset>
                   </form>
@@ -207,5 +211,74 @@
     </div>
   </div>
 </div>
+<script>
+
+if ($("#passwordt")) {
+  $("#passwordt").keyup(checkPasswordValid);
+}
+
+if ($("#passwordconft")) {
+  $("#passwordconft").keyup(checkPasswordMatch);
+}
+
+if ($("#passwords")) {
+  $("#passwords").keyup(checkPasswordValid);
+}
+
+if ($("#passwordconfs")) {
+  $("#passwordconfs").keyup(checkPasswordMatch);
+}
+
+
+function checkPasswordValid() {
+  var pw = $("#passwords").val();
+  var checkValidText = $("#divCheckPasswordValidS");
+  var checkMatchText = $("#divCheckPasswordMatchS");
+  if (pw == "") {
+    pw = $("#passwordt").val();
+    checkValidText = $("#divCheckPasswordValidT");
+    checkMatchText = $("#divCheckPasswordMatchT");
+  }
+  var conf = $("#passwordconfs").val();
+  if (conf == "") {
+    conf = $("#passwordconft").val();
+  }
+  if (pw.length < 8) {
+    checkValidText.text("The password must be at least 8 characters long.");
+    $('#submitS').attr('disabled', true);
+    $('#submitT').attr('disabled', true);
+  } else if (conf != "") {
+    checkValidText.text("");
+    $('#submitS').attr('disabled', false);
+    $('#submitT').attr('disabled', false);
+  }
+}
+
+function checkPasswordMatch() {
+  var pw = $("#passwords").val();
+  var checkValidText = $("#divCheckPasswordValidS");
+  var checkMatchText = $("#divCheckPasswordMatchS")
+  if (pw == "") {
+    pw = $("#passwordt").val();
+    checkValidText = $("#divCheckPasswordValidT");
+    checkMatchText = $("#divCheckPasswordMatchT");
+  }
+  
+  var conf = $("#passwordconfs").val();
+  if (conf == "") {
+    conf = $("#passwordconft").val();
+  }
+  if (pw != conf) {
+    checkMatchText.text("Passwords don't match :(");
+    $('#submitS').attr('disabled', true);
+    $('#submitT').attr('disabled', true);
+  } else {
+    checkMatchText.text("");
+    $('#submitS').attr('disabled', false);
+    $('#submitT').attr('disabled', false);
+  }
+}
+
+</script>
 </body>
 </html>
