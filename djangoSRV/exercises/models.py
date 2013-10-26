@@ -55,6 +55,8 @@ class Course(models.Model):
     tch_id = models.ForeignKey('Teacher', to_field = 'tch_id')
     students = models.ManyToManyField('Student')
 
+    def __unicode__(self):
+        return self.name + ' - Year ' + str(self.year)
 
 class Teacher(models.Model):
     tch_id = models.AutoField('Teacher ID', primary_key=True)
@@ -65,7 +67,10 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
-    stu_id = models.AutoField('Teacher ID', primary_key=True)
+    stu_id = models.AutoField('Student ID', primary_key=True)
     name = models.CharField('Name', max_length=50)
+    # Course has a Many to Many relationship with this, so you can find things
+    def __unicode__(self):
+        return self.name
     
 

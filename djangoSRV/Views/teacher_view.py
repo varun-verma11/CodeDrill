@@ -25,6 +25,8 @@ def get_teacher_view(request):
     return HttpResponse(template.render(context))
 
 def __get_teaching_hierarchy(teacher_id):
+
+        
     
 	st_a = StudentData(1, "Variable assignment", "Addition", "Mihai", "50%")
 	st_b = StudentData(2, "Conditionals", "If-then-else", "Varun", "100000%")
