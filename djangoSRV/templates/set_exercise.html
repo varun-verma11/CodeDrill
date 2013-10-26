@@ -117,6 +117,8 @@
 	var exercisesDivs = new Array();
 	var groups = new Array();
 	var groupsDivs = new Array();
+	var hlE = false, hlG = false;
+
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
 			groupsDivs.push("year-{{ year.get_name }}-class-{{ cls.get_name }}");
@@ -133,24 +135,72 @@
 
 	for (i = 0; i < exercisesDivs.length; i++) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
-			exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
-			set();
+
+			target = "#" + event.currentTarget.id;
+			
+			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
+				$(target).attr("style", false);
+				hlE = false;
+				exercise = "";
+				set();
+			} else if (!hlE) {
+				$(target).css("background-color","#ffb07a");
+				hlE = true;
+				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				set();
+			} else {
+				clean(exercisesDivs);
+				hlE = false;
+				$(target).css("background-color","#ffb07a");
+				hlE = true;
+				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				set();
+			}
 		});
 	}
 
 	for (i = 0; i < groupsDivs.length; i++) {
 		$(("#" + groupsDivs[i])).click(function (event) {
-			group = groups[groupsDivs.indexOf(event.currentTarget.id)];
-			set();
+			target = "#" + event.currentTarget.id;
+			
+			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
+				$(target).attr("style", false);
+				hlG = false;
+				group = "";
+				set();
+			} else if (!hlG) {
+				$(target).css("background-color","#ffb07a");
+				hlG = true;
+				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
+				set();
+			} else {
+				clean(groupsDivs);
+				hlG = false;
+				$(target).css("background-color","#ffb07a");
+				hlG = true;
+				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
+				set();
+			}
 		});
+	}
+
+	function clean(divsList) {
+		for (i = 0; i < groupsDivs.length; i++) {
+			$(("#" + divsList[i])).attr("style", false);
+		}
 	}
 
 	function set() {
 		if (exercise != "" && group != "") {
-			text.replaceWith("Exercise " + exercise + " will be sent to class " + group + ".");
+			text.text("Exercise " + exercise + " will be sent to class " + group + ".");
 			text.hide();
 			text.fadeIn("slow");
-			$('#submit-btn').removeAttr('disabled');
+			$('#submit-btn').attr('disabled', false);
+		} else {
+			text.text("");
+			text.hide();
+			text.fadeIn("slow");
+			$('#submit-btn').attr('disabled', true);
 		}
 	}
 	</script>
