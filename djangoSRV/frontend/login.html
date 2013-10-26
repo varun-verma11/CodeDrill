@@ -93,8 +93,9 @@
                       <!-- Password-->
                       <label class="control-label" for="email">E-mail</label>
                       <div class="controls">
-                        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                        <input type="text" id="emailS" name="email" placeholder="" class="input-xlarge">
                       </div>
+                      <div id="emailTextS"></div>
                     </div>
                     <div class="control-group">
                       <!-- Password-->
@@ -169,8 +170,9 @@
                       <!-- Password-->
                       <label class="control-label" for="email">E-mail</label>
                       <div class="controls">
-                        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                        <input type="text" id="emailT" name="email" placeholder="" class="input-xlarge">
                       </div>
+                      <div id="emailTextT"></div>
                     </div>
                     <div class="control-group">
                       <!-- Password-->
@@ -213,6 +215,35 @@
 </div>
 <script>
 
+if ($("#emailS")) {
+  $("#emailS").keyup(checkEmailValid);
+}
+
+if ($("#emailT")) {
+  $("#emailT").keyup(checkEmailValid);
+}
+
+function checkEmailValid() {
+  var email = $("#emailS").val();
+  var text = $("#emailTextS");
+  if (email == "") {
+    email = $("#emailT").val();
+    text = $("#emailTextT");
+  }
+
+  if (!validateEmail(email)) {
+    console.log(email);
+    text.text("Please enter a valid e-mail address.");
+    $('#submitS').attr('disabled', true);
+    $('#submitT').attr('disabled', true);
+  } else {
+    console.log(email);
+    text.text("");
+    $('#submitS').attr('disabled', false);
+    $('#submitT').attr('disabled', false);
+  }
+}
+
 if ($("#passwordt")) {
   $("#passwordt").keyup(checkPasswordValid);
 }
@@ -228,7 +259,6 @@ if ($("#passwords")) {
 if ($("#passwordconfs")) {
   $("#passwordconfs").keyup(checkPasswordMatch);
 }
-
 
 function checkPasswordValid() {
   var pw = $("#passwords").val();
@@ -279,6 +309,14 @@ function checkPasswordMatch() {
   }
 }
 
+function validateEmail($email) {
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  if( !emailReg.test( $email ) ) {
+    return false;
+  } else {
+    return true;
+  }
+}
 </script>
 </body>
 </html>
