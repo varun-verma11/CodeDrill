@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from Forms import StudentRegisterForm, TeacherRegisterForm
 
 def register_student(request):
@@ -14,7 +14,7 @@ def register_student(request):
 		password = form.cleaned_data["password"]
 
 		return HttpResponse("Registration Successful " + first_name + " " + last_name)
-	return HttpResponse("Registration unsuccessful")
+	return HttpResponseRedirect("/student-login/")
 
 def register_teacher(request):
 	form = TeacherRegisterForm(request.POST)
@@ -27,4 +27,4 @@ def register_teacher(request):
 		password = form.cleaned_data["password"]
 
 		return HttpResponse("Registration Successful " + first_name + " " + last_name)
-	return HttpResponse("Registration unsuccessful")
+	return HttpResponse("/teacher-login/")

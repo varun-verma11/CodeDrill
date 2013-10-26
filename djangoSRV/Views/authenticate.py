@@ -13,13 +13,13 @@ def authenticate_student(request):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
 		return HttpResponse(" Hello username:" + username + " password:" + password)
-	return HttpResponse("Unsuccessful login!!")
+	return HttpResponseRedirect("student-login/")
 
 def authenticate_teacher(request):
 	form = LoginForm(request.POST)
 	if (form.is_valid()):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
-		return HttpResponseRedirect("/teacher_view/")
-	return HttpResponse("Unsuccessful login!!")
+		return HttpResponseRedirect("/teacher-view/")
+	return HttpResponseRedirect("/teacher-login/")
 
