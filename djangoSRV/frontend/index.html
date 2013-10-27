@@ -16,91 +16,79 @@
 
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <![endif]-->
+  <script src="js/html5shiv.js"></script>
+  <![endif]-->
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/scripts.js"></script>
-  </head>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+</head>
 
-  <body>
-  	<div class="container-fluid">
-  		<div class="row-fluid">
-        <h3>
-         A Framework for Setting and Assessing Programming Exercises
-       </h3>
-       <div class="span2">
-        <script>
-        $(document).ready(function () {
-          $('ul.menu-list').toggle();
-          $('label.tree-toggler').click(function () {
-           $(this).parent().children('ul.tree').toggle(200);
-         });
-        });
-        </script>
-        <ul class="nav nav-list">
-          <li class="nav-header">
-           Menu
-         </li>
-         <li class="active">
-          <a href="#">Code</a>
-          <ul class="nav nav-list">
-            <li><label class="tree-toggler nav-header">Variable Assignment</label>
-              <ul class="nav nav-list tree menu-list">
-                <li><a href="#">Subtraction</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav nav-list">
-            <li><label class="tree-toggler nav-header">Conditionals</label>
-              <ul class="nav nav-list tree menu-list">
-                <li><a href="#">If</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav nav-list">
-            <li><label class="tree-toggler nav-header">For loop</label>
-              <ul class="nav nav-list tree menu-list">
-                <li><a href="#">Print 10 numbers</a></li>
-                <li><a href="#">Sum</a></li>
-              </ul>
-            </li>
+<body>
+ <div class="container-fluid">
+  <div class="row-fluid">
+    <h3>
+     A Framework for Setting and Assessing Programming Exercises
+   </h3>
+   <div class="span2">
+    <script>
+    $(document).ready(function () {
+      $('ul.menu-list').toggle();
+      $('label.tree-toggler').click(function () {
+       $(this).parent().children('ul.tree').toggle(200);
+     });
+    });
+    </script>
+    <ul class="nav nav-list">
+      <li class="nav-header">
+       Menu
+     </li>
+     <li class="active">
+      <a href="#">Code</a>
+      <ul class="nav nav-list">
+        <li><label class="tree-toggler nav-header">Variable Assignment</label>
+          <ul class="nav nav-list tree menu-list">
+            <li><a href="#">Subtraction</a></li>
           </ul>
         </li>
-        <li>
-         <a href="grades.html">Grades</a>
-       </li>
-     </ul>
-   </div>
-   <div class="span9">
-     <div class="well" style=" padding: 8px 0;">
+      </ul>
       <ul class="nav nav-list">
-       <li><label class="tree-toggler nav-header">Variable Assignment</label>
-        <ul class="nav nav-list tree">
-         <li><a href="#" id="var-sub">Subtraction</a></li>
-         <div id="var-sub-ex">
-          <div class="panel panel-default">
-            <div class="panel-body">                
-              <form accept-charset="UTF-8" action="" method="POST">
-                <textarea class="input-xxlarge" name="code" id="sub-code" rows="5">print("Hello world!", ":)")
-                </textarea>
-                <br>
-                <button class="btn btn-info" type="submit">Submit</button>
-              </form>
-            </div>
-          </div>
-        </div>
+        <li><label class="tree-toggler nav-header">Conditionals</label>
+          <ul class="nav nav-list tree menu-list">
+            <li><a href="#">If</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav nav-list">
+        <li><label class="tree-toggler nav-header">For loop</label>
+          <ul class="nav nav-list tree menu-list">
+            <li><a href="#">Print 10 numbers</a></li>
+            <li><a href="#">Sum</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
-  </ul>
+    <li>
+     <a href="grades.html">Grades</a>
+   </li>
+ </ul>
+</div>
+<div class="span9">
+ <div class="well" style=" padding: 8px 0;">
   <ul class="nav nav-list">
-   <li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
+   <li><label class="tree-toggler nav-header">Variable Assignment</label>
     <ul class="nav nav-list tree">
-     <li><a href="#" id="cond-i">If</a></li>
-     <div id="cond-i-ex"><i>todo</i></div>
-   </ul>
- </li>
+     <li><a href="subtraction.html" id="var-sub">Subtraction</a></li>
+  </ul>
+</li>
+</ul>
+<ul class="nav nav-list">
+ <li><label class="tree-toggler nav-header" id="cond">Conditionals</label>
+  <ul class="nav nav-list tree">
+   <li><a href="#" id="cond-i">If</a></li>
+   <div id="cond-i-ex"><i>todo</i></div>
+ </ul>
+</li>
 </ul>
 <ul class="nav nav-list">
  <li><label class="tree-toggler nav-header" id="for">For loop</label>
@@ -133,7 +121,6 @@ function hideAll() {
 function addClickHandlers() {
   for (var i = 0; i < divsNames.length; i++)
   {
-    console.log(i);
     $('#' + divsNames[i]).click(function (event)
     {
       $('#' + event.currentTarget.id + '-ex').toggle(300);
