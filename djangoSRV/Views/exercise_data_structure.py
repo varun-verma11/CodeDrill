@@ -15,12 +15,15 @@ class Chapter:
 		return self.assignments
 
 class Assignment:
-	def __init__(self, name, id):
+	def __init__(self, name, id, code=None):
 		self.name = name
 		self.id = id
+		self.code = code
 	def get_name(self):
 		return self.name
 	def get_id(self):
 		return self.id
+	def get_code(self):
+		return self.code
 
 

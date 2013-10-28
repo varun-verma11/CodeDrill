@@ -37,3 +37,6 @@ class TeacherRegisterForm(forms.Form):
 			raise forms.ValidationError(_("The passwords you entered did not match!"))
 		return password2
 
+class SubmitCodeForm(forms.Form):
+	code = forms.CharField(widget=forms.Textarea)
+

@@ -29,9 +29,6 @@ def get_teacher_view_with_username(teacher_id):
 
 
 def __get_teaching_hierarchy(teacher_id):
-
-        
-    
 	st_a = StudentData(1, "Variable assignment", "Addition", "Mihai", "50%")
 	st_b = StudentData(2, "Conditionals", "If-then-else", "Varun", "100000%")
 	st_c = StudentData(3, "Conditionals", "Case", "Rohan", "-10000%")

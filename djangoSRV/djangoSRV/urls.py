@@ -14,7 +14,9 @@ from Views.set_exercise import get_set_exercise_page
 from Views.authenticate import authenticate_student, authenticate_teacher
 from Views.login import student_login, teacher_login
 from Views.register import register_student, register_teacher
-
+from Views.student_view import get_student_view
+from Views.submit_code import submit_student_code
+from Views.single_exercise_code_view import single_exercise_view
 
 
 admin.autodiscover()
@@ -30,7 +32,10 @@ urlpatterns = patterns('',
     url(r'^student-login/', student_login),
     url(r'^teacher-login/', teacher_login),
     url(r'^register-student/', register_student),
-    url(r'^register-teacher/', register_teacher)
+    url(r'^register-teacher/', register_teacher),
+    url(r'^student-view/', get_student_view),
+    url(r'^submit-code/(\d+)', submit_student_code),
+    url(r'^code-single-exercise/(\d+)', single_exercise_view)
 
     # url(r'^', login)
 )
