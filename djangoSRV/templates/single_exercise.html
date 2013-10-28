@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
-	 <meta charset="utf-8">
+	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -38,7 +38,7 @@
            Menu
         </li>
         <li class="active">
-          <a href="#">Code</a>
+          <a href="/student-view/">Code</a>
           <ul class="nav nav-list">
             {% for chapter in assignments.get_chapters %}
               <li><label class="tree-toggler nav-header">{{chapter.get_name}}</label>
@@ -52,7 +52,7 @@
           </ul>
         </li>
         <li>
-         <a href="grades.html">Grades</a>
+         <a href="/student-grades/">Grades</a>
         </li>
       </ul>
     </div>

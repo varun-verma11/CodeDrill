@@ -17,6 +17,7 @@ from Views.register import register_student, register_teacher
 from Views.student_view import get_student_view
 from Views.submit_code import submit_student_code
 from Views.single_exercise_code_view import single_exercise_view
+from Views.student_grades import student_grades_view
 
 
 admin.autodiscover()
@@ -35,7 +36,8 @@ urlpatterns = patterns('',
     url(r'^register-teacher/', register_teacher),
     url(r'^student-view/', get_student_view),
     url(r'^submit-code/(\d+)', submit_student_code),
-    url(r'^code-single-exercise/(\d+)', single_exercise_view)
+    url(r'^code-single-exercise/(\d+)', single_exercise_view),
+    url(r'^student-grades/', student_grades_view)
 
     # url(r'^', login)
 )
