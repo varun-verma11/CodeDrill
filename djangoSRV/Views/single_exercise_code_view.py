@@ -9,7 +9,7 @@ def single_exercise_view(request, ex_id):
     if (request.user.is_authenticated()):
 		template = get_template("single_exercise.html")
 		assignments = __get_assignments_book()
-		code_form = SubmitCodeForm(initial={'code':"if (1==1): \n\t print 2 \n"})
+		code_form = SubmitCodeForm(initial={'code':"if (1==1): \n\t print 2 \n"},auto_id="id_%s_"+ex_id)
 		name = request.user.first_name + " " + request.user.last_name
 		context = Context( {'assignments' : assignments,
 							'description' : __get_ex_description(ex_id),

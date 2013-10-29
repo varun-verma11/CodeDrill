@@ -2,15 +2,6 @@ import sys
 from StringIO import StringIO
 
 def autotester(student_code, test_code):
-#def autotester():
-
-'''  student_code = """
-print "abc"
-"""
-  test_code = """
-print "abc"
-"""
-'''
   student_output = StringIO()
   sys.stdout = student_output
   exec student_code

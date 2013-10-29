@@ -24,7 +24,7 @@ def __get_assignments_book():
 	ch1 = Chapter("Conditionals", [as1, as2])
 
 	as3 = Assignment("Addition", 113, SubmitCodeForm(initial={'code': "a=3; print a+3"}, auto_id="id_%s_"+"113"))
-	as4 = Assignment("Subtraction", 114, SubmitCodeForm(initial={'code': "a=3; print a-3"}, auto_id="id_%s_"+"112"))
+	as4 = Assignment("Subtraction", 114, SubmitCodeForm(initial={'code': "a=3; print a-3"}, auto_id="id_%s_"+"114"))
 	ch2 = Chapter("Assignment", [as3, as4])
 
 	as5 = Assignment("Print-10-Numbers", 115, SubmitCodeForm(initial={'code': "for i in range(10):\n\t print i"}, auto_id="id_%s_"+"115"))
