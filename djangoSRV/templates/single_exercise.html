@@ -78,12 +78,16 @@
     </div>
   </div>
   <script>
-  $('#ok').hide();
-  $('#wrong').hide();
+
+    $('#wrong').hide();
+    $('#ok').hide();
+
   function check() {
     if (Math.random() < 0.5) {
+      $('#wrong').hide();
       $('#ok').show();
     } else {
+      $('#ok').hide();
       $('#wrong').show();
     }
   }
