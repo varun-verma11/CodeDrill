@@ -16,7 +16,7 @@ class StudentRegisterForm(forms.Form):
 	repeat_password = forms.CharField(widget=forms.PasswordInput())
 
 	def clean_repeat_password(self):
-		password1 = self.cleaned_data.get("password", "")
+		password1 = self.cleaned_data.get("reg_password", "")
 		password2 = self.cleaned_data['repeat_password']
 		if password1 != password2:
 			raise forms.ValidationError(_("The passwords you entered did not match!"))
@@ -31,7 +31,7 @@ class TeacherRegisterForm(forms.Form):
 	reg_password = forms.CharField(widget=forms.PasswordInput())
 	repeat_password = forms.CharField(widget=forms.PasswordInput())
 	def clean_repeat_password(self):
-		password1 = self.cleaned_data.get("password", "")
+		password1 = self.cleaned_data.get("reg_password", "")
 		password2 = self.cleaned_data['repeat_password']
 		if password1 != password2:
 			raise forms.ValidationError(_("The passwords you entered did not match!"))
