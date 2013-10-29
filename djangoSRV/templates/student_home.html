@@ -63,15 +63,15 @@
               <div id="{{ chapter.get_name }}-{{ assignment.get_name }}-ex">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    <form accept-charset="UTF-8" action="/submit-code/{{ assignment.get_id }}/" method="POST">
+                    <form accept-charset="UTF-8"  method="POST">
                       {% csrf_token %}
                       {{ assignment.get_code.non_field_errors }}
                       {{ assignment.get_code.code.errors }}
                       {{ assignment.get_code.code }}
                       <br>
-                      <button class="btn btn-info" type="Submit" onclick="check()">Submit</button>
-                      <div id="ok">Ok!</div>
-                      <div id="wrong">X</div>
+                      <button class="btn btn-info" onclick="check({{assignment.get_id}})">Submit</button>
+                      <div id="ok_{{assignment.get_id}}">Ok!</div>
+                      <div id="wrong_{{assignment.get_id}}">X</div>
                     </form>
                   </div>
                 </div>
@@ -92,6 +92,8 @@ divsNames = [];
 {% for chapter in assignments.get_chapters %}
   {% for assignment in chapter.get_assignments %}
     divsNames.push("{{ chapter.get_name }}-{{ assignment.get_name }}");
+    $('#wrong_{{assignment.get_id}}').hide();
+    $('#ok_{{assignment.get_id}}').hide();
   {% endfor %}
 {% endfor %}
 
@@ -105,7 +107,6 @@ function hideAll() {
 function addClickHandlers() {
   for (var i = 0; i < divsNames.length; i++)
   {
-    console.log(i);
     $('#' + divsNames[i]).click(function (event)
     {
       $('#' + event.currentTarget.id + '-ex').toggle(300);
@@ -113,16 +114,53 @@ function addClickHandlers() {
   }
 }
 
-$('#wrong').hide();
-$('#ok').hide();
-function check() {
-  if (Math.random() < 0.5) {
-    $('#wrong').hide();
-    $('#ok').show();
-  } else {
-    $('#ok').hide();
-    $('#wrong').show();
-  }
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+var csrftoken = getCookie('csrftoken');
+
+function check(ex_id) {
+  alert(ex_id);
+  $.ajax({
+        type: 'POST',
+        url: '/submit-code/'+ex_id+"/",
+        datatype: 'json',
+        data: {
+                'code': $('id_code_'+ex_id).val()
+              },
+        beforeSend: function(xhr, settings) 
+              {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              },
+        success: function(response) 
+              {
+                alert(response);
+                if(response=="ok")
+                {
+                  alert("submission done");
+                  $('#wrong_'+ex_id).hide();
+                  $('#ok_'+ex_id).show();
+                } else 
+                {
+                  alert("wrong");
+                  $('#ok_'+ex_id).hide();
+                  $('#wrong_'+ex_id).show();
+                }
+              }
+    });
 }
 
 </script>
