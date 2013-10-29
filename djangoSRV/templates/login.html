@@ -157,27 +157,30 @@
   </div>
 </div>
 <script>
-  $("#email").keyup(checkEmailValid);
+  $("#id_email").keyup(checkEmailValid);
 
   function checkEmailValid() {
-    var email = $("#email").val();
+    var email = $("#id_email").val();
     var text = $("#emailText");
     if (!validateEmail(email)) {
       text.text("Please enter a valid e-mail address.");
       $('#submit').attr('disabled', true);
     } else {
-      console.log(email);
       text.text("");
       $('#submit').attr('disabled', false);
     }
   }
 
-  $("#regPassword").keyup(checkPasswordValid);
-  $("#passwordconf").keyup(checkPasswordMatch);
+  var pwId = $("#id_password");
+  console.log(pwId);
+  var pwConf = $("#id_repeat_password");
+ // pwId.keyup(checkPasswordValid);
+ // pwConf.keyup(checkPasswordMatch);
 
   function checkPasswordValid() {
-    var pw = $("#regPassword").val();
-    var conf = $("#passwordconf").val();
+    console.log("in");
+    var pw = pwId.val();
+    var conf = pwConf.val();
     var checkValidText = $("#divCheckPasswordValid");
    
     if (pw.length < 8) {
@@ -192,10 +195,11 @@
   }
 
   function checkPasswordMatch() {
-    var pw = $("#regPassword").val();
+    console.log("in 2");
+    var pw = pwId.val();
+    var conf = pwConf.val();
     var checkValidText = $("#divCheckPasswordValid");
-    var checkMatchText = $("#divCheckPasswordMatch")
-    var conf = $("#passwordconf").val();
+    var checkMatchText = $("#divCheckPasswordMatch");
 
     if (pw != conf) {
       checkMatchText.text("Passwords don't match :(");
