@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from Forms import SubmitCodeForm
 from django.template import Context
-import json
+import random
 
 def submit_student_code(request, ex_id):
 	# form = SubmitCodeForm(request.POST)
@@ -20,4 +20,8 @@ def submit_student_code(request, ex_id):
 	# 	"""
 	# 	print "returning value now"
 	# 	return HttpResponse("k")
-	return HttpResponse(json.dumps({'grade':'ok'}), content_type='application/json')
+	if (request.user.is_authenticated() and request.is_ajax()):
+		if (random.random()>0.5):
+			print request
+			return HttpResponse("ok")
+	return HttpResponse("wrong")

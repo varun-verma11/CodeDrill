@@ -1,10 +1,3 @@
-import sys
-import os
-#sys.path.append('../frontend/')
-# sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../frontend')
-#sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../Views')
-
-
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from Views.grades_view import get_grades_view
@@ -19,6 +12,7 @@ from Views.submit_code import submit_student_code
 from Views.single_exercise_code_view import single_exercise_view
 from Views.student_grades import student_grades_view
 from Views.home import home_page
+from Views.logout import logout_user
 
 admin.autodiscover()
 
@@ -38,5 +32,6 @@ urlpatterns = patterns('',
     url(r'^submit-code/(\d+)/$', submit_student_code),
     url(r'^code-single-exercise/(\d+)/$', single_exercise_view),
     url(r'^student-grades/$', student_grades_view),
+    url(r'^logout/$', logout_user),
     url(r'^$', home_page)
 )

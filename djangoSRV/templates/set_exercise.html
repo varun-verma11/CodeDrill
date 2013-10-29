@@ -37,7 +37,9 @@
 							<li class="active">
 								<a href="#">Set exercise</a>
 							</li>
-							<li class="nav-header">
+							<li>
+				            	<a href="/logout/">Log out</a>
+				            </li>
 							</ul>
 						</div>
 						<div class="span10">
@@ -136,9 +138,8 @@
 
 	for (i = 0; i < exercisesDivs.length; i++) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
-
 			target = "#" + event.currentTarget.id;
-			
+			console.log(event.currentTarget.id);
 			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
 				$(target).attr("style", false);
 				hlE = false;
@@ -193,7 +194,7 @@
 	}
 	
 	function clean(divsList) {
-		for (i = 0; i < groupsDivs.length; i++) {
+		for (i = 0; i < divsList.length; i++) {
 			$(("#" + divsList[i])).attr("style", false);
 		}
 	}

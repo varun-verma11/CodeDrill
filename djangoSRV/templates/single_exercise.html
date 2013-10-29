@@ -14,6 +14,7 @@
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
   <title> {{title}} </title>
 
 </head>
@@ -54,12 +55,15 @@
         <li>
          <a href="/student-grades/">Grades</a>
         </li>
+        <li>
+          <a href="/logout/">Log out</a>
+        </li>
       </ul>
     </div>
     <div class="span9">
       <div class="panel panel-default">
         <div class="panel-body">                
-          <form accept-charset="UTF-8" action="/submit-code/{{ex_id}}/" method="POST">
+          <form accept-charset="UTF-8" method="POST">
             {% csrf_token %}
             <p>{{ description }}</p>
             {{ code_form.non_field_errors }}
@@ -67,9 +71,11 @@
             {{ code_form.code }}
             <br>
             <label style="display:block">
-              <button class="btn btn-info" type="Submit" onclick="check()">Submit</button>
-              <div id="ok">Ok!</div>
-              <div id="wrong">X</div>
+              <table><tr>
+                <td><button class="btn btn-info" type="Submit" onclick="submit_code({{ ex_id }}); return false;">Submit</button></td>
+                <td><div id="ok_{{ ex_id }}">Ok!</div></td>
+                <td><div id="wrong_{{ ex_id }}">X</div></td>
+              </tr></table>
             </label>
           </form>
         </div>
@@ -79,18 +85,8 @@
   </div>
   <script>
 
-    $('#wrong').hide();
-    $('#ok').hide();
-
-  function check() {
-    if (Math.random() < 0.5) {
-      $('#wrong').hide();
-      $('#ok').show();
-    } else {
-      $('#ok').hide();
-      $('#wrong').show();
-    }
-  }
+  $('#wrong_{{ ex_id }}').hide();
+  $('#ok_{{ ex_id }}').hide();
   </script>
 </body>
 </html>

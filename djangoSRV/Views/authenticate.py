@@ -9,7 +9,7 @@ def authenticate_student(request):
 		password = form.cleaned_data["password"]
 		user = authenticate(username=username, password=password)
 		if (user is not None):
-			if (user.is_active):
+			if (user.is_active and user.groups.filter(name="Student").exists()):
 				login(request, user)
 				return HttpResponseRedirect("/student-view/")
 	return HttpResponseRedirect("/student-login/")
@@ -21,7 +21,7 @@ def authenticate_teacher(request):
 		password = form.cleaned_data["password"]
 		user = authenticate(username=username, password=password)
 		if (user is not None):
-			if (user.is_active):
+			if (user.is_active and user.groups.filter(name="Teacher").exists()):
 				login(request, user)
 				return HttpResponseRedirect("/teacher-view/")
 	return HttpResponseRedirect("/teacher-login/")

@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from Forms import StudentRegisterForm, TeacherRegisterForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 def register_student(request):
 	form = StudentRegisterForm(request.POST)
@@ -12,8 +12,9 @@ def register_student(request):
 		if ( user is not None):
 			user.last_name = form.cleaned_data["last_name"]
 			user.first_name = form.cleaned_data["first_name"]
+			g = Group.objects.get(name='Student')
+			g.user_set.add(user)
 			user.save();
-
 			#the rest of data needs to go in the manually
 			school = form.cleaned_data["school"]
 			year = form.cleaned_data["year"]
@@ -32,6 +33,8 @@ def register_teacher(request):
 		if ( user is not None):
 			user.last_name = form.cleaned_data["last_name"]
 			user.first_name = form.cleaned_data["first_name"]
+			g = Group.objects.get(name='Teacher')
+			g.user_set.add(user)
 			user.save()
 			#this needs to be put into db
 			school = form.cleaned_data["school"]

@@ -13,6 +13,7 @@
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
 
   <title> {{ name }} | Home </title>
 
@@ -50,6 +51,9 @@
         <li>
           <a href="/student-grades/">Grades</a>
         </li>
+        <li>
+          <a href="/logout/">Log out</a>
+        </li>
       </ul>
     </div>
     <div class="span9">
@@ -69,9 +73,11 @@
                       {{ assignment.get_code.code.errors }}
                       {{ assignment.get_code.code }}
                       <br>
-                      <button class="btn btn-info" onclick="check({{assignment.get_id}})">Submit</button>
-                      <div id="ok_{{assignment.get_id}}">Ok!</div>
-                      <div id="wrong_{{assignment.get_id}}">X</div>
+                      <table><tr>
+                      <td><button class="btn btn-info" onclick="submit_code({{assignment.get_id}}); return false;">Submit</button></td>
+                      <td><div id="ok_{{assignment.get_id}}">Ok!</div></td>
+                      <td> <div id="wrong_{{assignment.get_id}}">X</div></td>
+                      </tr></table>
                     </form>
                   </div>
                 </div>
@@ -112,55 +118,6 @@ function addClickHandlers() {
       $('#' + event.currentTarget.id + '-ex').toggle(300);
     });
   }
-}
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-var csrftoken = getCookie('csrftoken');
-
-function check(ex_id) {
-  alert(ex_id);
-  $.ajax({
-        type: 'POST',
-        url: '/submit-code/'+ex_id+"/",
-        datatype: 'json',
-        data: {
-                'code': $('id_code_'+ex_id).val()
-              },
-        beforeSend: function(xhr, settings) 
-              {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-              },
-        success: function(response) 
-              {
-                alert(response);
-                if(response=="ok")
-                {
-                  alert("submission done");
-                  $('#wrong_'+ex_id).hide();
-                  $('#ok_'+ex_id).show();
-                } else 
-                {
-                  alert("wrong");
-                  $('#ok_'+ex_id).hide();
-                  $('#wrong_'+ex_id).show();
-                }
-              }
-    });
 }
 
 </script>
