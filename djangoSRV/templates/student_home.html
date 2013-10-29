@@ -69,7 +69,9 @@
                       {{ assignment.get_code.code.errors }}
                       {{ assignment.get_code.code }}
                       <br>
-                      <button class="btn btn-info" type="Submit">Submit</button>
+                      <button class="btn btn-info" type="Submit" onclick="check()">Submit</button>
+                      <div id="ok">Ok!</div>
+                      <div id="wrong">X</div>
                     </form>
                   </div>
                 </div>
@@ -110,6 +112,19 @@ function addClickHandlers() {
     });
   }
 }
+
+$('#wrong').hide();
+$('#ok').hide();
+function check() {
+  if (Math.random() < 0.5) {
+    $('#wrong').hide();
+    $('#ok').show();
+  } else {
+    $('#ok').hide();
+    $('#wrong').show();
+  }
+}
+
 </script>
 </body>
 </html>
