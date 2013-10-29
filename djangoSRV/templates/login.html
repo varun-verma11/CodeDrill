@@ -70,13 +70,13 @@
               <div id="createstudentaccount" class="tab-pane fade">
                 <form class="form-horizontal" action='/register-student/' method="POST"> 
                   {% csrf_token %}
-                  {{ login_form.non_field_errors }}
+                  {{ register_form.non_field_errors }}
                   <fieldset>
                     <div class="control-group">
-                      {{ register_form.username.errors }}
+                      {{ register_form.reg_username.errors }}
                       <label class="control-label" for="username">Username</label>
                       <div class="controls">
-                        {{ register_form.username }}
+                        {{ register_form.reg_username }}
                       </div>
                     </div>
                     <div class="control-group">
