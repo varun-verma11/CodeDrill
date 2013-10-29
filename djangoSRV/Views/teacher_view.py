@@ -1,5 +1,5 @@
 from django.template.loader import get_template
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse,HttpResponseRedirect
 from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 from auth import auth_utils
@@ -13,20 +13,15 @@ def get_teacher_view(request):
 
     # at this point it should be a guaranteed that the session has
     # a key named 'user_id' representing a teacher
-
-    teacher_id = "mmj211"
-    return get_teacher_view_with_username(teacher_id)
+    if (request.user.is_authenticated()):
+        user = request.user
+        teaching_hierarchy = __get_teaching_hierarchy(user.username)
+        template = get_template("teacher_view.html")
+        context = Context( {'name': user.first_name + " " + user.last_name , 
+                            'teaching_hierarchy' : teaching_hierarchy})
+        return HttpResponse(template.render(context))
+    return HttpResponseRedirect("/")
     
-
-    # teaching_hierarchy = __get_teaching_hierarchy(request.session['user_id'])
-    
-def get_teacher_view_with_username(teacher_id):
-    teaching_hierarchy = __get_teaching_hierarchy(teacher_id)
-    template = get_template("teacher_view.html")
-    context = Context( {'name': "Mihai Jiplea", 
-                        'teaching_hierarchy' : teaching_hierarchy})
-    return HttpResponse(template.render(context))
-
 
 def __get_teaching_hierarchy(teacher_id):
 	st_a = StudentData(1, "Variable assignment", "Addition", "Mihai", "50%")

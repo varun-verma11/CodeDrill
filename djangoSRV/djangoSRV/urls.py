@@ -20,11 +20,10 @@ from Views.single_exercise_code_view import single_exercise_view
 from Views.student_grades import student_grades_view
 from Views.home import home_page
 
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^admin/$', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^grades/$', get_grades_view),
     url(r'^teacher/$', viewSubmissionMark),
     url(r'^teacher-view/$', get_teacher_view),

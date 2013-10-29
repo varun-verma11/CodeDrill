@@ -6,18 +6,19 @@ from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 def single_exercise_view(request, ex_id):
-	template = get_template("single_exercise.html")
-	assignments = __get_assignments_book()
-	code_form = SubmitCodeForm(initial={'code':"if (1==1): \n\t print 2 \n"})
-	context = Context( {'name': "Mihai Jiplea",
-						'assignments' : assignments,
-						'description' : __get_ex_description(ex_id),
-						'title' : __get_ex_title(ex_id),
-						'ex_id' : ex_id,
-						'code_form' : code_form
-					})
-	context.update(csrf(request))
-	return HttpResponse(template.render(context))
+    if (request.user.is_authenticated()):
+		template = get_template("single_exercise.html")
+		assignments = __get_assignments_book()
+		code_form = SubmitCodeForm(initial={'code':"if (1==1): \n\t print 2 \n"})
+		name = request.user.first_name + " " + request.user.last_name
+		context = Context( {'assignments' : assignments,
+							'description' : __get_ex_description(ex_id),
+							'title' : name + " | " + __get_ex_title(ex_id),
+							'ex_id' : ex_id,
+							'code_form' : code_form
+						})
+		context.update(csrf(request))
+		return HttpResponse(template.render(context))
 
 
 def __get_ex_title(ex_id):

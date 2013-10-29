@@ -1,20 +1,22 @@
 from django.template.loader import get_template
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 
 def get_set_exercise_page(request):
-	template = get_template("set_exercise.html")
-	teacher_id = "mmj211"
-	teaching_hierarchy = __get_teaching_hierarchy(teacher_id)
-	assignment_book = __get_assignments_book()
-	
-	context = Context( {'name': "Mihai Jiplea", 
-						'teaching_hierarchy' : teaching_hierarchy,
-						'assignment_book' : assignment_book})
+	if (request.user.is_authenticated()):
+		template = get_template("set_exercise.html")
+		teaching_hierarchy = __get_teaching_hierarchy(request.user.username)
+		assignment_book = __get_assignments_book()
+		
+		context = Context( {'name': request.user.first_name + " " + request.user.last_name, 
+							'teaching_hierarchy' : teaching_hierarchy,
+							'assignment_book' : assignment_book})
 
-	return HttpResponse(template.render(context))
+		return HttpResponse(template.render(context))
+	return HttpResponseRedirect("/")
+
 
 
 def __get_assignments_book():
@@ -26,7 +28,7 @@ def __get_assignments_book():
 	as4 = Assignment("Subtraction", 143)
 	ch2 = Chapter("Assignment", [as3, as4])
 
-	as5 = Assignment("Print 10 Numbers", 154)
+	as5 = Assignment("Print-10-Numbers", 154)
 	as6 = Assignment("Sum", 143)
 	ch3 = Chapter("Loops", [as5, as6])
 
