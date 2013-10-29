@@ -81,11 +81,11 @@
 															<tbody>
 																{% for student in cls.get_students_data %}
 																<tr>
-																	<th>{{ student.get_index }}</th>
-																	<th>{{ student.get_chapter }}</th>
-																	<th>{{ student.get_problem_name }}</th>
-																	<th>{{ student.get_student_name }}</th>
-																	<th>{{ student.get_grade }}</th>
+																	<td>{{ student.get_index }}</td>
+																	<td>{{ student.get_chapter }}</td>
+																	<td>{{ student.get_problem_name }}</td>
+																	<td>{{ student.get_student_name }}</td>
+																	<td>{{ student.get_grade }}</td>
 																</tr>
 																{% endfor %}
 															</tbody>
