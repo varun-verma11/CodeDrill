@@ -170,6 +170,8 @@
   var pwId = $("#id_password");
   var pwConf = $("#id_repeat_password");
 
+  var filledInBoolean = false, emailBoolean = false, pwBoolean = false, confBoolean = false; 
+
   var all = [first, last, user, email, school, pwId, pwConf];
   {% if type|stringformat:"s" == "student"%}
     all.push(year);
@@ -187,15 +189,15 @@
     var forms = $('#divCheckFilledIn');
     for (var i = 0; i < all.length; i++) {
       if (all[i].val() == "") {
-
-    console.log("f");
         forms.text("All fields must be filled in to complete registration.");
-        submit.attr('disabled', true);
+        filledInBoolean = false;
+        setSubmitButton();
         return;
       }
     }
     forms.text("");
-    submit.attr('disabled', false);
+    filledInBoolean = true;
+    setSubmitButton();
   }
 
   email.keyup(checkEmailValid);
@@ -205,15 +207,17 @@
     var text = $("#emailText");
     if (!validateEmail(emailVal)) {
       text.text("Please enter a valid e-mail address.");
-      submit.attr('disabled', true);
+      emailBoolean = false;
+      setSubmitButton();
     } else {
       text.text("");
-      submit.attr('disabled', false);
+      emailBoolean = true;
+      setSubmitButton();
     }
   }
   
-  //pwId.keyup(checkPasswordValid);
-  //pwConf.keyup(checkPasswordMatch);
+  pwId.keyup(checkPasswordValid);
+  pwConf.keyup(checkPasswordMatch);
 
   function checkPasswordValid() {
     console.log("in");
@@ -223,12 +227,16 @@
    
     if (pw.length < 8) {
       checkValidText.text("The password must be at least 8 characters long.");
-      submit.attr('disabled', true);
+      pwBoolean = false;
+      setSubmitButton();
+      //submit.attr('disabled', true);
     } else if (conf != "" && pw != conf) {
       checkValidText.text("");
     } else {
-      submit.attr('disabled', false);
       checkValidText.text("");
+      pwBoolean = true;
+      setSubmitButton();
+      //submit.attr('disabled', false);
     }
   }
 
@@ -239,7 +247,7 @@
     var checkValidText = $("#divCheckPasswordValid");
     var checkMatchText = $("#divCheckPasswordMatch");
 
-    if (pw != conf) {
+    if (pw != conf && conf.length > 0) {
       checkMatchText.text("Passwords don't match :(");
       submit.attr('disabled', true);
       console.log(pwConf.val());
