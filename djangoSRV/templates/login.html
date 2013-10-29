@@ -162,12 +162,12 @@
 
   var first = $('#id_first_name');
   var last = $('#id_last_name');
-  var user = $('#id_username');
+  var user = $('#id_reg_username');
   var email = $("#id_email");
   var school = $('#id_school');
   var year = $('#id_year');
   var group = $('#id_Class');
-  var pwId = $("#id_password");
+  var pwId = $("#id_reg_password");
   var pwConf = $("#id_repeat_password");
 
   var filledInBoolean = false, emailBoolean = false, pwBoolean = false, confBoolean = false; 
@@ -184,6 +184,9 @@
   for (var i = 0; i < all.length; i++) {
     all[i].keyup(checkFilledForms);
   }
+  email.keyup(checkEmailValid);
+  pwId.keyup(checkPasswordValid);
+  pwConf.keyup(checkPasswordValid);
 
   function checkFilledForms() {
     var forms = $('#divCheckFilledIn');
@@ -200,8 +203,6 @@
     setSubmitButton();
   }
 
-  email.keyup(checkEmailValid);
-
   function checkEmailValid() {
     var emailVal = email.val();
     var text = $("#emailText");
@@ -216,46 +217,37 @@
     }
   }
   
-  pwId.keyup(checkPasswordValid);
-  pwConf.keyup(checkPasswordMatch);
-
   function checkPasswordValid() {
-    console.log("in");
-    var pw = pwId.val();
-    var conf = pwConf.val();
-    var checkValidText = $("#divCheckPasswordValid");
-   
-    if (pw.length < 8) {
-      checkValidText.text("The password must be at least 8 characters long.");
-      pwBoolean = false;
-      setSubmitButton();
-      //submit.attr('disabled', true);
-    } else if (conf != "" && pw != conf) {
-      checkValidText.text("");
-    } else {
-      checkValidText.text("");
-      pwBoolean = true;
-      setSubmitButton();
-      //submit.attr('disabled', false);
-    }
-  }
-
-  function checkPasswordMatch() {
-    console.log("in 2");
     var pw = pwId.val();
     var conf = pwConf.val();
     var checkValidText = $("#divCheckPasswordValid");
     var checkMatchText = $("#divCheckPasswordMatch");
 
-    if (pw != conf && conf.length > 0) {
-      checkMatchText.text("Passwords don't match :(");
-      submit.attr('disabled', true);
-      console.log(pwConf.val());
-      console.log(pwId.val());
-    } else {
-      checkMatchText.text("");
-      submit.attr('disabled', false);
+    if (pw.length < 8 && conf.length == 0) {
+      checkValidText.text("The password must be at least 8 characters long.");
+      pwBoolean = false;
+      setSubmitButton();
     }
+    else if (pw.length < 8 && conf.length < 8) {
+      checkValidText.text("The password must be at least 8 characters long.");
+      checkMatchText.text("Passwords don't match :(");
+      pwBoolean = false;
+      setSubmitButton();
+    } else if (pw.length < 8 && conf.length >= 8) {
+      checkValidText.text("The password must be at least 8 characters long.");
+      pwBoolean = false;
+      setSubmitButton();
+    } else if (pw != conf) {
+      checkValidText.text("");
+      checkMatchText.text("Passwords don't match :(");
+      pwBoolean = false;
+      setSubmitButton();
+    } else if (pw == conf && pw.length >= 8) {
+      checkValidText.text("");
+      checkMatchText.text("");
+      pwBoolean = true;
+      setSubmitButton();
+    } 
   }
 
   function validateEmail($email) 
@@ -266,6 +258,13 @@
     } else {
       return true;
     }
+  }
+
+  function setSubmitButton() {
+    submit.attr('disabled', !(
+      filledInBoolean
+      && emailBoolean
+      && pwBoolean));
   }
 </script>
 </body>
