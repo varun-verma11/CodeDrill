@@ -176,7 +176,6 @@
   $("#passwordconf").keyup(checkPasswordMatch);
 
   function checkPasswordValid() {
-    console.log("awguiguysegufegulwaf");
     var pw = $("#regPassword").val();
     var conf = $("#passwordconf").val();
     var checkValidText = $("#divCheckPasswordValid");
@@ -216,19 +215,6 @@
       return true;
     }
   }
-
-  function request_login() 
-  {
-    username = $('#username').val();
-    password = $("#loginPassword").val();
-    if (username=="" || password=="")
-      return;
-    // url = "/authenticate?username=" +  username + "&password=" + password;
-    url = "www.google.co.uk";
-    window.location = url;
-    alert(url);
-  }
-
 </script>
 </body>
 </html>

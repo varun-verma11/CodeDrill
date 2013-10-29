@@ -1,18 +1,17 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from Forms import LoginForm
-
-def __check_if_valid_login(username, password):
-	return True
-
-def __is_user_teacher(username):
-	return True
+from django.contrib.auth import authenticate, login
 
 def authenticate_student(request):
 	form = LoginForm(request.POST)
 	if (form.is_valid()):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
-		return HttpResponseRedirect("/student-view/")
+		user = authenticate(username=username, password=password)
+		if (user is not None):
+			if (user.is_active):
+				login(request, user)
+				return HttpResponseRedirect("/student-view/")
 	return HttpResponseRedirect("/student-login/")
 
 def authenticate_teacher(request):
@@ -20,6 +19,10 @@ def authenticate_teacher(request):
 	if (form.is_valid()):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
-		return HttpResponseRedirect("/teacher-view/")
+		user = authenticate(username=username, password=password)
+		if (user is not None):
+			if (user.is_active):
+				login(request, user)
+				return HttpResponseRedirect("/teacher-view/")
 	return HttpResponseRedirect("/teacher-login/")
 
