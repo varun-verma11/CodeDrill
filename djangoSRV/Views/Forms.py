@@ -5,7 +5,7 @@ class LoginForm(forms.Form):
 	password = forms.CharField(widget=forms.PasswordInput())
 
 class StudentRegisterForm(forms.Form):
-	username = forms.CharField()
+	reg_username = forms.CharField()
 	first_name = forms.CharField()
 	last_name = forms.CharField()
 	email = forms.EmailField(help_text='A valid email address')
@@ -23,7 +23,7 @@ class StudentRegisterForm(forms.Form):
 		return password2
 
 class TeacherRegisterForm(forms.Form):
-	username = forms.CharField()
+	reg_username = forms.CharField()
 	first_name = forms.CharField()
 	last_name = forms.CharField()
 	email = forms.EmailField(help_text='A valid email address')
