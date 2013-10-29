@@ -14,29 +14,42 @@ class Exercise(models.Model):
     content = models.TextField('Content', blank=True)
     description = models.TextField('Description')
 
+    def __unicode__(self):
+        return self.category + ' - ' + self.title
+
 
 class ModelSolution(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id', primary_key=True)
     content = models.TextField('Content')
+    
+    def __unicode__(self):
+        return 'Solution for ' + self.ex_id.__unicode__()
 
 
 class StudentSubmission(models.Model):
     stu_id = models.ForeignKey('Student', to_field='stu_id')
-    ex_id = models.ForeignKey('Exercise', to_field='ex_id')
-    course = models.ForeignKey('Course', to_field='c_id')
+    # ex_id = models.ForeignKey('Exercise', to_field='ex_id')
+    # course = models.ForeignKey('Course', to_field='c_id')
+    assign_id = models.ForeignKey('AssignedExercises')
     content = models.TextField('Content', blank=True)
     submit_time = models.DateTimeField('Time of Submission',
         auto_now_add=True)
     result = models.DecimalField(max_digits=3, decimal_places=2)
 
+               
 
 class Test(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     test_content = models.TextField('Test Content')
 
+
 class AssignedExercises(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     c_id = models.ForeignKey('Course', to_field='c_id')
+
+    def __unicode__(self):
+        return self.c_id.__unicode__() + ' --- ' + self.ex_id.__unicode__()
+
 
 class Course(models.Model):
     # easier to just use this as choices for school years in course 
@@ -62,6 +75,7 @@ class Course(models.Model):
 
     def __unicode__(self):
         return self.name + ' - Year ' + str(self.year)
+
 
 class Teacher(models.Model):
     tch_id = models.AutoField(primary_key=True)

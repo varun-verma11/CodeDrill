@@ -14,14 +14,16 @@ def viewSubmissions(request):
     submissions = StudentSubmission.objects.all()
     ret = []
     for submission in submissions:
-        print sub
-        submission.submit_timemission.stu_id, submission.ex_id, submission.content, submission.submit_time
+        # print sub
+        # submission.submit_timemission.stu_id, submission.ex_id, submission.content, submission.submit_time
         ret2 = []
         ret2.append(submission.stu_id)
-        ret2.append(submission.ex_id)
+        # ret2.append(submission.ex_id)
+        ret2.append(submission.assign_id.ex_id)
         ret2.append(submission.content)
         ret2.append(submission.submit_time)
         ret.append(ret2)
+        # needs more cowbell and HttpResponse
     return ret
 
 def authenticateTeacher(request):
@@ -43,8 +45,13 @@ def viewSubmissionMark(request):
     for student in students:
         ret_aux = []
         submission = StudentSubmission.objects.filter(stu_id__exact=student.stu_id)
-        ret_aux.append(student.name)
-        ret_aux.append(submission[0].result)
-        #print ret_aux
-        ret.append(ret_aux)
+        # ret_aux.append(student.name)
+        # ret_aux.append(submission[0].result)
+        # print ret_aux
+        # ret.append(ret_aux)
+        if submission:
+            ret_aux.append(student.name)
+            ret_aux.append(submission[0].result)
+            ret.append(ret_aux)
+            # needs more cowbell and a HttpResponse
     return ret

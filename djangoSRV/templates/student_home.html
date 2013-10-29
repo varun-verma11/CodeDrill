@@ -13,6 +13,8 @@
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
 
   <title> {{ name }} | Home </title>
 
@@ -51,7 +53,7 @@
           <a href="/student-grades/">Grades</a>
         </li>
         <li>
-          <a href="logout.html">Log out</a>
+          <a href="/logout/">Log out</a>
         </li>
       </ul>
     </div>
@@ -66,16 +68,16 @@
               <div id="{{ chapter.get_name }}-{{ assignment.get_name }}-ex">
                 <div class="panel panel-default">
                   <div class="panel-body">
-                    <form accept-charset="UTF-8" action="/submit-code/{{ assignment.get_id }}/" method="POST">
+                    <form accept-charset="UTF-8"  method="POST">
                       {% csrf_token %}
                       {{ assignment.get_code.non_field_errors }}
                       {{ assignment.get_code.code.errors }}
                       {{ assignment.get_code.code }}
                       <br>
                       <table><tr>
-                      <td><button class="btn btn-info" type="Submit" onclick="check()">Submit</button></td>
-                      <td><div id="ok">Ok!</div></td>
-                      <td><div id="wrong">X</div></td>
+                      <td><button class="btn btn-info" onclick="submit_code({{assignment.get_id}}); return false;">Submit</button></td>
+                      <td><div id="ok_{{assignment.get_id}}">Ok!</div></td>
+                      <td> <div id="wrong_{{assignment.get_id}}">X</div></td>
                       </tr></table>
                     </form>
                   </div>
@@ -97,6 +99,8 @@ divsNames = [];
 {% for chapter in assignments.get_chapters %}
   {% for assignment in chapter.get_assignments %}
     divsNames.push("{{ chapter.get_name }}-{{ assignment.get_name }}");
+    $('#wrong_{{assignment.get_id}}').hide();
+    $('#ok_{{assignment.get_id}}').hide();
   {% endfor %}
 {% endfor %}
 
@@ -110,23 +114,10 @@ function hideAll() {
 function addClickHandlers() {
   for (var i = 0; i < divsNames.length; i++)
   {
-    console.log(i);
     $('#' + divsNames[i]).click(function (event)
     {
       $('#' + event.currentTarget.id + '-ex').toggle(300);
     });
-  }
-}
-
-$('#wrong').hide();
-$('#ok').hide();
-function check() {
-  if (Math.random() < 0.5) {
-    $('#wrong').hide();
-    $('#ok').show();
-  } else {
-    $('#ok').hide();
-    $('#wrong').show();
   }
 }
 
