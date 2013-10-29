@@ -54,6 +54,9 @@
         <li>
          <a href="/student-grades/">Grades</a>
         </li>
+        <li>
+          <a href="logout.html">Log out</a>
+        </li>
       </ul>
     </div>
     <div class="span9">
@@ -67,9 +70,11 @@
             {{ code_form.code }}
             <br>
             <label style="display:block">
-              <button class="btn btn-info" type="Submit" onclick="check()">Submit</button>
-              <div id="ok">Ok!</div>
-              <div id="wrong">X</div>
+              <table><tr>
+                <td><button class="btn btn-info" type="Submit" onclick="check()">Submit</button></td>
+                <td><div id="ok">Ok!</div></td>
+                <td><div id="wrong">X</div></td>
+              </tr></table>
             </label>
           </form>
         </div>
@@ -79,8 +84,8 @@
   </div>
   <script>
 
-    $('#wrong').hide();
-    $('#ok').hide();
+  $('#wrong').hide();
+  $('#ok').hide();
 
   function check() {
     if (Math.random() < 0.5) {
