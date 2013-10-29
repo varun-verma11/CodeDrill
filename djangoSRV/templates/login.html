@@ -143,7 +143,9 @@
                     <div class="control-group">
                       <!-- Button -->
                       <div class="controls">
-                        <button class="btn btn-success" id="submit" value="Submit" >Submit</button>
+                        <table><tr><td>
+                        <button class="btn btn-success" id="submit" value="Submit" >Submit</button></td>
+                        <td><div id="divCheckFilledIn" style="padding-left:5px"></div></td></tr></table>
                       </div>
                     </fieldset>
                   </form>
@@ -157,25 +159,61 @@
   </div>
 </div>
 <script>
-  $("#id_email").keyup(checkEmailValid);
 
-  function checkEmailValid() {
-    var email = $("#id_email").val();
-    var text = $("#emailText");
-    if (!validateEmail(email)) {
-      text.text("Please enter a valid e-mail address.");
-      $('#submit').attr('disabled', true);
-    } else {
-      text.text("");
-      $('#submit').attr('disabled', false);
-    }
+  var first = $('#id_first_name');
+  var last = $('#id_last_name');
+  var user = $('#id_username');
+  var email = $("#id_email");
+  var school = $('#id_school');
+  var year = $('#id_year');
+  var group = $('#id_Class');
+  var pwId = $("#id_password");
+  var pwConf = $("#id_repeat_password");
+
+  var all = [first, last, user, email, school, pwId, pwConf];
+  {% if type|stringformat:"s" == "student"%}
+    all.push(year);
+    all.push(school);
+  {% endif %}
+
+  var submit = $('#submit');
+
+  //For filled in forms check
+  for (var i = 0; i < all.length; i++) {
+    all[i].keyup(checkFilledForms);
   }
 
-  var pwId = $("#id_password");
-  console.log(pwId);
-  var pwConf = $("#id_repeat_password");
- // pwId.keyup(checkPasswordValid);
- // pwConf.keyup(checkPasswordMatch);
+  function checkFilledForms() {
+    var forms = $('#divCheckFilledIn');
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].val() == "") {
+
+    console.log("f");
+        forms.text("All fields must be filled in to complete registration.");
+        submit.attr('disabled', true);
+        return;
+      }
+    }
+    forms.text("");
+    submit.attr('disabled', false);
+  }
+
+  email.keyup(checkEmailValid);
+
+  function checkEmailValid() {
+    var emailVal = email.val();
+    var text = $("#emailText");
+    if (!validateEmail(emailVal)) {
+      text.text("Please enter a valid e-mail address.");
+      submit.attr('disabled', true);
+    } else {
+      text.text("");
+      submit.attr('disabled', false);
+    }
+  }
+  
+  //pwId.keyup(checkPasswordValid);
+  //pwConf.keyup(checkPasswordMatch);
 
   function checkPasswordValid() {
     console.log("in");
@@ -185,11 +223,11 @@
    
     if (pw.length < 8) {
       checkValidText.text("The password must be at least 8 characters long.");
-      $('#submit').attr('disabled', true);
+      submit.attr('disabled', true);
     } else if (conf != "" && pw != conf) {
       checkValidText.text("");
     } else {
-      $('#submit').attr('disabled', false);
+      submit.attr('disabled', false);
       checkValidText.text("");
     }
   }
@@ -203,10 +241,12 @@
 
     if (pw != conf) {
       checkMatchText.text("Passwords don't match :(");
-      $('#submit').attr('disabled', true);
+      submit.attr('disabled', true);
+      console.log(pwConf.val());
+      console.log(pwId.val());
     } else {
       checkMatchText.text("");
-      $('#submit').attr('disabled', false);
+      submit.attr('disabled', false);
     }
   }
 
