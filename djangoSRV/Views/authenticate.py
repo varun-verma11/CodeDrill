@@ -1,6 +1,7 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from Forms import LoginForm
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 
 def authenticate_student(request):
 	form = LoginForm(request.POST)
@@ -25,4 +26,13 @@ def authenticate_teacher(request):
 				login(request, user)
 				return HttpResponseRedirect("/teacher-view/")
 	return HttpResponseRedirect("/teacher-login/")
+
+
+def check_user_name_exists(request):
+	if (request.is_ajax()):
+		username = request.POST["username"]
+		if (User.objects.filter(username=username).count()):
+			return HttpResponse("yes")
+		return HttpResponse("no")
+	return HttpResponse("invalid query")
 
