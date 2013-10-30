@@ -1,4 +1,4 @@
-from exercises import models
+from djangoSRV import models
 from django.shortcuts import redirect
 
 # determines whether the session is authenticated or not 

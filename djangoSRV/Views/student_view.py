@@ -4,7 +4,7 @@ from Forms import SubmitCodeForm
 from django.template import Context
 from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
-from exercises.models import AssignedExercises, Student, Course, Exercise
+from djangoSRV.models import AssignedExercises, Student, Course, Exercise
 
 def get_student_view(request):
     if (request.user.is_authenticated()):
