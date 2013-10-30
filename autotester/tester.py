@@ -1,16 +1,17 @@
+import student_prog
+import unittest
 import sys
 from StringIO import StringIO
 
-def autotester(student_code, test_code):
-#def autotester():
+#def autotester(self, student_code, test_code):
+def autotester():
 
-'''  student_code = """
+  student_code = """
 print "abc"
 """
   test_code = """
 print "abc"
 """
-'''
   student_output = StringIO()
   sys.stdout = student_output
   exec student_code
@@ -26,5 +27,10 @@ print "abc"
   print test_output.getvalue()
   # test_code is just the expected output
   if (student_output.getvalue()==test_output.getvalue()):
-     return True
-  return False
+    print ("passed")
+  else:
+    print ("failed")
+
+
+if __name__ == "__main__":
+	autotester()
