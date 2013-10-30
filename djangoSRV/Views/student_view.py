@@ -4,7 +4,7 @@ from Forms import SubmitCodeForm
 from django.template import Context
 from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
-
+from exercises.models import AssignedExercises, Student, Course, Exercise
 
 def get_student_view(request):
     if (request.user.is_authenticated()):
@@ -35,29 +35,28 @@ def __get_assignments_book():
 
 
 def getStudentAssignments(request):
-    #parameters = request.GET
-    #name = parameters['name']
-    name = "Student5"
-    one_st_array = Student.objects.filter(name=name)
+    uid = request.user.id
+    #name = "Student5"
+    one_st_array = Student.objects.filter(stu_id=uid)
     stu_id = one_st_array[0].stu_id
     course_ids = []
     ex_ids = []
     for course in Course.objects.all():
         student_entries = course.students.filter(stu_id=stu_id)
         if(student_entries.count() > 0):
-            coures_ids.append(course.c_id)
+            course_ids.append(course.c_id)
 
     for exco in AssignedExercises.objects.all():
         if exco.c_id in course_ids:
             ex_ids.append(exco.ex_id)
 
     chapters = []
-    categories = exercise.values_list('category').distinct()
+    categories = Exercise.objects.values_list('category').distinct()
     for category in categories:
         assignments = []
         for exercise in Exercise.objects.filter(category=category):
             assignment = Assignment(exercise.title, exercise.ex_id, exercise.content)
             assignments.append(assignment)   	
         chapter = Chapter(category, assignments)
-
+        chapters.append(chapter)
     return AssignmentsBook(chapters)
