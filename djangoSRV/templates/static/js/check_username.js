@@ -1,4 +1,4 @@
-function check_username(username)
+function check_username()
 {
 	var csrftoken = getCsrfToken();
 	$.ajax({
