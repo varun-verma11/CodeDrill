@@ -25,5 +25,3 @@ class Assignment:
 		return self.id
 	def get_code(self):
 		return self.code
-
-

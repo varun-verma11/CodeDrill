@@ -68,7 +68,7 @@
                 </form>
               </div>
               <div id="createstudentaccount" class="tab-pane fade">
-                <form class="form-horizontal" action='/register-student/' method="POST"> 
+                <form class="form-horizontal" action='/register-{{type}}/' method="POST"> 
                   {% csrf_token %}
                   {{ register_form.non_field_errors }}
                   <fieldset>
