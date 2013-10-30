@@ -5,9 +5,9 @@ from django.contrib.auth.models import User, Group
 def register_student(request):
 	form = StudentRegisterForm(request.POST)
 	if (form.is_valid()):
-		username = form.cleaned_data["username"]
+		username = form.cleaned_data["reg_username"]
 		email = form.cleaned_data["email"]
-		password = form.cleaned_data["password"]
+		password = form.cleaned_data["reg_password"]
 		user = User.objects.create_user(username, email, password)
 		if ( user is not None):
 			user.last_name = form.cleaned_data["last_name"]
@@ -26,9 +26,9 @@ def register_student(request):
 def register_teacher(request):
 	form = TeacherRegisterForm(request.POST)
 	if (form.is_valid()):
-		username = form.cleaned_data["username"]
+		username = form.cleaned_data["reg_username"]
 		email = form.cleaned_data["email"]
-		password = form.cleaned_data["password"]
+		password = form.cleaned_data["reg_password"]
 		user = User.objects.create_user(username, email, password)
 		if ( user is not None):
 			user.last_name = form.cleaned_data["last_name"]

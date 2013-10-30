@@ -20,32 +20,30 @@
 <body>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<h3> Teach Kids Code</h3>
+			<h3>
+				Teach Kids Code
+			</h3>
 			<div class="row-fluid">
-				<div class="span3">
-					<div id="menu">
-						<ul class="nav nav-list">
-							<li class="nav-header">
-								Menu
-							</li>
-							<li class="active">
-								<a href="#">Overview</a>
-							</li>
-							<li>
-								<a href="/set-exercise/">Set exercise</a>
-							</li>
-							<li>
-								<a href="/view-spec/">View specifications</a>
-							</li>
-							 <li>
-				             	<a href="/logout/">Log out</a>
-				             </li>
-							</ul>
-						</div>
-					</div>
+				<div class="span2">
+					<ul class="nav nav-list">
+						<li class="nav-header">
+							Menu
+						</li>
+						<li class="active">
+							<a href="#">Overview</a>
+						</li>
+						<li>
+							<a href="/set-exercise/">Set exercise</a>
+						</li>
+						<li>
+							<a href="/view-spec/">View specifications</a>
+						</li>
+						 <li>
+			             	<a href="/logout/">Log out</a>
+			             </li>
+					</ul>
 				</div>
 				<div class="span6">
-					<div id="page-content">
 						<h2>
 							Overview
 						</h2>
@@ -83,11 +81,11 @@
 															<tbody>
 																{% for student in cls.get_students_data %}
 																<tr>
-																	<th>{{ student.get_index }}</th>
-																	<th>{{ student.get_chapter }}</th>
-																	<th>{{ student.get_problem_name }}</th>
-																	<th>{{ student.get_student_name }}</th>
-																	<th>{{ student.get_grade }}</th>
+																	<td>{{ student.get_index }}</td>
+																	<td>{{ student.get_chapter }}</td>
+																	<td>{{ student.get_problem_name }}</td>
+																	<td>{{ student.get_student_name }}</td>
+																	<td>{{ student.get_grade }}</td>
 																</tr>
 																{% endfor %}
 															</tbody>
@@ -102,7 +100,6 @@
 								</ul>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -110,9 +107,9 @@
 	<script>
 	{% for year in teaching_hierarchy.get_teaching_years %}
 	{% for cls in year.get_teaching_classes %}
-	$("#year-{{ year.get_name }}-class-{{ cls.get_name }}").click(function () {
-		$("#year-{{ year.get_name }}-class-{{ cls.get_name }}-table").toggle();
-	});
+		$("#year-{{ year.get_name }}-class-{{ cls.get_name }}").click(function () {
+			$("#year-{{ year.get_name }}-class-{{ cls.get_name }}-table").toggle();
+		});
 	{% endfor %}
 	{% endfor %}
 	</script>

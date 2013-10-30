@@ -70,13 +70,13 @@
               <div id="createstudentaccount" class="tab-pane fade">
                 <form class="form-horizontal" action='/register-student/' method="POST"> 
                   {% csrf_token %}
-                  {{ login_form.non_field_errors }}
+                  {{ register_form.non_field_errors }}
                   <fieldset>
                     <div class="control-group">
-                      {{ register_form.username.errors }}
+                      {{ register_form.reg_username.errors }}
                       <label class="control-label" for="username">Username</label>
                       <div class="controls">
-                        {{ register_form.username }}
+                        {{ register_form.reg_username }}
                       </div>
                     </div>
                     <div class="control-group">
@@ -125,10 +125,10 @@
                       </div>
                     {% endif %}
                     <div class="control-group">
-                      {{register_form.password.errors}}
+                      {{register_form.reg_password.errors}}
                       <label class="control-label" for="password">Password</label>
                       <div class="controls">
-                        {{register_form.password}}
+                        {{register_form.reg_password}}
                         <div id="divCheckPasswordValid"></div>
                       </div>
                     </div>
@@ -143,7 +143,9 @@
                     <div class="control-group">
                       <!-- Button -->
                       <div class="controls">
-                        <button class="btn btn-success" id="submit" value="Submit" >Submit</button>
+                        <table><tr><td>
+                        <button class="btn btn-success" id="submit" value="Submit" >Submit</button></td>
+                        <td><div id="divCheckFilledIn" style="padding-left:5px"></div></td></tr></table>
                       </div>
                     </fieldset>
                   </form>
@@ -157,57 +159,95 @@
   </div>
 </div>
 <script>
-  $("#id_email").keyup(checkEmailValid);
+
+  var first = $('#id_first_name');
+  var last = $('#id_last_name');
+  var user = $('#id_reg_username');
+  var email = $("#id_email");
+  var school = $('#id_school');
+  var year = $('#id_year');
+  var group = $('#id_Class');
+  var pwId = $("#id_reg_password");
+  var pwConf = $("#id_repeat_password");
+
+  var filledInBoolean = false, emailBoolean = false, pwBoolean = false, confBoolean = false; 
+
+  var all = [first, last, user, email, school, pwId, pwConf];
+  {% if type|stringformat:"s" == "student"%}
+    all.push(year);
+    all.push(school);
+  {% endif %}
+
+  var submit = $('#submit');
+
+  //For filled in forms check
+  for (var i = 0; i < all.length; i++) {
+    all[i].keyup(checkFilledForms);
+  }
+  email.keyup(checkEmailValid);
+  pwId.keyup(checkPasswordValid);
+  pwConf.keyup(checkPasswordValid);
+
+  function checkFilledForms() {
+    var forms = $('#divCheckFilledIn');
+    for (var i = 0; i < all.length; i++) {
+      if (all[i].val() == "") {
+        forms.text("All fields must be filled in to complete registration.");
+        filledInBoolean = false;
+        setSubmitButton();
+        return;
+      }
+    }
+    forms.text("");
+    filledInBoolean = true;
+    setSubmitButton();
+  }
 
   function checkEmailValid() {
-    var email = $("#id_email").val();
+    var emailVal = email.val();
     var text = $("#emailText");
-    if (!validateEmail(email)) {
+    if (!validateEmail(emailVal)) {
       text.text("Please enter a valid e-mail address.");
-      $('#submit').attr('disabled', true);
+      emailBoolean = false;
+      setSubmitButton();
     } else {
       text.text("");
-      $('#submit').attr('disabled', false);
+      emailBoolean = true;
+      setSubmitButton();
     }
   }
-
-  var pwId = $("#id_password");
-  console.log(pwId);
-  var pwConf = $("#id_repeat_password");
- // pwId.keyup(checkPasswordValid);
- // pwConf.keyup(checkPasswordMatch);
-
+  
   function checkPasswordValid() {
-    console.log("in");
-    var pw = pwId.val();
-    var conf = pwConf.val();
-    var checkValidText = $("#divCheckPasswordValid");
-   
-    if (pw.length < 8) {
-      checkValidText.text("The password must be at least 8 characters long.");
-      $('#submit').attr('disabled', true);
-    } else if (conf != "" && pw != conf) {
-      checkValidText.text("");
-    } else {
-      $('#submit').attr('disabled', false);
-      checkValidText.text("");
-    }
-  }
-
-  function checkPasswordMatch() {
-    console.log("in 2");
     var pw = pwId.val();
     var conf = pwConf.val();
     var checkValidText = $("#divCheckPasswordValid");
     var checkMatchText = $("#divCheckPasswordMatch");
 
-    if (pw != conf) {
-      checkMatchText.text("Passwords don't match :(");
-      $('#submit').attr('disabled', true);
-    } else {
-      checkMatchText.text("");
-      $('#submit').attr('disabled', false);
+    if (pw.length < 8 && conf.length == 0) {
+      checkValidText.text("The password must be at least 8 characters long.");
+      pwBoolean = false;
+      setSubmitButton();
     }
+    else if (pw.length < 8 && conf.length < 8) {
+      checkValidText.text("The password must be at least 8 characters long.");
+      checkMatchText.text("Passwords don't match :(");
+      pwBoolean = false;
+      setSubmitButton();
+    } else if (pw.length < 8 && conf.length >= 8) {
+      checkValidText.text("The password must be at least 8 characters long.");
+      pwBoolean = false;
+      setSubmitButton();
+    } else if (pw != conf) {
+      checkValidText.text("");
+      checkMatchText.text("Passwords don't match :(");
+      pwBoolean = false;
+      setSubmitButton();
+    } else if (pw == conf && pw.length >= 8) {
+      checkValidText.text("");
+      checkMatchText.text("");
+      pwBoolean = true;
+      setSubmitButton();
+    } 
   }
 
   function validateEmail($email) 
@@ -218,6 +258,13 @@
     } else {
       return true;
     }
+  }
+
+  function setSubmitButton() {
+    submit.attr('disabled', !(
+      filledInBoolean
+      && emailBoolean
+      && pwBoolean));
   }
 </script>
 </body>
