@@ -13,6 +13,7 @@ from Views.single_exercise_code_view import single_exercise_view
 from Views.student_grades import student_grades_view
 from Views.home import home_page
 from Views.logout import logout_user
+from Views.view_spec import view_spec
 
 admin.autodiscover()
 
@@ -33,5 +34,6 @@ urlpatterns = patterns('',
     url(r'^code-single-exercise/(\d+)/$', single_exercise_view),
     url(r'^student-grades/$', student_grades_view),
     url(r'^logout/$', logout_user),
+    url(r'^view-spec/$', view_spec),
     url(r'^$', home_page)
 )
