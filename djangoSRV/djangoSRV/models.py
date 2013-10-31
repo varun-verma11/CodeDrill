@@ -48,7 +48,7 @@ class AssignedExercises(models.Model):
     c_id = models.ForeignKey('Course', to_field='c_id')
 
     def __unicode__(self):
-        return self.c_id.__unicode__() + ': ' + self.ex_id.__unicode__()
+        return self.c_id.__unicode__() + ' --- ' + self.ex_id.__unicode__()
 
 
 class Course(models.Model):

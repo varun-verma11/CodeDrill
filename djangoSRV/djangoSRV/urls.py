@@ -4,7 +4,7 @@ from Views.grades_view import get_grades_view
 from teacher import *
 from Views.teacher_view import get_teacher_view
 from Views.set_exercise import get_set_exercise_page
-from Views.authenticate import authenticate_student, authenticate_teacher
+from Views.authenticate import authenticate_student, authenticate_teacher, check_user_name_exists
 from Views.login import student_login, teacher_login
 from Views.register import register_student, register_teacher
 from Views.student_view import get_student_view
@@ -13,6 +13,7 @@ from Views.single_exercise_code_view import single_exercise_view
 from Views.student_grades import student_grades_view
 from Views.home import home_page
 from Views.logout import logout_user
+from Views.view_spec import view_spec
 
 admin.autodiscover()
 
@@ -33,5 +34,7 @@ urlpatterns = patterns('',
     url(r'^code-single-exercise/(\d+)/$', single_exercise_view),
     url(r'^student-grades/$', student_grades_view),
     url(r'^logout/$', logout_user),
+    url(r'^view-spec/$', view_spec),
+    url(r'^check-username/$', check_user_name_exists),
     url(r'^$', home_page)
 )
