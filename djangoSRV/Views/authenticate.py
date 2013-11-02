@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from Forms import LoginForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
+#from djangoSRV.login import student_auth
 
 def authenticate_student(request):
 	form = LoginForm(request.POST)
@@ -10,9 +11,10 @@ def authenticate_student(request):
 		password = form.cleaned_data["password"]
 		user = authenticate(username=username, password=password)
 		if (user is not None):
-			if (user.is_active and user.groups.filter(name="Student").exists()):
-				login(request, user)
-				return HttpResponseRedirect("/student-view/")
+			#user.backend="djangoSRV.login.student_auth.Student"
+#			if (user.is_active and user.groups.filter(name="Student").exists()):
+			login(request, user)
+			return HttpResponseRedirect("/student-view/")
 	request.session["error"] = 'Wrong username/password!!'
 	return HttpResponseRedirect("/student-login/")
 

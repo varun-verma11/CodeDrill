@@ -1,12 +1,22 @@
 from django.conf import settings
-from djangoSRV.models import Student
+from model.models import Student
+from django.core.exceptions import ObjectDoesNotExist
 
 class StudentBackend(object):
     
     def authenticate(self, username=None, password=None):
+        user = None
         try:
             user = Student.objects.get(uname=username, pw=password)
-            return user
         except ObjectDoesNotExist:
-            return None
-    
+            pass
+        return user
+
+    def get_user(self, user_id):
+        try:
+            return Student.objects.get(stu_id=user_id)
+        except ObjectDoesNotExist:
+            return None 
+
+    def is_authenticated():
+        return True

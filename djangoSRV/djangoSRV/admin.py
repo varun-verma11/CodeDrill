@@ -3,7 +3,7 @@
 # a graphical context
 
 from django.contrib import admin
-from djangoSRV.models import *
+from model.models import *
 
 admin.site.register(Exercise)
 admin.site.register(ModelSolution)

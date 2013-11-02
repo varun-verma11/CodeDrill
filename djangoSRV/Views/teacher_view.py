@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 from auth import auth_utils
-from djangoSRV.models import Teacher, Course 
+from model.models import Teacher, Course 
 
 def get_teacher_view(request):
     # if not auth_utils.is_authenticated_session(request.session):

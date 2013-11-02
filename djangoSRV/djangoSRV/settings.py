@@ -10,6 +10,10 @@ ADMINS = (
     ("Mihai Jiplea", 'mihai@jiplea.com')
 )
 
+AUTHENTICATION_BACKENDS = {
+    'djangoSRV.login.student_auth.StudentBackend'
+    }
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -118,6 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
      'django.contrib.admin',
+     'model'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
      #'exercises'

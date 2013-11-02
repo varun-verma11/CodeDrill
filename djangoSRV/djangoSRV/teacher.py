@@ -1,4 +1,4 @@
-from djangoSRV.models import *
+from model.models import *
 from django.http import HttpResponse
 
 def listAllTeachers(request):
