@@ -43,9 +43,11 @@
                   {% csrf_token %}
                   {{ login_form.non_field_errors }}
                   <fieldset>
-                    <div class="control-group" id="login_err">
-                      <label class="control-label" for="username">Text for login error.</label>
-                    </div>
+                    {% if error_text %}
+                      <div class="control-group" id="login_err">
+                        <label class="control-label" for="username">{{error_text}}</label>
+                      </div>
+                    {% endif%}
                     <div class="control-group">
                       <!-- Username -->
                       {{ login_form.username.errors }}

@@ -13,6 +13,7 @@ def authenticate_student(request):
 			if (user.is_active and user.groups.filter(name="Student").exists()):
 				login(request, user)
 				return HttpResponseRedirect("/student-view/")
+	request.session["error"] = 'Wrong username/password!!'
 	return HttpResponseRedirect("/student-login/")
 
 def authenticate_teacher(request):
@@ -25,6 +26,7 @@ def authenticate_teacher(request):
 			if (user.is_active and user.groups.filter(name="Teacher").exists()):
 				login(request, user)
 				return HttpResponseRedirect("/teacher-view/")
+	request.session["error"] = 'Wrong username/password!! '
 	return HttpResponseRedirect("/teacher-login/")
 
 

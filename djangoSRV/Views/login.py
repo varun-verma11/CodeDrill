@@ -10,8 +10,13 @@ def student_login(request):
 	context = Context({ 'login_form':login_form,
 						'register_form' : reg_form,
 						'type' : 'student',
-						'title' : 'Student Login'
+						'title' : 'Student Login',
 					});
+	try:
+		error_text = request.session["error"]
+		context.update({"error_text": error_text})
+	except KeyError:
+		None
 	context.update(csrf(request))
 	template = get_template("login.html");
 	return HttpResponse(template.render(context))
