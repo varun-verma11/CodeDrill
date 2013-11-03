@@ -99,6 +99,11 @@ class Teacher(models.Model):
     def is_staff(self):
         return False
 
+class LatestStudentScore(models.Model):
+    stu_id = models.ForeignKey('Student', to_field='stu_id')
+    ex_id  = models.ForeignKey('Exercise', to_field='ex_id')
+    score = models.TextField('Score', default='N/A')
+
 class Student(models.Model):
     stu_id = models.AutoField(primary_key=True)
     uname = models.CharField('Student ID', max_length=15, unique=True)

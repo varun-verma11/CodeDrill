@@ -15,7 +15,7 @@ def authenticate_student(request):
                         user.backend = "djangoSRV.login.student_auth.StudentBackend"
 			login(request, user)
 			return HttpResponseRedirect("/student-view/")
-	request.session["error"] = 'Wrong username/password!!'
+	request.session["error"] = 'Wrong username/password'
 	return HttpResponseRedirect("/student-login/")
 
 def authenticate_teacher(request):
@@ -28,7 +28,7 @@ def authenticate_teacher(request):
                         user.backend = "djangoSRV.login.teacher_auth.TeacherBackend"
                 	login(request, user)
 			return HttpResponseRedirect("/teacher-view/")
-	request.session["error"] = 'Wrong username/password!! '
+	request.session["error"] = 'Wrong username/password '
 	return HttpResponseRedirect("/teacher-login/")
 
 
