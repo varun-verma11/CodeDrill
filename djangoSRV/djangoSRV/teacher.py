@@ -1,5 +1,4 @@
 from model.models import *
-from django.http import HttpResponse
 
 def listAllTeachers(request):
     teachers = Teacher.objects.all()

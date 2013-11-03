@@ -10,9 +10,12 @@ ADMINS = (
     ("Mihai Jiplea", 'mihai@jiplea.com')
 )
 
-AUTHENTICATION_BACKENDS = {
-    'djangoSRV.login.student_auth.StudentBackend'
-    }
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'djangoSRV.login.student_auth.StudentBackend',
+    'djangoSRV.login.teacher_auth.TeacherBackend'
+    
+    )
 
 MANAGERS = ADMINS
 
@@ -120,12 +123,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'model',
     # Uncomment the next line to enable the admin:
-     'django.contrib.admin',
-     'model'
+     'django.contrib.admin'
+     
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-     #'exercises'
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

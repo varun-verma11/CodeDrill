@@ -15,7 +15,7 @@ def get_teacher_view(request):
     # a key named 'user_id' representing a teacher
     if (request.user.is_authenticated()):
         user = request.user
-        teaching_hierarchy = __get_teaching_hierarchy(user.username)
+        teaching_hierarchy = __get_teaching_hierarchy(user.tch_id)
         template = get_template("teacher_view.html")
         context = Context( {'name': user.first_name + " " + user.last_name , 
                             'teaching_hierarchy' : teaching_hierarchy})

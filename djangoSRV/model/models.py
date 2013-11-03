@@ -79,11 +79,17 @@ class Course(models.Model):
 class Teacher(models.Model):
     tch_id = models.AutoField(primary_key=True)
     uname = models.CharField('Teacher ID', max_length=15, unique=True)
-    name = models.CharField('Name', max_length=50)
+    #name = models.CharField('Name', max_length=50)
+    first_name = models.CharField('First Name', max_length=50)
+    last_name = models.CharField('Last Name', max_length=50)
+    email = models.CharField('Email', max_length=50)
     pw = models.CharField('Password', max_length=50)
-
+    last_login = models.DateTimeField(auto_now=True)
     def __unicode__(self):
         return self.name
+
+    def is_authenticated(user_id):
+        return True
 
 
 class Student(models.Model):

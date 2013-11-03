@@ -1,18 +1,18 @@
-from model.models import Student
+from model.models import Teacher
 from django.core.exceptions import ObjectDoesNotExist
 
-class StudentBackend(object):
+class TeacherBackend(object):
     
     def authenticate(self, username=None, password=None):
         user = None
         try:
-            user = Student.objects.get(uname=username, pw=password)
+            user = Teacher.objects.get(uname=username, pw=password)
         except ObjectDoesNotExist:
             pass
         return user
 
     def get_user(self, user_id):
         try:
-            return Student.objects.get(stu_id=user_id)
+            return Teacher.objects.get(tch_id=user_id)
         except ObjectDoesNotExist:
             return None 
