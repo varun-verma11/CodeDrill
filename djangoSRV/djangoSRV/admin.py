@@ -5,8 +5,7 @@
 from django.contrib import admin
 from model.models import *
 
-class AuthorAdmin(admin.ModelAdmin):
-    pass
+
 
 admin.site.register(Exercise, AuthorAdmin)
 admin.site.register(ModelSolution, AuthorAdmin)

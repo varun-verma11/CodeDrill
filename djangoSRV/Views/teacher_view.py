@@ -2,18 +2,14 @@ from django.template.loader import get_template
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
-from auth import auth_utils
-from model.models import Teacher, Course 
+#from auth import auth_utils
+#from model.models import Teacher, Course 
 
 def get_teacher_view(request):
-    # if not auth_utils.is_authenticated_session(request.session):
-    #     return redirect_to_login(request)
-    # if not has_permission(request.session):
-    #     return HttpResponseForbidden
 
     # at this point it should be a guaranteed that the session has
     # a key named 'user_id' representing a teacher
-    if (request.user.is_authenticated()):
+    if (request.user.is_authenticated() and request.user.is_type("Teacher")):
         user = request.user
         teaching_hierarchy = __get_teaching_hierarchy(user.tch_id)
         template = get_template("teacher_view.html")

@@ -5,7 +5,6 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
     ("Varun Verma", 'vv311@ic.ac.uk'),
     ("Mihai Jiplea", 'mihai@jiplea.com')
 )
@@ -13,7 +12,7 @@ ADMINS = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'djangoSRV.login.student_auth.StudentBackend',
-    'djangoSRV.login.teacher_auth.TeacherBackend'
+    'djangoSRV.login.teacher_auth.TeacherBackend',
     
     )
 

@@ -90,7 +90,14 @@ class Teacher(models.Model):
 
     def is_authenticated(user_id):
         return True
-
+    
+    def is_type(self, asserted_type):
+        #print "Checkpoint 4"
+        return asserted_type == "Teacher"
+    def is_active(self):
+        return False
+    def is_staff(self):
+        return False
 
 class Student(models.Model):
     stu_id = models.AutoField(primary_key=True)
@@ -105,3 +112,16 @@ class Student(models.Model):
         return self.name
     def is_authenticated(user_id):
         return True
+    
+    def is_type(self, asserted_type):
+        #print "Checkpoint 5"
+        return asserted_type == "Student"
+    
+    '''def is_active(self):
+        return False
+
+    def is_staff(self):
+        return False
+    def has_module_perms(self, nomatter):
+        return False'''
+        

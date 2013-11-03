@@ -13,6 +13,7 @@ class StudentBackend(object):
 
     def get_user(self, user_id):
         try:
+            #print "Here am I!"
             return Student.objects.get(stu_id=user_id)
         except ObjectDoesNotExist:
             return None 

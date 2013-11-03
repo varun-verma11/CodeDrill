@@ -9,9 +9,11 @@ def authenticate_student(request):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
 		user = authenticate(username=username, password=password)
+                print "Checkpoint 1"
 		if (user is not None):
+                        print "Not none"
                         user.backend = "djangoSRV.login.student_auth.StudentBackend"
-			#login(request, user)
+			login(request, user)
 			return HttpResponseRedirect("/student-view/")
 	request.session["error"] = 'Wrong username/password!!'
 	return HttpResponseRedirect("/student-login/")
@@ -24,7 +26,7 @@ def authenticate_teacher(request):
 		user = authenticate(username=username, password=password)
 		if (user is not None):
                         user.backend = "djangoSRV.login.teacher_auth.TeacherBackend"
-                	#login(request, user)
+                	login(request, user)
 			return HttpResponseRedirect("/teacher-view/")
 	request.session["error"] = 'Wrong username/password!! '
 	return HttpResponseRedirect("/teacher-login/")

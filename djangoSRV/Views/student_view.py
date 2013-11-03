@@ -7,7 +7,9 @@ from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from model.models import AssignedExercises, Student, Course, Exercise
 
 def get_student_view(request):
-    if (request.user.is_authenticated()):
+    #print "Checkpoint 2"
+    if (request.user.is_type("Student")):
+        #print "Checkpoint 3"
         assignments = __get_assignments_book()
         context = Context( {'name': request.user.first_name + " " + request.user.last_name,
                             'assignments' : assignments
