@@ -9,9 +9,9 @@ def authenticate_student(request):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
 		user = authenticate(username=username, password=password)
-                print "Checkpoint 1"
+                #print "Checkpoint 1"
 		if (user is not None):
-                        print "Not none"
+                        #print "Not none"
                         user.backend = "djangoSRV.login.student_auth.StudentBackend"
 			login(request, user)
 			return HttpResponseRedirect("/student-view/")
