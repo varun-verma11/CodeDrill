@@ -86,7 +86,7 @@ class Teacher(models.Model):
     pw = models.CharField('Password', max_length=50)
     last_login = models.DateTimeField(auto_now=True)
     def __unicode__(self):
-        return self.name
+        return self.uname
 
     def is_authenticated(user_id):
         return True
@@ -114,7 +114,7 @@ class Student(models.Model):
     pw = models.CharField('Password', max_length=50)
     last_login = models.DateTimeField(auto_now=True)
     def __unicode__(self):
-        return self.name
+        return self.uname
     def is_authenticated(user_id):
         return True
     
