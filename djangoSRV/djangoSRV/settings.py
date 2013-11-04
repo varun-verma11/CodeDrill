@@ -123,6 +123,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'model',
+    'u_model'
     # Uncomment the next line to enable the admin:
      'django.contrib.admin'
      
