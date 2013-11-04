@@ -1,7 +1,7 @@
-from model.models import Student
+from model.models import Student, LatestStudentScore
 
 def submit_exercise(request):
-    parameters = REQUEST.GET
+    parameters = request.GET
     stu_id = parameters["stu_id"]
     ex_id  = parameters["ex_id"]
     score  = parameters["score"]
@@ -9,4 +9,8 @@ def submit_exercise(request):
     row.save()
 
 def get_score(request):
-    pass
+    parameters = request.GET
+    ex_id = parameters["ex_id"]
+    stu_id = parameters["stu_id"]
+	arr = LatestStudentScore.objects.filter(ex_id=ex_id, stu_id=stu_id)
+	return arr[0]
