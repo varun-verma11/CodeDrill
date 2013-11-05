@@ -37,7 +37,7 @@ def __get_assignments_book():
 
 
 def getStudentAssignments(request):
-    uid = request.user.id
+    uid = 4
     #name = "Student5"
     one_st_array = Student.objects.filter(stu_id=uid)
     stu_id = one_st_array[0].stu_id
@@ -56,7 +56,7 @@ def getStudentAssignments(request):
     categories = Exercise.objects.values_list('category').distinct()
     for category in categories:
         assignments = []
-        for exercise in Exercise.objects.filter(category=category):
+        for exercise in Exercise.objects.filter(category=category[0].encode("ascii")):
             assignment = Assignment(exercise.title, exercise.ex_id, exercise.content)
             assignments.append(assignment)   	
         chapter = Chapter(category, assignments)
