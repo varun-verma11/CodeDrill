@@ -1,3 +1,19 @@
 .nav > li > .highlight {
 	background-color: #ffb07a;
 }
+
+.glyphicon {
+  display: block;
+  margin: 5px auto;
+  vertical-align: middle;
+  margin-right: 3px;
+  font-size: 14px;
+}
+
+.wrong {
+  color: #f00;
+}
+
+.ok {
+  color: #009933;
+}

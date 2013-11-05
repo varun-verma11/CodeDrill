@@ -10,6 +10,7 @@
   <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
   <link href="{% static "css/bootstrap-responsive.min.css"%}" rel="stylesheet">
   <link href="{% static "css/style.css"%}" rel="stylesheet">
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
 
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
@@ -84,6 +85,12 @@
                       <div class="controls">
                         {{ register_form.reg_username }}
                       </div>
+                      <label id="user_ok">
+                        <i class="glyphicon glyphicon-ok ok" class="ok"></i> Username is available!
+                      </label>
+                      <label id="user_taken">
+                        <i class="glyphicon glyphicon-remove wrong" class="wrong"></i> Username is taken.
+                      </label>                    
                     </div>
                     <div class="control-group">
                       {{ register_form.first_name.errors}}
@@ -190,6 +197,11 @@
   for (var i = 0; i < all.length; i++) {
     all[i].keyup(checkFilledForms);
   }
+
+  $('#user_ok').hide();
+  $('#user_taken').hide();
+
+  user.keyup(checkUserNotTaken);
   email.keyup(checkEmailValid);
   pwId.keyup(checkPasswordValid);
   pwConf.keyup(checkPasswordValid);
@@ -207,6 +219,19 @@
     forms.text("");
     filledInBoolean = true;
     setSubmitButton();
+  }
+
+  function checkUserNotTaken() {
+    if (user.val().length > 2) {
+      $('#user_taken').hide();
+      $('#user_ok').fadeIn();
+    } else if (user.val().length == 0) {
+      $('#user_ok').hide();
+      $('#user_taken').hide();
+    } else {
+      $('#user_ok').hide();
+      $('#user_taken').fadeIn();
+    }
   }
 
   function checkEmailValid() {
