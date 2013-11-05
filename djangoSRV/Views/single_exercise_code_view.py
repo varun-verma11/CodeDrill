@@ -4,40 +4,25 @@ from Forms import SubmitCodeForm
 from django.template import Context
 from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
+from djangoSRV.student import get_exercise, getStudentAssignments
 
 def single_exercise_view(request, ex_id):
     if (request.user.is_authenticated()):
 		template = get_template("single_exercise.html")
 		assignments = __get_assignments_book()
-		code_form = SubmitCodeForm(initial={'code':"if (1==1): \n\t print 2 \n"},auto_id="id_%s_"+ex_id)
+		exercise = get_exercise(ex_id)
+		code_form = SubmitCodeForm(initial={'code':exercise[3]},auto_id="id_%s_"+ex_id)
 		name = request.user.first_name + " " + request.user.last_name
-		context = Context( {'assignments' : assignments,
-							'description' : __get_ex_description(ex_id),
-							'title' : name + " | " + __get_ex_title(ex_id),
+		ass_b = getStudentAssignments(request.user.stu_id)
+		print ass_b
+		context = Context( {'assignments' : ass_b,
+							'description' : exercise[4],
+							'title' : name + " | " + exercise[1],
 							'ex_id' : ex_id,
 							'code_form' : code_form
 						})
 		context.update(csrf(request))
 		return HttpResponse(template.render(context))
-
-
-def __get_ex_title(ex_id):
-	return "Substraction"
-
-def __get_ex_description(ex_id):
-	return """
- 			Python is a widely used general-purpose, high-level programming 
- 			language.[11][12][13] Its design philosophy emphasizes code 
- 			readability, and its syntax allows programmers to express 
- 			concepts in fewer lines of code than would be possible in 
- 			languages such as C.[14][15] The language provides constructs 
- 			intended to enable clear programs on both a small and large 
- 			scale.[16] Python supports multiple programming paradigms,
- 			including object-oriented, imperative and functional 
- 			programming or procedural styles. It features a dynamic 
- 			type system and automatic memory management and has a large 
- 			and comprehensive standard library
-			"""
 
 def __get_assignments_book():
 

@@ -63,3 +63,4 @@ def getStudentAssignments(request):
         chapter = Chapter(ascii_cat, assignments)
         chapters.append(chapter)
     return AssignmentsBook(chapters)
+

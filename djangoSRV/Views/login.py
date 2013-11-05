@@ -14,6 +14,7 @@ def student_login(request):
 					});
 	try:
 		error_text = request.session["error"]
+		request.session["error"] = None
 		context.update({"error_text": error_text})
 	except KeyError:
 		None
@@ -31,5 +32,10 @@ def teacher_login(request):
 
 					});
 	context.update(csrf(request))
+	try:
+		error_text = request.session["error"]
+		context.update({"error_text": error_text})
+	except KeyError:
+		None
 	template = get_template("login.html")
 	return HttpResponse(template.render(context))

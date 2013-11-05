@@ -1,4 +1,6 @@
-from model.models import Student, LatestStudentScore
+from model.models import Student, LatestStudentScore, Exercise, AssignedExercises, Student, Course, Exercise
+from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
+
 
 def submit_exercise(ex_id, stu_id, score):
     row = LatestStudentScore(stu_id = stu_id, ex_id = ex_id, score = score)
@@ -11,3 +13,28 @@ def get_score(ex_id, stu_id):
 def get_exercise(ex_id):
 	arr = Exercise.objects.filter(ex_id=ex_id).values_list()
 	return arr[0]
+
+def getStudentAssignments(uid):
+    one_st_array = Student.objects.filter(stu_id=uid)
+    stu_id = one_st_array[0].stu_id
+    course_ids = []
+    ex_ids = []
+    for course in Course.objects.all():
+        student_entries = course.students.filter(stu_id=stu_id)
+        if(student_entries.count() > 0):
+            course_ids.append(course.c_id)
+
+    for exco in AssignedExercises.objects.all():
+        if exco.c_id in course_ids:
+            ex_ids.append(exco.ex_id)
+
+    chapters = []
+    categories = Exercise.objects.values_list('category').distinct()
+    for category in categories:
+        assignments = []
+        for exercise in Exercise.objects.filter(category=category[0].encode("ascii")):
+            assignment = Assignment(exercise.title, exercise.ex_id, exercise.content)
+            assignments.append(assignment)   	
+        chapter = Chapter(category, assignments)
+        chapters.append(chapter)
+    return AssignmentsBook(chapters)
