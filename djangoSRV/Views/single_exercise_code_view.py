@@ -14,7 +14,6 @@ def single_exercise_view(request, ex_id):
 		code_form = SubmitCodeForm(initial={'code':exercise[3]},auto_id="id_%s_"+ex_id)
 		name = request.user.first_name + " " + request.user.last_name
 		ass_b = getStudentAssignments(request.user.stu_id)
-		print ass_b
 		context = Context( {'assignments' : ass_b,
 							'description' : exercise[4],
 							'title' : name + " | " + exercise[1],

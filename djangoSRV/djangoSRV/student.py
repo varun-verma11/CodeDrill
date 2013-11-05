@@ -32,9 +32,11 @@ def getStudentAssignments(uid):
     categories = Exercise.objects.values_list('category').distinct()
     for category in categories:
         assignments = []
-        for exercise in Exercise.objects.filter(category=category[0].encode("ascii")):
+        ascii_cat = category[0].encode("ascii")
+        for exercise in Exercise.objects.filter(category=ascii_cat):
             assignment = Assignment(exercise.title, exercise.ex_id, exercise.content)
             assignments.append(assignment)   	
-        chapter = Chapter(category, assignments)
+        chapter = Chapter(ascii_cat, assignments)
         chapters.append(chapter)
     return AssignmentsBook(chapters)
+
