@@ -13,8 +13,14 @@ def get_teacher_view(request):
         user = request.user
         teaching_hierarchy = __get_teaching_hierarchy(user.tch_id)
         template = get_template("teacher_view.html")
-        header = get_template("header.html").render(Context( {'type': 'Teacher', 'name': user.first_name + " " + user.last_name, 'title': "Teaching Overview"  } ))
-        context = Context( {'header' : header, 
+        header = get_template("header.html").render(
+                    Context( {
+                        'type': 'Teacher', 
+                        'name': user.first_name + " " + user.last_name, 
+                        'title': "Teaching Overview"  , 
+                        'loggedIn':True} ))
+        context = Context( {'header' : header,
+                            'menu' : get_template("teacher_menu.html").render(Context()),
                             'teaching_hierarchy' : teaching_hierarchy})
         return HttpResponse(template.render(context))
     return HttpResponseRedirect("/")

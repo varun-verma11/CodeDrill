@@ -8,9 +8,15 @@ from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 def view_spec(request):
 	if (request.user.is_authenticated()):
 		template = get_template("view_spec.html")
-		header = get_template("header.html").render(Context( {'type': 'Teacher', 'name': request.user.first_name + " " + request.user.last_name, 'title': "View Specification"  } ))
+		header = get_template("header.html").render(
+					Context( {
+						'type': 'Teacher', 
+						'name': request.user.first_name + " " + request.user.last_name, 
+						'title': "View Specification", 
+						'loggedIn':True  } ))
 		context = Context(
 				{ 'header' : header,
+				  'menu' : get_template("teacher_menu.html").render(Context()),
 				  'assignment_book': __get_assignments_book()
 				})
 		return HttpResponse(template.render(context))
