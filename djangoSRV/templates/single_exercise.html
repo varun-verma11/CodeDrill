@@ -12,6 +12,13 @@
   <link href="{% static "css/style.css"%}" rel="stylesheet">
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
 
+  <link rel=stylesheet href="{% static "codemirror/doc/docs.css"%}">
+  <script src="{% static "codemirror/lib/codemirror.js"%}"></script>
+  <link rel="{% static "stylesheet" href="codemirror/lib/codemirror.css"%}">
+
+  <script src="{% static "codemirror/addon/edit/matchbrackets.js"%}"></script>
+  <script src="{% static "codemirror/mode/python/python.js"%}"></script>
+
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
@@ -107,9 +114,26 @@
     </div>
   </div>
   <script>
-
   $('#wrong_{{ ex_id }}').hide();
   $('#ok_{{ ex_id }}').hide();
+  
+  var myCodeMirror = CodeMirror.fromTextArea($('{{ ex_id }}'), {
+    mode: {name: "python",
+           version: 2,
+           singleLineStringErrors: false},
+    lineNumbers: true,
+    //indentUnit: 4,
+    smartIndent: true,
+    tabSize: 2,
+    indentWithTabs: true,
+    tabMode: "shift",
+    autofocus: true,
+    matchBrackets: true
+  });
+
+  /*function save() {
+    console.log(myCodeMirror.getValue());
+  }*/
   </script>
 </body>
 </html>
