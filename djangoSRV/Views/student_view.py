@@ -13,7 +13,7 @@ def get_student_view(request):
     if (request.user.is_type("Student")):
         #print "Checkpoint 3"
         assignments = __get_assignments_book(request.user.stu_id)
-        menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments}))
+        menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page':'code'}))
         header = get_template("header.html").render(
                     Context( {
                         'type': 'Student', 

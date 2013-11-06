@@ -9,7 +9,7 @@ from djangoSRV.student import getStudentAssignments
 def student_grades_view(request):
 	if request.user.is_authenticated():
 		assignments = getStudentAssignments(request.user.stu_id)
-		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments}))
+		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page': 'grades'}))
 		header = get_template("header.html").render(
                     Context( {
                         'type': 'Student', 

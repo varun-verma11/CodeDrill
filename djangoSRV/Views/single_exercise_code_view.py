@@ -11,7 +11,7 @@ def single_exercise_view(request, ex_id):
 		exercise = get_exercise(ex_id)
 		code_form = SubmitCodeForm(initial={'code':exercise[3]},auto_id="id_%s_"+ex_id)
 		assignments = getStudentAssignments(request.user.stu_id)
-		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments}))
+		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page':'code'}))
 		header = get_template("header.html").render(
                     Context( {
                         'type': 'Student', 
