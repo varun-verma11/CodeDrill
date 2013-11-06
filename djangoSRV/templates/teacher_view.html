@@ -10,6 +10,7 @@
 	<link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
 	<link href="{% static "css/bootstrap-responsive.min.css"%}" rel="stylesheet">
 	<link href="{% static "css/style.css"%}" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
 
 	<script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
 	<script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
@@ -18,11 +19,37 @@
 </head>
 
 <body>
+	<div class="navbar navbar-inverse nav">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">CodeDrill</a>
+      <div class="nav-collapse collapse">
+        <div class="pull-right">
+          <ul class="nav pull-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{name}} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/account-settings-teacher/">
+                    <i class="glyphicon glyphicon-cog"></i> Account settings
+                  </a>
+                </li>
+                <li>
+                  <a href="/class-settings/">
+                    <i class="glyphicon glyphicon-pencil"></i> Class settings
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/logout/"><i class="icon-off"></i> Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<h3>
-				Teach Kids Code
-			</h3>
 			<div class="row-fluid">
 				<div class="span2">
 					<ul class="nav nav-list">

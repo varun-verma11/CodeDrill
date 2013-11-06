@@ -10,6 +10,7 @@
   <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
   <link href="{% static "css/bootstrap-responsive.min.css"%}" rel="stylesheet">
   <link href="{% static "css/style.css"%}" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
 
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
@@ -19,22 +20,27 @@
   </head>
 
   <body>
+    <div class="navbar navbar-inverse nav">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="/">CodeDrill</a>
+            </div>
+        </div>
+    </div>
+
   	<div class="container-fluid">
   		<div class="row-fluid">
-        <h3>
-         A Framework for Setting and Assessing Programming Exercises
-       </h3>
        <div class="span2">
-        <p> --> Learn to code </p>
-        <p> --> Teach coding </p>
+        <p> <i class="glyphicon glyphicon-ok"></i> Learn to code </p>
+        <p> <i class="glyphicon glyphicon-ok"></i> Teach coding </p>
       </div>
       <div class="span9">
-        <b><label> Please select your user type </label></b>
         <br>
+        <h3>Welcome! Please select your user type to log in: 
         <br>
         <a href="/student-login/"> Student</a>
         <br>
-        <a href="/teacher-login/">Teacher</a>
+        <a href="/teacher-login/">Teacher</a></h3>
        <!--  <form>
           <div class="control-group">
             <label class="control-label">Choose your profile type</label>

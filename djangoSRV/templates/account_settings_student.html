@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
+{% load staticfiles %} <html lang="en">
 <head>
-	<meta charset="utf-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <meta name="author" content="">
@@ -17,12 +16,12 @@
   <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
   <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
-  <title> {{title}} </title>
+
+  <title> {{ name }} | Home </title>
 
 </head>
-
 <body>
-  <div class="navbar navbar-inverse nav">
+<div class="navbar navbar-inverse nav">
   <div class="navbar-inner">
     <div class="container">
       <a class="brand" href="/">CodeDrill</a>
@@ -46,37 +45,36 @@
     </div>
   </div>
 </div>
- <div class="container-fluid">
+
+<div class="container-fluid">
   <div class="row-fluid">
-   <div class="span2">
-    <script>
-    $(document).ready(function () {
-      $('ul.menu-list').toggle();
-      $('label.tree-toggler').click(function () {
-       $(this).parent().children('ul.tree').toggle(200);
-     });
-    });
-    </script>
+    <div class="span2">
+      <script>
+        $(document).ready(function () {
+          $('ul.menu-list').toggle();
+          $('label.tree-toggler').click(function () {
+           $(this).parent().children('ul.tree').toggle(200);
+         });
+        });
+        </script>
       <ul class="nav nav-list">
-        <li class="nav-header">
-           Menu
-        </li>
+        <li class="nav-header"> Menu </li>
         <li class="active">
-          <a href="/student-view/">Code</a>
-          <ul class="nav nav-list">
-            {% for chapter in assignments.get_chapters %}
-              <li><label class="tree-toggler nav-header">{{chapter.get_name}}</label>
-                <ul class="nav nav-list tree menu-list">
-                  {% for assignment in chapter.get_assignments %}
-                    <li><a href="/code-single-exercise/{{ assignment.get_id }}">{{ assignment.get_name }}</a></li>
-                  {% endfor %}
-                </ul>
+          <a href="#">Code</a>
+          {% for chapter in assignments.get_chapters %}
+            <ul class="nav nav-list">
+              <li><label class="tree-toggler nav-header"> {{ chapter.get_name }}</label>
+              <ul class="nav nav-list tree menu-list">
+                {% for assignment in chapter.get_assignments %}
+                  <li><a href="/code-single-exercise/{{assignment.get_id}}">{{ assignment.get_name }}</a></li>
+                {% endfor %}
+              </ul>
               </li>
-            {% endfor %}
-          </ul>
+            </ul>
+          {% endfor %}
         </li>
         <li>
-         <a href="/student-grades/">Grades</a>
+          <a href="/student-grades/">Grades</a>
         </li>
         <li>
           <a href="/logout/">Log out</a>
@@ -84,32 +82,10 @@
       </ul>
     </div>
     <div class="span9">
-      <div class="panel panel-default">
-        <div class="panel-body">                
-          <form accept-charset="UTF-8" method="POST">
-            {% csrf_token %}
-            <p>{{ description }}</p>
-            {{ code_form.non_field_errors }}
-            {{ code_form.code.errors }}
-            {{ code_form.code }}
-            <br>
-            <label style="display:block">
-              <table><tr>
-                <td><button class="btn btn-info" type="Submit" onclick="submit_code({{ ex_id }}); return false;">Submit</button></td>
-                <td><div id="ok_{{ ex_id }}"><i class="glyphicon glyphicon-ok ok"></i></div></td>
-                <td><div id="wrong_{{ ex_id }}"><i class="glyphicon glyphicon-remove wrong"></i></div></td>
-              </tr></table>
-            </label>
-          </form>
-        </div>
-      </div>
-    </div>
+      
     </div>
   </div>
-  <script>
-
-  $('#wrong_{{ ex_id }}').hide();
-  $('#ok_{{ ex_id }}').hide();
-  </script>
+</div>
+</div>
 </body>
 </html>
