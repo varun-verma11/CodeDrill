@@ -7,7 +7,7 @@ from Forms import LoginForm, StudentRegisterForm, TeacherRegisterForm
 def student_login(request):
 	login_form = LoginForm()
 	reg_form = StudentRegisterForm()
-	header = get_template("header.html").render(Context( {'loggedIn':False}))
+	header = get_template("header.html").render(Context( {'loggedIn':False, 'title':"Student Login"}))
 	context = Context({ 'login_form':login_form,
 						'register_form' : reg_form,
 						'type' : 'student',
@@ -27,7 +27,7 @@ def student_login(request):
 def teacher_login(request):
 	login_form = LoginForm()
 	reg_form = TeacherRegisterForm()
-	header = get_template("header.html").render(Context( {'loggedIn':False}))
+	header = get_template("header.html").render(Context( {'loggedIn':False, 'title':"Teacher Login"}))
 	context = Context({ 'login_form':login_form,
 						'register_form' : reg_form,
 						'type' : 'teacher',
