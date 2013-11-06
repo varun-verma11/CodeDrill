@@ -116,8 +116,8 @@
   <script>
   $('#wrong_{{ ex_id }}').hide();
   $('#ok_{{ ex_id }}').hide();
-  
-  var myCodeMirror = CodeMirror.fromTextArea($('{{ ex_id }}'), {
+
+  var myCodeMirror = CodeMirror.fromTextArea($('#{{ ex_id }}'), {
     mode: {name: "python",
            version: 2,
            singleLineStringErrors: false},
