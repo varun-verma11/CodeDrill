@@ -4,4 +4,5 @@ from django.template import Context
 
 def home_page(request):
 	template = get_template("home.html")
-	return HttpResponse(template.render(Context()))
+	header = get_template("header.html").render(Context( {'loggedIn':False}))
+	return HttpResponse(template.render(Context({'header':header})))
