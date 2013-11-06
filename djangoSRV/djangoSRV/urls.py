@@ -13,12 +13,16 @@ from Views.student_grades import student_grades_view
 from Views.home import home_page
 from Views.logout import logout_user
 from Views.view_spec import view_spec
+from Views.settings import teacher_account_settings, student_account_settings, class_settings
 
 admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^teacher/$', viewSubmissionMark),
+    url(r'^account-settings-teacher/', teacher_account_settings),
+    url(r'^account-settings-student/', student_account_settings),
+    url(r'^class-settings/', class_settings),
     url(r'^teacher-view/$', get_teacher_view),
     url(r'^set-exercise/$', get_set_exercise_page),
     url(r'^authenticate_student/$', authenticate_student),

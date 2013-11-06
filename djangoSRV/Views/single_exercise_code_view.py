@@ -3,7 +3,6 @@ from django.http import HttpResponse, HttpResponseForbidden
 from Forms import SubmitCodeForm
 from django.template import Context
 from django.core.context_processors import csrf
-from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from djangoSRV.student import get_exercise, getStudentAssignments
 
 def single_exercise_view(request, ex_id):

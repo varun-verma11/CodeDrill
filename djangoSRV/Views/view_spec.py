@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import Context
 from django.core.context_processors import csrf
 from auth import auth_utils
+from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 def view_spec(request):
 	if (request.user.is_authenticated()):

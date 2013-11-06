@@ -1,5 +1,5 @@
 from django.template.loader import get_template
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 #from auth import auth_utils
