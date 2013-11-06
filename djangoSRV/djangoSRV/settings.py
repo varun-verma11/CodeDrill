@@ -21,12 +21,17 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'codedrill2',                      # Or path to database file if using sqlite3.
+        # 'NAME': 'codedrill2',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'codedrill2',
+        # 'USER': 'codedrill2',
+        # 'PASSWORD': 'Sticks%2',
+        # 'HOST': 'codedrill2.db.11959920.hostedresource.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        # 'PORT': '3306',                      # Set to empty string for default.
+        'NAME': 'codedrillTest',
+        'USER': 'codedrillTest',
         'PASSWORD': 'Sticks%2',
-        'HOST': 'codedrill2.db.11959920.hostedresource.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '3306',                      # Set to empty string for default.
+        'HOST': 'codedrillTest.db.11959920.hostedresource.com',
+        'PORT': '3306'
     }
 }
 
@@ -122,10 +127,10 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'model',
+    # 'model',
     'u_model',
     # Uncomment the next line to enable the admin:
-     'django.contrib.admin'
+    'django.contrib.admin'
      
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
