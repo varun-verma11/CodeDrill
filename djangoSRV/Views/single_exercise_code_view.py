@@ -10,11 +10,17 @@ def single_exercise_view(request, ex_id):
 		template = get_template("single_exercise.html")
 		exercise = get_exercise(ex_id)
 		code_form = SubmitCodeForm(initial={'code':exercise[3]},auto_id="id_%s_"+ex_id)
-		name = request.user.first_name + " " + request.user.last_name
-		ass_b = getStudentAssignments(request.user.stu_id)
-		context = Context( {'assignments' : ass_b,
+		assignments = getStudentAssignments(request.user.stu_id)
+		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments}))
+		header = get_template("header.html").render(
+                    Context( {
+                        'type': 'Student', 
+                        'name': request.user.first_name + " " + request.user.last_name,
+                        'title': "Single Exercise"  ,
+                        'loggedIn':True} ))
+		context = Context( {'menu' : menu,
+							'header' : header,
 							'description' : exercise[4],
-							'title' : name + " | " + exercise[1],
 							'ex_id' : ex_id,
 							'code_form' : code_form
 						})

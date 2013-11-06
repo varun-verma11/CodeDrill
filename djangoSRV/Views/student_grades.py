@@ -9,8 +9,15 @@ from djangoSRV.student import getStudentAssignments
 def student_grades_view(request):
 	if request.user.is_authenticated():
 		assignments = getStudentAssignments(request.user.stu_id)
-		context = Context( {'name': request.user.first_name + " " + request.user.last_name ,
-							'assignments' : assignments,
+		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments}))
+		header = get_template("header.html").render(
+                    Context( {
+                        'type': 'Student', 
+                        'name': request.user.first_name + " " + request.user.last_name,
+                        'title': "Grades"  ,
+                        'loggedIn':True} ))
+		context = Context( {'header' : header ,
+							'menu': menu,
 							'grades' : __get_grades
 						})
 		context.update(csrf(request))
