@@ -1,15 +1,15 @@
 class AssignmentsBook:
 	def __init__(self, chapters):
 		self.chapters = chapters
-	def __repr__(self):
-		return self.__str__(self)
+	# def __repr__(self):
+	# 	return self.__str__(self)
 	def get_chapters(self):
 		return self.chapters
-	def __str__(self):
-		rep = ""
-		for chapter in self.chapters:
-			rep += str(chapter)
-		return rep
+	# def __str__(self):
+	# 	rep = ""
+	# 	for chapter in self.chapters:
+	# 		rep += str(chapter)
+	# 	return rep
 		
 
 class Chapter:
@@ -20,13 +20,13 @@ class Chapter:
 		return self.name
 	def get_assignments(self):
 		return self.assignments
-	def __repr__(self):
-		return self.__str__(self)
-	def __str__(self):
-		rep = "Chapter: " + str(self.name) + ": \n"
-		for assingment in self.assignments:
-			rep += "\t" + str(assingment)
-		return rep
+	# def __repr__(self):
+	# 	return self.__str__(self)
+	# def __str__(self):
+	# 	rep = "Chapter: " + str(self.name) + ": \n"
+	# 	for assingment in self.assignments:
+	# 		rep += "\t" + str(assingment)
+	# 	return rep
 
 class Assignment:
 	def __init__(self, name, id, code=None):
@@ -39,7 +39,9 @@ class Assignment:
 		return self.id
 	def get_code(self):
 		return self.code
-	def __repr__(self):
-		return self.__str__(self)
-	def __str__(self):
-		return "{ Assignment: " + self.name + ": , id:" + self.id + "}"
+	# def __repr__(self):
+	# 	return self.__str__(self)
+	def set_code(self, code):
+		self.code = code
+	# def __str__(self):
+	# 	return "{ Assignment: " + self.name + ": , id:" + self.id + "}"

@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
 from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
+from djangoSRV.student import getStudentAssignments
+
 
 def student_grades_view(request):
 	if request.user.is_authenticated():
-		assignments = __get_assignments_book()
+		assignments = getStudentAssignments(request.user.stu_id)
 		context = Context( {'name': request.user.first_name + " " + request.user.last_name ,
 							'assignments' : assignments,
 							'grades' : __get_grades
@@ -21,18 +23,3 @@ def __get_grades():
 		   [2, "Conditionals", "If-then-else", "70"], 
 		   [3, "Loops", "For","93"] 
 		  ]
-
-def __get_assignments_book():
-	as1 = Assignment("If", 111)
-	as2 = Assignment("If-then-else", 112)
-	ch1 = Chapter("Conditionals", [as1, as2])
-
-	as3 = Assignment("Addition", 113)
-	as4 = Assignment("Subtraction", 114)
-	ch2 = Chapter("Assignment", [as3, as4])
-
-	as5 = Assignment("Print-10-Numbers", 115)
-	as6 = Assignment("Sum", 116)
-	ch3 = Chapter("Loops", [as5, as6])
-
-	return AssignmentsBook([ch1, ch2, ch3])

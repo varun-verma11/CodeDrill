@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from Views.grades_view import get_grades_view
 from teacher import *
 from Views.teacher_view import get_teacher_view
 from Views.set_exercise import get_set_exercise_page
@@ -19,7 +18,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^grades/$', get_grades_view),
     url(r'^teacher/$', viewSubmissionMark),
     url(r'^teacher-view/$', get_teacher_view),
     url(r'^set-exercise/$', get_set_exercise_page),
