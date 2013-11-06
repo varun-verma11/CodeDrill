@@ -38,5 +38,5 @@ class TeacherRegisterForm(forms.Form):
 		return password2
 
 class SubmitCodeForm(forms.Form):
-	code = forms.CharField(widget=forms.Textarea)
+	code = forms.CharField(widget=forms.Textarea(attrs={'size':'40'}))
 
