@@ -9,6 +9,7 @@
   <link href="{% static "css/bootstrap.min.css"%}" rel="stylesheet">
   <link href="{% static "css/bootstrap-responsive.min.css"%}" rel="stylesheet">
   <link href="{% static "css/style.css"%}" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" type="text/css" rel="stylesheet">
 
   <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
   <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
@@ -76,8 +77,8 @@
                       <br>
                       <table><tr>
                       <td><button class="btn btn-info" onclick="submit_code({{assignment.get_id}}); return false;">Submit</button></td>
-                      <td><div id="ok_{{assignment.get_id}}">Ok!</div></td>
-                      <td> <div id="wrong_{{assignment.get_id}}">X</div></td>
+                      <td><div id="ok_{{assignment.get_id}}"><i class="glyphicon glyphicon-ok ok"></i></div></td>
+                      <td> <div id="wrong_{{assignment.get_id}}"><i class="glyphicon glyphicon-remove wrong"></i></div></td>
                       </tr></table>
                     </form>
                   </div>
