@@ -8,8 +8,10 @@ from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 def view_spec(request):
 	if (request.user.is_authenticated()):
 		template = get_template("view_spec.html")
+		header = get_template("header.html").render(Context( {'type': 'Teacher', 'name': request.user.first_name + " " + request.user.last_name, 'title': "View Specification"  } ))
 		context = Context(
-				{ 'assignment_book': __get_assignments_book()
+				{ 'header' : header,
+				  'assignment_book': __get_assignments_book()
 				})
 		return HttpResponse(template.render(context))
 	return HttpResponseRedirect("/")

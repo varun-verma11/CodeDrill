@@ -9,11 +9,10 @@ def get_set_exercise_page(request):
 		template = get_template("set_exercise.html")
 		teaching_hierarchy = __get_teaching_hierarchy(request.user.tch_id)
 		assignment_book = __get_assignments_book()
-		
-		context = Context( {'name': request.user.first_name + " " + request.user.last_name, 
+		header = get_template("header.html").render(Context( {'type': 'Teacher', 'name': request.user.first_name + " " + request.user.last_name, 'title': "Set Exercise"  } ))
+		context = Context( {'header': header, 
 							'teaching_hierarchy' : teaching_hierarchy,
 							'assignment_book' : assignment_book})
-
 		return HttpResponse(template.render(context))
 	return HttpResponseRedirect("/")
 
