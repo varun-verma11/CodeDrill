@@ -54,109 +54,89 @@
     </div>
   </div>
 </div>
-<div class="container">
-  <div class="row">
-    <div class="span2">
-      <script>
-        $(document).ready(function () {
-          $('ul.menu-list').toggle();
-          $('label.tree-toggler').click(function () {
-           $(this).parent().children('ul.tree').toggle(200);
-         });
-        });
-        </script>
-      <ul class="nav nav-list">
-        <li>
-          <a href="/teacher-view/">Overview</a>
-        </li>
-        <li>
-          <a href="/set-exercise/">Set exercise</a>
-        </li>
-        <li>
-          <a href="/view-spec/">View specifications</a>
-        </li>
-        <li>
-          <a href="/logout/">Log out</a>
-        </li>
-      </ul>
-    </div>
-    <div class="span6">
-      <div class="accordion-group">
-        <div class="accordion-heading" id="changePwTitle" style="padding: 10px; background-color: #eee">
-          <h5>
-            Change password
-          </h5>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="row-fluid">
+        {{ menu }}
+        <div class="span6 well">
+          <div class="accordion-group" style="background-color:#fff">
+            <div class="accordion-heading" id="changePwTitle" style="padding-left:10px;">
+              <h5>
+                Change password
+              </h5>
+            </div>
+            <div class="accordion-inner" id="changePw">
+              <form class="form-horizontal" action='' method="POST">
+                <div class="control-group">
+                  <!-- Password-->
+                  <label class="control-label" for="password">Old password</label>
+                  <div class="controls">
+                    <input id="password" type="password" name="password" placeholder="" class="input-xlarge">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <!-- Password-->
+                  <label class="control-label" for="password">New password</label>
+                  <div class="controls">
+                    <input id="new_password" type="password" name="password" placeholder="" class="input-xlarge">
+                  </div>
+                </div>
+                <div class="control-group">
+                  <!-- Password-->
+                  <label class="control-label" for="password">Confirm new password</label>
+                  <div class="controls">
+                    <input type="password" name="password" placeholder="" class="input-xlarge">
+                  </div>
+                </div>
+                <div >
+                 <a href="#" id="pw-submit" class="btn ladda-button" data-style="expand-right" data-size="l"><span class="ladda-label">Change Password</span></a>
+               </div>
+             </form>
+           </div>
         </div>
-        <div class="accordion-inner" id="changePw">
-          <form class="form-horizontal" action='' method="POST">
-            <div class="control-group">
-              <!-- Password-->
-              <label class="control-label" for="password">Old password</label>
-              <div class="controls">
-                <input id="password" type="password" name="password" placeholder="" class="input-xlarge">
+        <div class="accordion-group" style="background-color:#fff">
+          <div class="accordion-heading" id="changeEmailTitle" style="padding-left: 10px;">
+            <h5>
+              Change e-mail
+            </h5>
+          </div>
+          <div class="accordion-inner" id="changeEmail">
+            <form class="form-horizontal" action='' method="POST">
+              <div class="control-group">
+                <!-- Password-->
+                <label class="control-label">New e-mail</label>
+                <div class="controls">
+                  <input id="email" type="text" name="email" placeholder="" class="input-xlarge">
+                </div>
               </div>
-            </div>
-            <div class="control-group">
-              <!-- Password-->
-              <label class="control-label" for="password">New password</label>
-              <div class="controls">
-                <input id="new_password" type="password" name="password" placeholder="" class="input-xlarge">
+              <div class="control-group">
+                <!-- Password-->
+                <label class="control-label">Confirm new e-mail</label>
+                <div class="controls">
+                  <input type="text" name="email" placeholder="" class="input-xlarge">
+                </div>
               </div>
-            </div>
-            <div class="control-group">
-              <!-- Password-->
-              <label class="control-label" for="password">Confirm new password</label>
-              <div class="controls">
-                <input type="password" name="password" placeholder="" class="input-xlarge">
+              <div >
+                <a href="#" id="email-submit" class="btn ladda-button" data-style="expand-right" data-size="l"><span class="ladda-label">Change e-mail</span></a>
               </div>
-            </div>
-            <div >
-             <a href="#" id="pw-submit" class="btn btn-success btn-lg ladda-button" data-style="expand-right" data-size="l"><span class="ladda-label">Change Password</span></a>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
-
-      <div class="accordion-group">
-        <div class="accordion-heading" id="changeEmailTitle" style="padding: 10px; background-color: #eee">
-          <h5>
-            Change e-mail
-          </h5>
-        </div>
-        <div class="accordion-inner" id="changeEmail">
-          <form class="form-horizontal" action='' method="POST">
-            <div class="control-group">
-              <!-- Password-->
-              <label class="control-label">New e-mail</label>
-              <div class="controls">
-                <input id="email" type="text" name="email" placeholder="" class="input-xlarge">
-              </div>
-            </div>
-            <div class="control-group">
-              <!-- Password-->
-              <label class="control-label">Confirm new e-mail</label>
-              <div class="controls">
-                <input type="text" name="email" placeholder="" class="input-xlarge">
-              </div>
-            </div>
-            <div >
-              <a href="#" id="email-submit" class="btn btn-success btn-lg ladda-button" data-style="expand-right" data-size="l"><span class="ladda-label">Change e-mail</span></a>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="accordion-group">
-        <div class="accordion-heading" id="infoTitle" style="padding: 10px; background-color: #eee">
-          <h5>
-            Personal information
-          </h5>
-        </div>
-        <div class="accordion-inner" id="info">
-          TODO
+        <div class="accordion-group" style="background-color:#fff">
+          <div class="accordion-heading" id="infoTitle" style="padding-left: 10px;">
+            <h5>
+              Personal information
+            </h5>
+          </div>
+          <div class="accordion-inner" id="info">
+            TODO
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 </div>
 <script>

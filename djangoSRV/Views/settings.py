@@ -8,7 +8,7 @@ from djangoSRV.student import get_exercise, getStudentAssignments
 
 def teacher_account_settings(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
-		return HttpResponse(get_template("account_settings_teacher.html").render(Context()))
+		return HttpResponse(get_template("account_settings_teacher.html").render(Context({ 'menu' : get_template("teacher_menu.html").render(Context())})))
 	return HttpResponseRedirect("/")
 
 def student_account_settings(request):
