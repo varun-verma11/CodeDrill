@@ -1,35 +1,163 @@
 <!DOCTYPE html>
-{% load staticfiles %} 
-<html lang="en">
+{% load staticfiles %} <html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-  {{header}}
+  <link href="{% static "css/bootstrap.css"%}" rel="stylesheet">
+  <link href="{% static "css/bootstrap-responsive.min.css"%}" rel="stylesheet">
+  <link href="{% static "css/style.css"%}" rel="stylesheet">
+  <link href="{% static "css/bootstrap-glyphicons.css"%}" rel="stylesheet">
 
   <link href="{% static "css/ladda-bootstrap/ladda-themeless.min.css"%}" rel="stylesheet" >
   <script src="{% static "js/ladda-bootstrap/spin.js"%}"></script>
   <script src="{% static "js/ladda-bootstrap/ladda.js"%}"></script>
 
+  <script type="text/javascript" src="{% static "js/jquery.min.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/bootstrap.min.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/scripts.js"%}"></script>
   <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
 
+  <title> {{ name }} | Account Settings </title>
+
 </head>
 <body>
-{{navbar}}
-
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="row-fluid">
-        {{menu}}
-        <div class="span6">
-          TODO
-
-
-
+<div class="navbar navbar-inverse nav">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="/">CodeDrill</a>
+      <div class="nav-collapse collapse">
+        <div class="pull-right">
+          <ul class="nav pull-right">
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, {{name}} <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="/account-settings-teacher/">
+                    <i class="glyphicon glyphicon-cog"></i> Account settings
+                  </a>
+                </li>
+                <li>
+                  <a href="/class-settings/">
+                    <i class="glyphicon glyphicon-pencil"></i> Class settings
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="/logout/"><i class="icon-off"></i> Logout</a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="span2">
+      <script>
+        $(document).ready(function () {
+          $('ul.menu-list').toggle();
+          $('label.tree-toggler').click(function () {
+           $(this).parent().children('ul.tree').toggle(200);
+         });
+        });
+        </script>
+      <ul class="nav nav-list">
+        <li>
+          <a href="/teacher-view/">Overview</a>
+        </li>
+        <li>
+          <a href="/set-exercise/">Set exercise</a>
+        </li>
+        <li>
+          <a href="/view-spec/">View specifications</a>
+        </li>
+        <li>
+          <a href="/logout/">Log out</a>
+        </li>
+      </ul>
+    </div>
+    <div class="span6">
+      <div class="accordion-group">
+        <div class="accordion-heading" id="changePwTitle" style="padding: 10px; background-color: #eee">
+          <h5>
+            Change password
+          </h5>
+        </div>
+        <div class="accordion-inner" id="changePw">
+          <form class="form-horizontal" action='' method="POST">
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label" for="password">Old password</label>
+              <div class="controls">
+                <input id="password" type="password" name="password" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label" for="password">New password</label>
+              <div class="controls">
+                <input id="new_password" type="password" name="password" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label" for="password">Confirm new password</label>
+              <div class="controls">
+                <input type="password" name="password" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+            <div >
+             <a href="#" id="pw-submit" class="btn btn-success btn-lg ladda-button" data-style="expand-right" data-size="l"><span class="ladda-label">Change Password</span></a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="accordion-group">
+        <div class="accordion-heading" id="changeEmailTitle" style="padding: 10px; background-color: #eee">
+          <h5>
+            Change e-mail
+          </h5>
+        </div>
+        <div class="accordion-inner" id="changeEmail">
+          <form class="form-horizontal" action='' method="POST">
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label">New e-mail</label>
+              <div class="controls">
+                <input id="email" type="text" name="email" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label">Confirm new e-mail</label>
+              <div class="controls">
+                <input type="text" name="email" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+            <div >
+              <a href="#" id="email-submit" class="btn btn-success btn-lg ladda-button" data-style="expand-right" data-size="l"><span class="ladda-label">Change e-mail</span></a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading" id="infoTitle" style="padding: 10px; background-color: #eee">
+          <h5>
+            Personal information
+          </h5>
+        </div>
+        <div class="accordion-inner" id="info">
+          TODO
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <script>
   $('#changePw').hide();
@@ -53,12 +181,20 @@
       e.preventDefault();
       var l = Ladda.create(this);
       l.start();
-      $.post("your-url", 
-          { data : data },
-        function(response){
-          console.log(response);
-        }, "json")
-      .always(function() { l.stop(); });
+      $.ajax({
+        type: 'POST',
+        url: '/teacher/changepassword/',
+        data: { 'password' : $("#new_password").val(),
+                'old_password' : $("#password").val()  },
+        beforeSend: function(xhr, settings) 
+              {
+                xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+              },
+        success: function(response) 
+              {
+                l.stop();
+              }
+      });
       return false;
     });
   });
@@ -68,12 +204,19 @@
       e.preventDefault();
       var l = Ladda.create(this);
       l.start();
-      $.post("your-url", 
-          { data : data },
-        function(response){
-          console.log(response);
-        }, "json")
-      .always(function() { l.stop(); });
+      $.ajax({
+        type: 'POST',
+        url: '/teacher/changeemail/',
+        data: { 'email' : $("#email").val()},
+        beforeSend: function(xhr, settings) 
+              {
+                xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+              },
+        success: function(response) 
+              {
+                l.stop();
+              }
+      });
       return false;
     });
   });

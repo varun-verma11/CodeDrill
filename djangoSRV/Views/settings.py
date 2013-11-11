@@ -5,6 +5,7 @@ from django.template import Context
 from django.core.context_processors import csrf
 from djangoSRV.student import get_exercise, getStudentAssignments
 
+
 def teacher_account_settings(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
 		return HttpResponse(get_template("account_settings_teacher.html").render(Context()))
@@ -19,3 +20,18 @@ def class_settings(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
 		return HttpResponse(get_template("class_settings.html").render(Context()))
 	return HttpResponseRedirect("/")
+
+def change_password(request):
+	if (request.user.is_authenticated()):
+		new_pw = request.POST["password"]
+		old_pw = request.POST["old_password"]
+		request.user.password = new_pw
+		return HttpResponse("yes")
+	return HttpResponse("no")
+
+def change_email(request):
+	if (request.user.is_authenticated()):
+		new_email = request.POST["email"]
+
+		return HttpResponse("yes")
+	return HttpResponse("no")
