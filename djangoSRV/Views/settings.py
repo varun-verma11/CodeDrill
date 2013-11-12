@@ -24,7 +24,7 @@ def student_account_settings(request):
 		name = request.user.first_name + " " + request.user.last_name
         elements = get_header_navbar("Student",name,"Account Settings")
         context = Context( { 
-			        		'menu' : get_template("teacher_menu.html").render(Context()),
+			        		'menu' : get_template("student_menu.html").render(Context({ 'assignments' : getStudentAssignments(request.user.stu_id)})),
 			        		'header' : elements['header'],
                             'navbar' : elements['navbar']
 		        	})

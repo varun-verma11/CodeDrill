@@ -7,7 +7,7 @@ from djangoSRV.student import get_exercise, getStudentAssignments
 from utils import get_header_navbar
 
 def single_exercise_view(request, ex_id):
-    if (request.user.is_authenticated()):
+	if (request.user.is_authenticated()):
 		template = get_template("single_exercise.html")
 		exercise = get_exercise(ex_id)
 		code_form = SubmitCodeForm(initial={'code':exercise[3]},auto_id="id_%s_"+ex_id)
@@ -23,3 +23,4 @@ def single_exercise_view(request, ex_id):
 						})
 		context.update(csrf(request))
 		return HttpResponse(template.render(context))
+	return HttpResponse("Not allowed")

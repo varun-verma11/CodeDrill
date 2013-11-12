@@ -1,4 +1,5 @@
 from django import forms
+from django_ace import AceWidget
 
 class LoginForm(forms.Form):
 	username = forms.CharField()
@@ -38,5 +39,5 @@ class TeacherRegisterForm(forms.Form):
 		return password2
 
 class SubmitCodeForm(forms.Form):
-	code = forms.CharField(widget=forms.Textarea(attrs={'size':'40'}))
+	code = forms.CharField(widget=AceWidget(mode='python',attrs={'size':'40'}))
 

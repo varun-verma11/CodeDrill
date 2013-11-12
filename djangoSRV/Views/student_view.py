@@ -17,6 +17,7 @@ def get_student_view(request):
         context = Context({ 'header' : elements['header'],
                             'navbar' : elements['navbar'],
                             'menu': menu,
+                            'form':SubmitCodeForm(),
                             'assignments' : assignments
                         })
         context.update(csrf(request))
@@ -26,10 +27,10 @@ def get_student_view(request):
 
 def __get_assignments_book(uid):
     assignment_book = getStudentAssignments(uid)
-
     for chapter in assignment_book.get_chapters():
         for assignment in chapter.get_assignments():
             assignment.set_code(SubmitCodeForm(initial={'code':get_exercise(assignment.get_id)[3]},auto_id="id_%s_"+str(assignment.get_id())))
+
 
     return assignment_book
 
