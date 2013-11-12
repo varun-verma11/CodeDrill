@@ -25,7 +25,7 @@ class Teacher(models.Model):
                                on_delete=models.CASCADE)
 
     def __unicode__(self):
-        return tch_id.username
+        return self.tch_id.username
     # def is_authenticated(user_id):
         # return True   
     #def is_type(self, asserted_type):

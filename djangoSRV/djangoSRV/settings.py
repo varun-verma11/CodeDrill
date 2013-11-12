@@ -11,8 +11,8 @@ ADMINS = (
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'djangoSRV.login.student_auth.StudentBackend',
-    'djangoSRV.login.teacher_auth.TeacherBackend',
+    #'djangoSRV.login.student_auth.StudentBackend',
+    #'djangoSRV.login.teacher_auth.TeacherBackend',
     
     )
 
@@ -82,7 +82,9 @@ STATIC_ROOT = ''
 STATIC_URL = '/templates/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (os.path.dirname(os.path.abspath(__file__)) + '/../templates/static/', )
+STATICFILES_DIRS = (
+    os.path.dirname(os.path.abspath(__file__)) +'/../templates/u_model/static/',
+    os.path.dirname(os.path.abspath(__file__)) +'/../templates/static/', )
 
 # List of finder classes that know how to find static files in
 # various locations.
