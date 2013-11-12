@@ -60,8 +60,10 @@ def change_password(request):
 	return HttpResponse("no")
 
 def change_email(request):
-	if (request.user.is_authenticated()):
-		new_email = request.POST["email"]
-
-		return HttpResponse("yes")
-	return HttpResponse("no")
+    if (request.user.is_authenticated()):
+        new_email = request.POST["email"]
+        uid = request.POST['id']
+        user_type = request.POST['type']
+        update_email(new_email, uid, user_type)
+        return HttpResponse("yes")
+    return HttpResponse("no")
