@@ -14,6 +14,12 @@ def get_exercise(ex_id):
 	arr = Exercise.objects.filter(ex_id=ex_id).values_list()
 	return arr[0]
 
+def get_number_of_submissions(stu_id):
+    return 0
+
+def get_grades(stu_id, page_num):
+    return ["1","Chapter", "Problem Name", "Grade/Mark"]
+
 def getStudentAssignments(uid):
     one_st_array = Student.objects.filter(stu_id=uid)
     stu_id = one_st_array[0].stu_id
