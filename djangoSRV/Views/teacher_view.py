@@ -19,6 +19,7 @@ def get_teacher_view(request):
         context = Context( {'header' : elements['header'],
                             'navbar' : elements['navbar'], 
                             'menu' : get_template("teacher_menu.html").render(Context({"page":"overview"})),
+                            'id' : request.user.tch_id,
                             'teaching_hierarchy' : teaching_hierarchy})
         return HttpResponse(template.render(context))
     return HttpResponseRedirect("/")

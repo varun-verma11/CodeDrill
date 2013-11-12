@@ -17,6 +17,7 @@ def get_student_view(request):
         context = Context({ 'header' : elements['header'],
                             'navbar' : elements['navbar'],
                             'menu': menu,
+                            'id': request.user.stu_id,
                             'form':SubmitCodeForm(),
                             'assignments' : assignments
                         })

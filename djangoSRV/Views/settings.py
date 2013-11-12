@@ -5,6 +5,7 @@ from django.template import Context
 from django.core.context_processors import csrf
 from djangoSRV.student import get_exercise, getStudentAssignments
 from utils import get_header_navbar
+from acc_queries import *
 
 def teacher_account_settings(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
@@ -13,7 +14,9 @@ def teacher_account_settings(request):
         context = Context( { 
 			        		'menu' : get_template("teacher_menu.html").render(Context()),
 			        		'header' : elements['header'],
-                            'navbar' : elements['navbar']
+                            'navbar' : elements['navbar'],
+                            'id' : request.user.tch_id,
+                            'type': 'teacher'
 		        	})
         settings_page = get_template("account_settings_teacher.html").render(context)
         return HttpResponse(settings_page)
@@ -44,11 +47,16 @@ def class_settings(request):
 	return HttpResponseRedirect("/")
 
 def change_password(request):
+	print "Here I am!"
 	if (request.user.is_authenticated()):
 		new_pw = request.POST["password"]
 		old_pw = request.POST["old_password"]
-		request.user.password = new_pw
-		return HttpResponse("yes")
+		uid = request.POST['id']
+		user_type = request.POST['type']
+		if update_password(old_pw, new_pw, uid, user_type):
+			return HttpResponse("yes")
+		#Horrible! Someone refactor this!
+		return HttpResponse("no")
 	return HttpResponse("no")
 
 def change_email(request):
