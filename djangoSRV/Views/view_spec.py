@@ -4,19 +4,17 @@ from django.template import Context
 from django.core.context_processors import csrf
 from auth import auth_utils
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
+from utils import get_header_navbar
 
 def view_spec(request):
 	if (request.user.is_authenticated()):
 		template = get_template("view_spec.html")
-		header = get_template("header.html").render(
-					Context( {
-						'type': 'Teacher', 
-						'name': request.user.first_name + " " + request.user.last_name, 
-						'title': "View Specification", 
-						'loggedIn':True  } ))
+		name = request.user.first_name + " " + request.user.last_name
+		elements = get_header_navbar("Teacher",name,"View Specification")
 		context = Context(
-				{ 'header' : header,
-				  'menu' : get_template("teacher_menu.html").render(Context()),
+				{ 'header' : elements['header'],
+				  'navbar' : elements['navbar'],
+				  'menu' : get_template("teacher_menu.html").render(Context({"page":"view_spec"})),
 				  'assignment_book': __get_assignments_book()
 				})
 		return HttpResponse(template.render(context))

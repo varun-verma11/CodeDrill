@@ -3,16 +3,25 @@
 		<li class="nav-header">
 			Menu
 		</li>
-		<li class="active">
-			<a href="#">Overview</a>
+		<li {% if page|stringformat:"s" == "overview"%}
+				class="active"
+		    {% endif %}
+		>
+			<a href="/teacher-view/">Overview</a>
 		</li>
-		<li>
+		<li {% if page|stringformat:"s" == "set_ex"%}
+				class="active"
+		    {% endif %}
+		>
 			<a href="/set-exercise/">Set exercise</a>
 		</li>
-		<li>
+		<li {% if page|stringformat:"s" == "view_spec"%}
+				class="active"
+		    {% endif %}
+		>
 			<a href="/view-spec/">View specifications</a>
 		</li>
-		 <li>
+		<li>
 	     	<a href="/logout/">Log out</a>
 	     </li>
 	</ul>

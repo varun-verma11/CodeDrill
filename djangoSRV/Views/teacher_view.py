@@ -2,6 +2,8 @@ from django.template.loader import get_template
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
+from utils import get_header_navbar
+
 #from auth import auth_utils
 #from model.models import Teacher, Course 
 
@@ -10,17 +12,13 @@ def get_teacher_view(request):
     # at this point it should be a guaranteed that the session has
     # a key named 'user_id' representing a teacher
     if (request.user.is_authenticated() and request.user.is_type("Teacher")):
-        user = request.user
-        teaching_hierarchy = __get_teaching_hierarchy(user.tch_id)
+        name = request.user.first_name + " " + request.user.last_name
+        teaching_hierarchy = __get_teaching_hierarchy(request.user.tch_id)
         template = get_template("teacher_view.html")
-        header = get_template("header.html").render(
-                    Context( {
-                        'type': 'Teacher', 
-                        'name': user.first_name + " " + user.last_name, 
-                        'title': "Teaching Overview"  , 
-                        'loggedIn':True} ))
-        context = Context( {'header' : header,
-                            'menu' : get_template("teacher_menu.html").render(Context()),
+        elements = get_header_navbar("Teacher",name,"Teaching Overview")
+        context = Context( {'header' : elements['header'],
+                            'navbar' : elements['navbar'], 
+                            'menu' : get_template("teacher_menu.html").render(Context({"page":"overview"})),
                             'teaching_hierarchy' : teaching_hierarchy})
         return HttpResponse(template.render(context))
     return HttpResponseRedirect("/")

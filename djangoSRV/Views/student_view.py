@@ -6,21 +6,16 @@ from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from model.models import AssignedExercises, Student, Course, Exercise
 from djangoSRV.student import get_exercise, getStudentAssignments
+from utils import get_header_navbar
 
 
 def get_student_view(request):
-    #print "Checkpoint 2"
     if (request.user.is_type("Student")):
-        #print "Checkpoint 3"
         assignments = __get_assignments_book(request.user.stu_id)
         menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page':'code'}))
-        header = get_template("header.html").render(
-                    Context( {
-                        'type': 'Student', 
-                        'name': request.user.first_name + " " + request.user.last_name,
-                        'title': "Student Home"  ,
-                        'loggedIn':True} ))
-        context = Context({ 'header' : header,
+        elements = get_header_navbar("Student",request.user.first_name + " " + request.user.last_name,"Student Overview")
+        context = Context({ 'header' : elements['header'],
+                            'navbar' : elements['navbar'],
                             'menu': menu,
                             'assignments' : assignments
                         })

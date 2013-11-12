@@ -4,19 +4,15 @@ from django.template import Context
 from django.core.context_processors import csrf
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from djangoSRV.student import getStudentAssignments
-
+from utils import get_header_navbar
 
 def student_grades_view(request):
 	if request.user.is_authenticated():
 		assignments = getStudentAssignments(request.user.stu_id)
 		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page': 'grades'}))
-		header = get_template("header.html").render(
-                    Context( {
-                        'type': 'Student', 
-                        'name': request.user.first_name + " " + request.user.last_name,
-                        'title': "Grades"  ,
-                        'loggedIn':True} ))
-		context = Context( {'header' : header ,
+		elements = get_header_navbar("Student",request.user.first_name + " " + request.user.last_name,"Student Overview")
+		context = Context( {'header' : elements['header'],
+                            'navbar' : elements['navbar'],
 							'menu': menu,
 							'grades' : __get_grades
 						})

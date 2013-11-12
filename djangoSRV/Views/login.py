@@ -11,8 +11,9 @@ def student_login(request):
 	context = Context({ 'login_form':login_form,
 						'register_form' : reg_form,
 						'type' : 'student',
-						'header':header,
-						'title' : 'Student Login',
+						'header' : header,
+						'navbar' : get_template("navbar.html").render(Context({'loggedIn':False})),
+						'title' : 'Student Login'
 					});
 	try:
 		error_text = request.session["error"]
@@ -32,6 +33,7 @@ def teacher_login(request):
 						'register_form' : reg_form,
 						'type' : 'teacher',
 						'header':header,
+						'navbar' : get_template("navbar.html").render(Context({'loggedIn':False})),
 						'title' : 'Teacher Login'
 
 					});
