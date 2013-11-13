@@ -8,7 +8,7 @@ from utils import get_header_navbar
 
 def student_grades_view(request):
 	if request.user.is_authenticated():
-		assignments = getStudentAssignments(request.user.stu_id)
+		assignments = getStudentAssignments(request.user.user_id)
 		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page': 'grades'}))
 		elements = get_header_navbar("Student",request.user.first_name + " " + request.user.last_name,"Student Overview")
 		context = Context( {'header' : elements['header'],

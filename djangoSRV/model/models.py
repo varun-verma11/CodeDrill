@@ -13,8 +13,8 @@ class Exercise(models.Model):
     content = models.TextField('Content', blank=True)
     description = models.TextField('Description')
 
-    def __unicode__(self):
-        return self.category + ' - ' + self.title
+ #   def __unicode__(self):
+ #       return self.category + ' - ' + self.title
 
 
 class ModelSolution(models.Model):
@@ -46,8 +46,8 @@ class AssignedExercises(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     c_id = models.ForeignKey('Course', to_field='c_id')
 
-    def __unicode__(self):
-        return self.c_id.__unicode__() + ' --- ' + self.ex_id.__unicode__()
+#    def __unicode__(self):
+#        return self.c_id.__unicode__() + ' --- ' + self.ex_id.__unicode__()
 
 
 class Course(models.Model):
@@ -72,8 +72,8 @@ class Course(models.Model):
     tch_id = models.ForeignKey('Teacher', to_field = 'user_id')
     students = models.ManyToManyField('Student')
 
-    def __unicode__(self):
-        return self.name + ' - Year ' + str(self.year)
+ #   def __unicode__(self):
+ #       return self.name + ' - Year ' + str(self.year)
 
 
 class Teacher(models.Model):
