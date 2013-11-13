@@ -13,13 +13,13 @@ def get_teacher_view(request):
     # a key named 'user_id' representing a teacher
     if (request.user.is_authenticated() and request.user.is_type("Teacher")):
         name = request.user.first_name + " " + request.user.last_name
-        teaching_hierarchy = __get_teaching_hierarchy(request.user.tch_id)
+        teaching_hierarchy = __get_teaching_hierarchy(request.user.user_id)
         template = get_template("teacher_view.html")
         elements = get_header_navbar("Teacher",name,"Teaching Overview")
         context = Context( {'header' : elements['header'],
                             'navbar' : elements['navbar'], 
                             'menu' : get_template("teacher_menu.html").render(Context({"page":"overview"})),
-                            'id' : request.user.tch_id,
+                            'id' : request.user.user_id,
                             'teaching_hierarchy' : teaching_hierarchy})
         return HttpResponse(template.render(context))
     return HttpResponseRedirect("/")

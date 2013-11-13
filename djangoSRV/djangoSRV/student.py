@@ -2,31 +2,31 @@ from model.models import Student, LatestStudentScore, Exercise, AssignedExercise
 from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 
-def submit_exercise(ex_id, stu_id, score):
-    row = LatestStudentScore(stu_id = stu_id, ex_id = ex_id, score = score)
+def submit_exercise(ex_id, user_id, score):
+    row = LatestStudentScore(user_id = user_id, ex_id = ex_id, score = score)
     row.save()
 
-def get_score(ex_id, stu_id):
-	arr = LatestStudentScore.objects.filter(ex_id=ex_id, stu_id=stu_id).values()
+def get_score(ex_id, user_id):
+	arr = LatestStudentScore.objects.filter(ex_id=ex_id, user_id=user_id).values()
 	return arr[0]['score']
 
 def get_exercise(ex_id):
 	arr = Exercise.objects.filter(ex_id=ex_id).values_list()
 	return arr[0]
 
-def get_number_of_submissions(stu_id):
+def get_number_of_submissions(user_id):
     return 0
 
-def get_grades(stu_id, page_num):
+def get_grades(user_id, page_num):
     return ["1","Chapter", "Problem Name", "Grade/Mark"]
 
 def getStudentAssignments(uid):
-    one_st_array = Student.objects.filter(stu_id=uid)
-    stu_id = one_st_array[0].stu_id
+    one_st_array = Student.objects.filter(user_id=uid)
+    user_id = one_st_array[0].user_id
     course_ids = []
     ex_ids = []
     for course in Course.objects.all():
-        student_entries = course.students.filter(stu_id=stu_id)
+        student_entries = course.students.filter(user_id=user_id)
         if(student_entries.count() > 0):
             course_ids.append(course.c_id)
 

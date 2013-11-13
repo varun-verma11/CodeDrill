@@ -26,7 +26,7 @@ class ModelSolution(models.Model):
 
 
 class StudentSubmission(models.Model):
-    stu_id = models.ForeignKey('Student', to_field='stu_id')
+    stu_id = models.ForeignKey('Student', to_field='user_id')
     # ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     # course = models.ForeignKey('Course', to_field='c_id')
     assign_id = models.ForeignKey('AssignedExercises')
@@ -69,7 +69,7 @@ class Course(models.Model):
     c_id = models.AutoField('Course ID', primary_key=True)
     name = models.CharField('Course Name', max_length=50)
     year = models.IntegerField('Year', choices = SCHOOL_YEAR_CHOICES)
-    tch_id = models.ForeignKey('Teacher', to_field = 'tch_id')
+    tch_id = models.ForeignKey('Teacher', to_field = 'user_id')
     students = models.ManyToManyField('Student')
 
     def __unicode__(self):
@@ -77,7 +77,7 @@ class Course(models.Model):
 
 
 class Teacher(models.Model):
-    tch_id = models.AutoField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     uname = models.CharField('Teacher ID', max_length=15, unique=True)
     #name = models.CharField('Name', max_length=50)
     first_name = models.CharField('First Name', max_length=50)
@@ -100,12 +100,12 @@ class Teacher(models.Model):
         return False
 
 class LatestStudentScore(models.Model):
-    stu_id = models.ForeignKey('Student', to_field='stu_id')
+    stu_id = models.ForeignKey('Student', to_field='user_id')
     ex_id  = models.ForeignKey('Exercise', to_field='ex_id')
     score = models.TextField('Score', default='N/A')
 
 class Student(models.Model):
-    stu_id = models.AutoField(primary_key=True)
+    user_id = models.AutoField(primary_key=True)
     uname = models.CharField('Student ID', max_length=15, unique=True)
     first_name = models.CharField('First Name', max_length=50)
     last_name = models.CharField('Last Name', max_length=50)

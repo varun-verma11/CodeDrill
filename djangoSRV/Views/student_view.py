@@ -11,13 +11,13 @@ from utils import get_header_navbar
 
 def get_student_view(request):
     if (request.user.is_type("Student")):
-        assignments = __get_assignments_book(request.user.stu_id)
+        assignments = __get_assignments_book(request.user.user_id)
         menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page':'code'}))
         elements = get_header_navbar("Student",request.user.first_name + " " + request.user.last_name,"Student Overview")
         context = Context({ 'header' : elements['header'],
                             'navbar' : elements['navbar'],
                             'menu': menu,
-                            'id': request.user.stu_id,
+                            'id': request.user.user_id,
                             'form':SubmitCodeForm(),
                             'assignments' : assignments
                         })

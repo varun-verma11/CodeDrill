@@ -13,6 +13,6 @@ class TeacherBackend(object):
 
     def get_user(self, user_id):
         try:
-            return Teacher.objects.get(tch_id=user_id)
+            return Teacher.objects.get(user_id=user_id)
         except ObjectDoesNotExist:
             return None 
