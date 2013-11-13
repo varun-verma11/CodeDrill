@@ -17,3 +17,12 @@
 .ok {
   color: #009933;
 }
+
+#names > li > a {
+	background-color:#ddd;
+}
+
+#names > li {
+	padding-left:15px;
+	padding-top: 5px;
+}

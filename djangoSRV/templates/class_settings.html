@@ -1,20 +1,115 @@
 <!DOCTYPE html>
 {% load staticfiles %} <html lang="en">
 <head>
-  
+
   {{ header }}
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
 </head>
 <body>
   {{ navbar }}
 
-  <div class="container-fluid">
-    <div class="row-fluid">
-      {{ menu }}
-      <div class="span9">
-        
+  <div class="container-fluid row-fluid">
+    {{ menu }}
+    <div class="span9">
+
+      <div class="accordion-group" style="background-color:#fff">
+        <div class="accordion-heading" id="" style="padding-left:10px;">
+          <h5>Manage classes</h5>
+        </div>
+        <div class="accordion-inner" id="">
+          Put student <input type="text" id="username" class="input input-medium" name="username" placeholder="Search for a name..." style="height:30px; position:relative; top:5px"> in 
+          <select style="width:95px">
+            <optgroup label="Year 1">
+              <option>Class 1A</option>
+              <option>Class 1B</option>
+              <option>Class 1C</option>
+            </optgroup>
+            <optgroup label="Year 2">
+              <option>Class 2A</option>
+              <option>Class 2B</option>
+            </optgroup>
+          </select>.
+          <br>
+          <button type="button" class="btn btn-default">Add</button>
+          <br><br>
+          
+          <a href="#" id="view_all">View all...</a>
+
+          <ul class="nav nav-pills">
+            <li><span class="label" style="position:relative; top:5px;">Year 1</span></li>
+            <li><a href="#">Class A</a></li>
+            <li><a href="#">Class B</a></li>
+            <li class="active"><a href="#">Class C</a></li>
+          </ul>
+          <ul class="nav nav-pills">
+            <li><span class="label" style="position:relative; top:5px;">Year 2</span></li>
+            <li><a href="#">Class A</a></li>
+            <li><a href="#">Class B</a></li>
+            <li><a href="#">Class C</a></li>
+          </ul>
+
+           <div class="accordion-group" style="background-color:#eff; width=200px;">
+            <div class="accordion-heading" id="" style="padding-left:10px;">
+              <h5>Class 1C<a href="#" class="glyphicon glyphicon-pencil pull-right"></a></h5>
+            </div>
+            <div class="accordion-inner" id="">
+              <ul class="nav nav-pills" id="names">
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+              </ul>
+              <button type="button" class="btn btn-small"><i class="glyphicon glyphicon-plus"></i></button>
+              <button type="button" class="btn btn-default">Save</button>
+              <button type="button" class="btn btn-default">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="accordion-group" style="background-color:#fff">
+        <div class="accordion-heading" id="" style="padding-left:10px;">
+          <h5>Create a class</h5>
+        </div>
+        <div class="accordion-inner" id="">
+          todo
+        </div>
+      </div>
+      <div class="accordion-group" style="background-color:#fff">
+        <div class="accordion-heading" id="" style="padding-left:10px;">
+          <h5>Delete a class</h5>
+        </div>
+        <div class="accordion-inner" id="">
+          todo
+        </div>
       </div>
     </div>
   </div>
 </body>
 </html>
+
+<!-- <ul class="dropdown-menu">
+          <li>
+            <a href="#">Action</a>
+          </li>
+          <li class="disabled">
+            <a href="#">Another action</a>
+          </li>
+          <li class="divider">
+          </li>
+          <li>
+            <a href="#">Something else here</a>
+          </li>
+        </ul>-->
