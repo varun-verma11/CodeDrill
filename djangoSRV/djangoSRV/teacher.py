@@ -16,7 +16,7 @@ def viewSubmissions(request):
         # print sub
         # submission.submit_timemission.stu_id, submission.ex_id, submission.content, submission.submit_time
         ret2 = []
-        ret2.append(submission.stu_id)
+        ret2.append(submission.user_id)
         # ret2.append(submission.ex_id)
         ret2.append(submission.assign_id.ex_id)
         ret2.append(submission.content)
@@ -43,7 +43,7 @@ def viewSubmissionMark(request):
     ret = []
     for student in students:
         ret_aux = []
-        submission = StudentSubmission.objects.filter(stu_id__exact=student.stu_id)
+        submission = StudentSubmission.objects.filter(stu_id__exact=student.user_id)
         # ret_aux.append(student.name)
         # ret_aux.append(submission[0].result)
         # print ret_aux

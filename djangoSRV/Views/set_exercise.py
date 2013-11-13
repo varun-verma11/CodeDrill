@@ -9,7 +9,7 @@ from utils import get_header_navbar
 def get_set_exercise_page(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
 		template = get_template("set_exercise.html")
-		teaching_hierarchy = __get_teaching_hierarchy(request.user.tch_id)
+		teaching_hierarchy = __get_teaching_hierarchy(request.user.user_id)
 		assignment_book = __get_assignments_book()
 		name = request.user.first_name + " " + request.user.last_name
 		elements = get_header_navbar("Teacher",name,"Teaching Overview")
