@@ -41,6 +41,9 @@
 									<div id="description"></div>
 									<br>
 									{{ editor }}
+									<div class="controls">
+				                    	<button class="btn btn-success" onclick="save_exercise" value="Save">Save</button>
+				                    </div>
 								</div>
 							</div>
 						</div>
@@ -54,6 +57,7 @@
 	$('#var-add').click(function () {
 		$('#var-add-ex').fadeIn();
 	});
+	$("#id_code").readonly = true;
 
 	function get_exercise_details(ex_id) 
 	{
@@ -78,6 +82,7 @@
 		            }
 		            else
 		            {
+		            	alert(result[0]);
 		                $("#id_code").val(result[0]);
 		                $("#description").text(result[1]);
 		            }
