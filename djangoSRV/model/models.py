@@ -12,6 +12,10 @@ class Exercise(models.Model):
     category = models.CharField('Category', max_length=100)
     content = models.TextField('Content', blank=True)
     description = models.TextField('Description')
+    def __str__(self):
+        return self.title
+    def __repr__(self):
+        return self.__str__()
 
  #   def __unicode__(self):
  #       return self.category + ' - ' + self.title
@@ -20,6 +24,10 @@ class Exercise(models.Model):
 class ModelSolution(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id', primary_key=True)
     content = models.TextField('Content')
+    def __str__(self):
+        return self.ex_id
+    def __repr__(self):
+        return self.__str__()
     
     def __unicode__(self):
         return 'Solution for ' + self.ex_id.__unicode__()
@@ -34,17 +42,29 @@ class StudentSubmission(models.Model):
     submit_time = models.DateTimeField('Time of Submission',
         auto_now_add=True)
     result = models.DecimalField(max_digits=3, decimal_places=2)
+    def __str__(self):
+        return self.stu_id
+    def __repr__(self):
+        return self.__str__()
 
                
 
 class Test(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     test_content = models.TextField('Test Content')
+    def __str__(self):
+        return self.ex_id
+    def __repr__(self):
+        return self.__str__()
 
 
 class AssignedExercises(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     c_id = models.ForeignKey('Course', to_field='c_id')
+    def __str__(self):
+        return self.ex_id
+    def __repr__(self):
+        return self.__str__()
 
 #    def __unicode__(self):
 #        return self.c_id.__unicode__() + ' --- ' + self.ex_id.__unicode__()
@@ -71,6 +91,10 @@ class Course(models.Model):
     year = models.IntegerField('Year', choices = SCHOOL_YEAR_CHOICES)
     tch_id = models.ForeignKey('Teacher', to_field = 'user_id')
     students = models.ManyToManyField('Student')
+    def __str__(self):
+        return self.name
+    def __repr__(self):
+        return self.__str__()
 
  #   def __unicode__(self):
  #       return self.name + ' - Year ' + str(self.year)
@@ -85,6 +109,10 @@ class Teacher(models.Model):
     email = models.CharField('Email', max_length=50)
     pw = models.CharField('Password', max_length=50)
     last_login = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.uname
+    def __repr__(self):
+        return self.__str__()
     def __unicode__(self):
         return self.uname
 
@@ -103,6 +131,10 @@ class LatestStudentScore(models.Model):
     stu_id = models.ForeignKey('Student', to_field='user_id')
     ex_id  = models.ForeignKey('Exercise', to_field='ex_id')
     score = models.TextField('Score', default='N/A')
+    def __str__(self):
+        return self.stu_id
+    def __repr__(self):
+        return self.__str__()
 
 class Student(models.Model):
     user_id = models.AutoField(primary_key=True)
@@ -113,6 +145,10 @@ class Student(models.Model):
     # Course has a Many to Many relationship with this, so you can find things
     pw = models.CharField('Password', max_length=50)
     last_login = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.uname
+    def __repr__(self):
+        return self.__str__()
     def __unicode__(self):
         return self.uname
     def is_authenticated(user_id):
