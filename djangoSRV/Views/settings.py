@@ -18,7 +18,7 @@ def teacher_account_settings(request):
                             'id' : request.user.user_id,
                             'type': 'teacher'
 		        	})
-        settings_page = get_template("account_settings_teacher.html").render(context)
+        settings_page = get_template("account_settings.html").render(context)
         return HttpResponse(settings_page)
 	return HttpResponseRedirect("/")
 
@@ -29,9 +29,11 @@ def student_account_settings(request):
         context = Context( { 
 			        		'menu' : get_template("student_menu.html").render(Context({ 'assignments' : getStudentAssignments(request.user.user_id)})),
 			        		'header' : elements['header'],
-                            'navbar' : elements['navbar']
+                            'navbar' : elements['navbar'],
+                            'id' : request.user.user_id,
+                            'type': 'student'
 		        	})
-        return HttpResponse(get_template("account_settings_student.html").render(context))
+        return HttpResponse(get_template("account_settings.html").render(context))
 	return HttpResponseRedirect("/")
 
 def class_settings(request):

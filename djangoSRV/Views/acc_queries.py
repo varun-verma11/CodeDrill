@@ -11,7 +11,7 @@ def update_password(old_password, new_password, uid, user_type):
     user = get_table_by_type(user_type)
 
 
-    user_entry = user.objects.filter(user_id=uid).first()
+    user_entry = user.objects.filter(user_id=uid)[0]
 
     if not user_entry.pw == old_password:
         return False

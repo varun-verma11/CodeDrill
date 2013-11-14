@@ -10,9 +10,9 @@
                 <ul class="dropdown-menu">
                   <li>
                     <a {% if type|stringformat:"s" == "Teacher"%}
-                          href="/account-settings-teacher/"
+                          href="/teacher/account-settings/"
                         {%else%}
-                          href="/account-settings-student/"
+                          href="/student/account-settings/"
                         {%endif%}
                     >
                       <i class="glyphicon glyphicon-cog"></i> Account settings
