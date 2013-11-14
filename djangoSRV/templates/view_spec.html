@@ -2,9 +2,10 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
-	<link href="{% static "google-code-prettify/prettify.css"%}" rel="stylesheet">
-    <script type="text/javascript" src="{% static "google-code-prettify/prettify.js"%}"></script>
+	<script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+
     {{header}}
+    {{editor.media}}
 
 </head>
 
@@ -25,7 +26,7 @@
 											<li><label class="tree-toggler nav-header" id="var"> {{ chapter.get_name }}</label>
 												<ul class="nav nav-list tree">
 													{% for assignment in chapter.get_assignments %}
-														<li><a href="#" id="var-add"> {{ assignment.get_name }}</a></li>
+														<li><a onclick="get_exercise_details({{ assignment.get_id }} )" id="var-add"> {{ assignment.get_name }}</a></li>
 													{% endfor %}
 												</ul>
 											</li>
@@ -37,38 +38,9 @@
 								<div id="var-add-ex">
 									<i>Question</i>
 									<br>
-									Create a function to add two numbers together.
-									<br><br>
-									<i>Solution</i>
+									<div id="description"></div>
 									<br>
-									<?prettify ?>
-										<pre class="prettyprint linenums lang-py">
-											BOARD_SIZE = 8
-
-											def under_attack(col, queens):
-											    left = right = col
-
-											    for r, c in reversed(queens):
-											        left, right = left - 1, right + 1
-
-											        if c in (left, col, right):
-											            return True
-											    return False
-
-											def solve(n):
-											    if n == 0:
-											        return [[]]
-
-											    smaller_solutions = solve(n - 1)
-
-											    return [solution+[(n,i+1)]
-											        for i in xrange(BOARD_SIZE)
-											            for solution in smaller_solutions
-											                if not under_attack(i+1, solution)]
-											                
-											for answer in solve(BOARD_SIZE):
-											    print answer
-										</pre>
+									{{ editor }}
 								</div>
 							</div>
 						</div>
@@ -76,19 +48,43 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<script>
-	//syntax highlighting
-	!function ($) {
-		$(function(){
-			prettyPrint()   
-		})
-	}(window.jQuery)
 
 	$('#var-add-ex').hide();
 	$('#var-add').click(function () {
 		$('#var-add-ex').fadeIn();
 	});
+
+	function get_exercise_details(ex_id) 
+	{
+	  var csrftoken = getCsrfToken();
+	  $.ajax({
+	        type: 'POST',
+	        url: "/teacher/get-exercise/",
+	        data: {
+	                'ex_id': ex_id
+	              },
+	        beforeSend: function(xhr, settings) 
+	              {
+	                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	              },
+	        success: function(response) 
+	              {
+	              	var result = response.split("$%$");
+
+	              	if (result.length == 1)
+	              	{
+		            	alert("Something went wrong. Please come back later");
+		            }
+		            else
+		            {
+		                $("#id_code").val(result[0]);
+		                $("#description").text(result[1]);
+		            }
+	              }
+	    });
+	  return false;
+	}
 	</script>
 </body>
 </html>

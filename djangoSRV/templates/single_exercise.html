@@ -2,11 +2,6 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
-  <link rel=stylesheet href="{% static "codemirror/doc/docs.css"%}">
-  <script src="{% static "codemirror/lib/codemirror.js"%}"></script>
-  <link rel="{% static "stylesheet" href="codemirror/lib/codemirror.css"%}">
-  <script src="{% static "codemirror/addon/edit/matchbrackets.js"%}"></script>
-  <script src="{% static "codemirror/mode/python/python.js"%}"></script>
   <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
   {{ code_form.media }}
@@ -46,53 +41,6 @@
   <script>
   $('#wrong_{{ ex_id }}').hide();
   $('#ok_{{ ex_id }}').hide();
-
-  // $(function () {
-  //       $('textarea[data-editor]').each(function () {
-  //           var textarea = $(this);
- 
-  //           var mode = textarea.data('editor');
- 
-  //           var editDiv = $('<div>', {
-  //               position: 'absolute',
-  //               width: textarea.width(),
-  //               height: textarea.height(),
-  //               'class': textarea.attr('class')
-  //           }).insertBefore(textarea);
- 
-  //           textarea.css('visibility', 'hidden');
- 
-  //           var editor = ace.edit(editDiv[0]);
-  //           editor.renderer.setShowGutter(false);
-  //           editor.getSession().setValue(textarea.val());
-  //           editor.getSession().setMode("ace/mode/" + mode);
-  //           // editor.setTheme("ace/theme/idle_fingers");
-            
-  //           // copy back to textarea on form submit...
-  //           textarea.closest('form').submit(function () {
-  //               textarea.val(editor.getSession().getValue());
-  //           })
- 
-  //       });
-  //   });
-
-  // var myCodeMirror = CodeMirror.fromTextArea($('#id_code_{{ ex_id }}'), {
-  //   mode: {name: "python",
-  //          version: 2,
-  //          singleLineStringErrors: false},
-  //   lineNumbers: true,
-  //   //indentUnit: 4,
-  //   smartIndent: true,
-  //   tabSize: 2,
-  //   indentWithTabs: true,
-  //   tabMode: "shift",
-  //   autofocus: true,
-  //   matchBrackets: true
-  // });
-
-  /*function save() {
-    console.log(myCodeMirror.getValue());
-  }*/
   </script>
 </body>
 </html>

@@ -37,6 +37,17 @@ def sendExercisesToClass(request):
     row = AssignedExercises(ex_id=ex_id, c_id=c_id)
     row.save()    
 
+def get_all_exercises():
+    as1 = Assignment("If", 1)
+    as2 = Assignment("If-then-else", 2)
+    ch1 = Chapter("Conditionals", [as1, as2])
+
+    as3 = Assignment("Addition", 3)
+    as4 = Assignment("Subtraction", 4)
+    ch2 = Chapter("Assignment", [as3, as4])
+
+    return AssignmentsBook([ch1, ch2])
+
 def viewSubmissionMark(request):
     students = Student.objects.all()
     submissions = StudentSubmission.objects.all()
