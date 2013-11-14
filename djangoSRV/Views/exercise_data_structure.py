@@ -29,14 +29,17 @@ class Chapter:
 	# 	return rep
 
 class Assignment:
-	def __init__(self, name, id, code=None):
+	def __init__(self, name, id, code=None, description=None):
 		self.name = name
 		self.id = id
 		self.code = code
+		self.description = description
 	def get_name(self):
 		return self.name
 	def get_id(self):
 		return self.id
+	def get_description(self):
+		return self.description
 	def get_code(self):
 		return self.code
 	# def __repr__(self):

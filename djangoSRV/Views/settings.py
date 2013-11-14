@@ -54,7 +54,6 @@ def change_password(request):
 		user_type = request.POST['type']
 		if update_password(old_pw, new_pw, uid, user_type):
 			return HttpResponse("yes")
-		#Horrible! Someone refactor this!
 		return HttpResponse("no")
 	return HttpResponse("no")
 

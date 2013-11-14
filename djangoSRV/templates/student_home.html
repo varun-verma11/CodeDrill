@@ -21,6 +21,7 @@
             {% for assignment in chapter.get_assignments %}
               <li><a href="#" id="{{ chapter.get_name }}-{{ assignment.get_name }}">{{ assignment.get_name }}</a></li>
               <div id="{{ chapter.get_name }}-{{ assignment.get_name }}-ex">
+              <li>Description: {{ assignment.get_description }}</li>
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <form accept-charset="UTF-8"  method="POST">
