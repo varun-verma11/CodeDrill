@@ -41,17 +41,17 @@
               </tbody>
             </table>
           </div>
-          <div class="pagination">
-            <ul>
-              <li><a href="#">Last term</a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">Next term</a></li>
-            </ul>
-          </div>
+          {% if pages %}
+            <div class="pagination">
+              <ul>
+                <li><a href="#">Last term</a></li>
+                {% for page in pages %}
+                  <li><a href="#">{{page}}</a></li>
+                {% endfor %}
+                <li><a href="#">Next term</a></li>
+              </ul>
+            </div>
+          {% endif %}
         </div>
       </div>
     </div>

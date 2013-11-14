@@ -22,7 +22,7 @@ def get_exercise(ex_id):
     return arr[0]
 
 def get_number_of_submissions(user_id):
-    return StudentSubmission.filter(user_id=user_id).count()
+    return LatestStudentScore.objects.filter(stu_id=user_id).count()
 
 def get_grades(user_id, page_num, page_size):
     course_ids = get_course_ids_by_std_id(user_id)
@@ -31,14 +31,12 @@ def get_grades(user_id, page_num, page_size):
     for exco in AssignedExercises.objects.all():
         if exco.c_id_id in course_ids:
             ex_ids.append(exco.ex_id_id)
-    print course_ids
-    print ex_ids
     ret = []
     iterator = 0
     for ex_id in ex_ids:
         aux_row = []
         iterator += 1
-        ex_row = Exercise.objects.filter(ex_id=ex_id).first()
+        ex_row = Exercise.objects.filter(ex_id=ex_id)[0]
         aux_row.append(iterator)
         aux_row.append(ex_row.category)
         aux_row.append(ex_row.title)
@@ -46,7 +44,7 @@ def get_grades(user_id, page_num, page_size):
         if len(submission_row) == 0:
             aux_row.append("N/A")
         else:
-            score = submission_row.first().score
+            score = submission_row[0].score
             aux_row.append(score)
         ret.append(aux_row)
 
@@ -69,7 +67,7 @@ def getStudentAssignments(uid):
         assignments = []
         ascii_cat = category[0].encode("ascii")
         for exercise in Exercise.objects.filter(category=ascii_cat):
-            assignment = Assignment(exercise.title, exercise.ex_id, exercise.content)
+            assignment = Assignment(exercise.title, exercise.ex_id, exercise.content, exercise.description)
             assignments.append(assignment)   	
         chapter = Chapter(ascii_cat, assignments)
         chapters.append(chapter)

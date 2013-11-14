@@ -39,5 +39,5 @@ class TeacherRegisterForm(forms.Form):
 		return password2
 
 class SubmitCodeForm(forms.Form):
-	code = forms.CharField(widget=AceWidget(mode='python',attrs={'size':'40'}))
+	code = forms.CharField(widget=AceWidget(mode='python', theme="cobalt" ,attrs={'size':'40'}))
 
