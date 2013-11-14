@@ -10,10 +10,12 @@
 
   <div class="container-fluid row-fluid">
     {{ menu }}
-    <div class="span9">
     <div class="span9 accordion-group" style="background-color:#fff">
         <div class="accordion-heading" id="" style="padding-left:10px;">
-          <h5>Manage classes</h5>
+          <h5>Manage classes
+            <button type="button" data-toggle="modal" data-target="#newClass" id="add_student_btn" class="btn btn-medium pull-right" style="position:relative; bottom:5px; right: 5px;">
+              <i class="glyphicon glyphicon-plus" style="vertical-align: bottom;"></i>New class</button>
+          </h5>
         </div>
         <div class="accordion-inner" id="">
         
@@ -29,9 +31,20 @@
             <li><a href="#">Class B</a></li>
           </ul>
 
-           <div class="accordion-group" style="background-color:#eff;">
-            <div class="accordion-heading" id="" style="padding-left:10px;">
-              <h5>Class 1C<a href="#" class="glyphicon glyphicon-pencil pull-right"></a></h5>
+           <div class="accordion-group" style="background-color:#F0F0F0;">
+            <div class="accordion-heading" style="padding-left:10px;">
+              <h5 id="classTitle">Class 1B</h5>
+              <input type="text" id="classEditTitle" class="input input-medium" placeholder="Class name..." style="height:30px; position:relative; top:5px">
+              
+              <div id="dropdown" class="btn-group pull-right" style="position: relative; bottom: 35px;"> 
+                <a class="btn btn-link dropdown-toggle" id="settings" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-cog glyphicon-white" style="color:#000;"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" onclick="editTitle(event)"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                    </li>
+                    <li><a href="#" onclick="delClassPopup(event)"><i class="glyphicon glyphicon-trash"></i> Delete class</a>
+                    </li>
+                </ul>
+              </div>
             </div>
             <div class="accordion-inner" id="">
               <ul class="nav nav-pills" id="names">
@@ -53,7 +66,7 @@
               </ul>          
               <div id="add_student">Put student <input type="text" id="student_name" class="input input-medium" placeholder="Search for a name..." style="height:30px; position:relative; top:5px"> in Class 1B. Please save or cancel your change.</div>
               <button type="button" id="add_student_btn" class="btn btn-small">
-                <i class="glyphicon glyphicon-plus">Add</i>
+                <i class="glyphicon glyphicon-plus"></i>
               </button>
               <button type="button" class="btn btn-default" onclick="savePopup()">Save</button>
               <button type="button" class="btn btn-default" onclick="cancelPopup()">Cancel</button>
@@ -62,11 +75,33 @@
         </div>
     </div>
   </div>
+  <div id="newClass" class="modal hide fade">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Create a new class</h3>
+    </div>
+    <div class="modal-body">
+      <p>Please insert a year for your class (e.g. 1, 2...).</p>
+      <input type="text" class="input input-small">
+      <p>Please insert a name for your class.</p>
+      <input type="text" class="input input-small">
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary" onclick="makeNewClass(event)">Submit</a>
+    </div>
+</div>
   <script>
     $("#add_student").hide();
+    $("#classEditTitle").hide();
+
     $("#add_student_btn").click(function(){
       $("#add_student").fadeIn(300);
     });
+
+    function makeNewClass(event) {
+      $("#newClass").modal('toggle');
+      var inputs = $(event.target).parent().parent().find($('.modal-body')).find($('.input'));
+    }
 
     function savePopup() {
       var name = $("#student_name").val();
@@ -76,16 +111,38 @@
           location.reload();
         }
       }
-    }
-
-    function cancelPopup() {
-      var name = $("#student_name").val();
-      if (name != "") {
-        var response = confirm("All changes will be cancelled. Proceed?");
+      var newName = $("#classEditTitle").val();
+      if (newName != "") {
+        var response = confirm("You are about to rename a class. Proceed?");
         if (response) {
           location.reload();
         }
       }
+    }
+
+    function cancelPopup() {
+      var name = $("#student_name").val();
+      var response = confirm("All changes will be cancelled. Proceed?");
+      if (response) {
+        location.reload();
+      }
+    }
+
+    function delClassPopup(event) {
+      //For server side use
+      var class_to_delete = $(event.target).parent().parent().parent().parent().find($('#classTitle')).text();
+
+      var response = confirm(class_to_delete + " will be deleted and all students removed from it. Proceed?");
+      if (response) {
+        location.reload();
+      }
+    }
+
+    function editTitle(event) {
+      $("#classTitle").hide();
+      $("#classEditTitle").fadeIn(100);
+      $("#dropdown").css('bottom', 0);
+      $("#dropdown").css('top', 5);
     }
   </script>
 </body>
