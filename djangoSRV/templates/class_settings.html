@@ -16,6 +16,8 @@
             <button type="button" data-toggle="modal" data-target="#newClass" class="btn btn-medium pull-right" style="position:relative; bottom:5px; right: 5px;">
               <i class="glyphicon glyphicon-plus" style="vertical-align: bottom;"></i>New class</button>
           </h5>
+          <button type="button" id="save_name" class="btn btn-default" onclick="saveNewName()">Save</button>
+          <button type="button" id="cancel_name" class="btn btn-default" onclick="cancelNewName()">Cancel</button>
         </div>
         <div class="accordion-inner" id="">
         
@@ -79,6 +81,8 @@
   <script>
     $("#add_student").hide();
     $("#classEditTitle").hide();
+    $("#save_name").hide();
+    $("#cancel_name").hide();
 
     $("#add_student_btn").click(function(){
       $("#add_student").fadeIn(300);
@@ -92,6 +96,18 @@
     {% endfor %}
 
     var students = [];
+
+    function saveNewName() {
+      location.reload();
+    }
+
+    function cancelNewName() {
+      $("#classEditTitle").hide();
+      $("#save_name").hide();
+      $("#cancel_name").hide();
+      $("#classTitle").fadeIn(300);
+      $("#dropdown").css('top', -35);
+    }
 
     function updateNames(course_id)
     {
@@ -153,7 +169,7 @@
                       * ADD WAY TO SHOW CLASS IS ADDED
                       *
                       *
-                      *
+                      * 
                       *
                       *
                       *
@@ -203,6 +219,8 @@
     function editTitle(event) {
       $("#classTitle").hide();
       $("#classEditTitle").fadeIn(100);
+      $("#save_name").fadeIn(100);
+      $("#cancel_name").fadeIn(100);
       $("#dropdown").css('bottom', 0);
       $("#dropdown").css('top', 5);
     }
