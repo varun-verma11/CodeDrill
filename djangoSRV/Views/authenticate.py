@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect, HttpResponse
 from Forms import LoginForm
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from model.models import Student, Teacher
+
 
 def authenticate_student(request):
 	form = LoginForm(request.POST)
@@ -21,11 +22,13 @@ def authenticate_teacher(request):
 	if (form.is_valid()):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
+		print username, password
 		user = authenticate(username=username, password=password)
 		if (user is not None):
                         user.backend = "djangoSRV.login.teacher_auth.TeacherBackend"
                 	login(request, user)
 			return HttpResponseRedirect("/teacher-view/")
+		return HttpResponseRedirect("/teacher-login/")
 	request.session["error"] = 'Wrong username/password '
 	return HttpResponseRedirect("/teacher-login/")
 
@@ -33,7 +36,8 @@ def authenticate_teacher(request):
 def check_user_name_exists(request):
 	if (request.is_ajax()):
 		username = request.POST["username"]
-		if (User.objects.filter(username=username).count()):
+		if (Student.objects.filter(uname=username).count() or Teacher.objects.filter(uname=username).count()):
+			print username ,":\tyes"
 			return HttpResponse("yes")
 		return HttpResponse("no")
 	return HttpResponse("invalid query")

@@ -1,4 +1,4 @@
-function check_username()
+function check_username_exists()
 {
 	var csrftoken = getCsrfToken();
 	$.ajax({
@@ -15,12 +15,10 @@ function check_username()
 	              {
 	                if(response=="yes")
 	                {
-	                  //display wrong username a cross
-	                  alert("username is fine")
+	                	return true;
 	                } else if (response=="no")
 	                {
-	                	alert("change username")
-	                  //display usrname is correct possibly with a tick
+	                 return false;
 	                }
 	              }
 	    });

@@ -52,7 +52,7 @@
 												<li><label class="tree-toggler nav-header">Year {{ year.name }}</label>
 												<ul class="nav nav-list tree">
 												{% for cls in year.get_teaching_classes %}
-													<li><a href="#" id="year-{{ year.get_name }}-class-{{ cls.get_name }}">Class {{cls.get_name}}</a></li>
+													<li><a href="#" id="year-{{ year.get_name }}-class-{{ cls.get_name }}">{{cls.get_name}}</a></li>
 												{% endfor %}
 												</ul>
 											</li>

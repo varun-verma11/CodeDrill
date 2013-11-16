@@ -4,6 +4,7 @@
   <head>
   {{header}}
   <script type="text/javascript" src="{% static "js/check_username.js"%}"></script>
+  <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
   </head>
 
   <body>
@@ -206,15 +207,22 @@
   }
 
   function checkUserNotTaken() {
-    if (user.val().length > 2) {
-      $('#user_taken').hide();
-      $('#user_ok').fadeIn();
-    } else if (user.val().length == 0) {
+
+    if (user.val().length < 2) 
+    {
       $('#user_ok').hide();
       $('#user_taken').hide();
-    } else {
-      $('#user_ok').hide();
-      $('#user_taken').fadeIn();
+    } else 
+    {
+      if (check_username_exists())
+      {
+        $('#user_ok').hide();
+        $('#user_taken').fadeIn();
+      } else
+      {
+        $('#user_taken').hide();
+        $('#user_ok').fadeIn();
+      }
     }
   }
 

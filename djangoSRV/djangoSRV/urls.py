@@ -13,7 +13,7 @@ from Views.student_grades import student_grades_view
 from Views.home import home_page
 from Views.logout import logout_user
 from Views.view_spec import view_spec, get_exercise_details
-from Views.settings import teacher_account_settings, student_account_settings, class_settings, change_password, change_email
+from Views.settings import teacher_account_settings, student_account_settings, class_settings, change_password, change_email, get_registered_students_in_course, add_new_class
 
 admin.autodiscover()
 
@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^teacher/$', viewSubmissionMark),
     url(r'^student/changepassword/$', change_password),
     url(r'^teacher/changepassword/$', change_password),
+    url(r'^teacher/get-students-in-class/$', get_registered_students_in_course),
+    url(r'^teacher/add-new-class/$', add_new_class),
     url(r'^teacher/get-exercise/$', get_exercise_details),
     url(r'^student/changeemail/$', change_email),
     url(r'^teacher/changeemail/$', change_email),

@@ -19,21 +19,17 @@
         </div>
         <div class="accordion-inner" id="">
         
-          <ul class="nav nav-pills">
-            <li><span class="label" style="position:relative; top:5px;">Year 1</span></li>
-            <li><a href="#">Class A</a></li>
-            <li class="active"><a href="#">Class B</a></li>
-            <li><a href="#">Class C</a></li>
-          </ul>
-          <ul class="nav nav-pills">
-            <li><span class="label" style="position:relative; top:5px;">Year 2</span></li>
-            <li><a href="#">Class A</a></li>
-            <li><a href="#">Class B</a></li>
-          </ul>
-
+          {% for year in teaching_hierarchy.get_teaching_years %}
+            <ul class="nav nav-pills">
+              <li><span class="label" style="position:relative; top:5px;">Year {{ year.get_name }}</span></li>
+              {% for cls in year.get_teaching_classes %}
+                <li><a href="#" onclick="updateNames({{ cls.get_id }}); return false;">{{ cls.get_name }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
            <div class="accordion-group" style="background-color:#F0F0F0;">
             <div class="accordion-heading" style="padding-left:10px;">
-              <h5 id="classTitle">Class 1B</h5>
+              <h5 id="classTitle"> </h5>
               <input type="text" id="classEditTitle" class="input input-medium" placeholder="Class name..." style="height:30px; position:relative; top:5px">
               
               <div id="dropdown" class="btn-group pull-right" style="position: relative; bottom: 35px;"> 
@@ -48,21 +44,7 @@
             </div>
             <div class="accordion-inner" id="">
               <ul class="nav nav-pills" id="names">
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
-                <li><a href="#">name <i class="glyphicon glyphicon-remove"></i></a></li>
+
               </ul>          
               <div id="add_student">Put student <input type="text" id="student_name" class="input input-medium" placeholder="Search for a name..." style="height:30px; position:relative; top:5px"> in Class 1B. Please save or cancel your change.</div>
               <button type="button" id="add_student_btn" class="btn btn-small">
@@ -81,10 +63,14 @@
       <h3>Create a new class</h3>
     </div>
     <div class="modal-body">
-      <p>Please insert a year for your class (e.g. 1, 2...).</p>
-      <input type="text" class="input input-small">
+      <p>Please insert a year for your class.</p>
+      <select id="newClassYear" class="input input-small" >
+        {% for i in years %}
+          <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
       <p>Please insert a name for your class.</p>
-      <input type="text" class="input input-small">
+      <input id="newClassName" type="text" class="input input-small">
     </div>
     <div class="modal-footer">
       <a href="#" class="btn btn-primary" onclick="makeNewClass(event)">Submit</a>
@@ -98,9 +84,85 @@
       $("#add_student").fadeIn(300);
     });
 
-    function makeNewClass(event) {
+    var classes_names = {};
+    {% for year in teaching_hierarchy.get_teaching_years %}
+        {% for cls in year.get_teaching_classes %}
+          classes_names["{{ cls.get_id }}"] = "{{ cls.get_name }}";
+        {% endfor %}
+    {% endfor %}
+
+    var students = [];
+
+    function updateNames(course_id)
+    {
+      getNamesForClass(course_id);
+      var namesHTML = ""
+      for (i in students)
+      {  
+        namesHTML += '<li><a href="#">'+ students[i].full_name +'<i class="glyphicon glyphicon-remove"></i></a></li>';
+      }
+      document.getElementById("names").innerHTML = namesHTML;
+      document.getElementById("classTitle").innerHTML = classes_names[course_id.toString()];
+    }
+
+    function getNamesForClass(course_id)
+    {
+      var csrftoken = getCsrfToken();
+      $.ajax({
+            type: 'POST',
+            url: '/teacher/get-students-in-class/',
+            data: {
+                    'course_id': course_id
+                  },
+            beforeSend: function(xhr, settings) 
+                  {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                  },
+            success: function(response) 
+                  {
+                    students = JSON.parse(response);
+                  }
+        });
+      return false;
+    }
+
+    function makeNewClass(event) 
+    {
       $("#newClass").modal('toggle');
-      var inputs = $(event.target).parent().parent().find($('.modal-body')).find($('.input'));
+      var class_name = $("#newClassName").val();
+      var class_year = $("#newClassYear").val();
+      var csrftoken = getCsrfToken();
+      $.ajax({
+            type: 'POST',
+            url: '/teacher/add-new-class/',
+            data: {
+                    'name': class_name,
+                    'year': class_year
+                  },
+            beforeSend: function(xhr, settings) 
+                  {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                  },
+            success: function(response) 
+                  {
+                    alert(response);
+                    /*
+                      *
+                      *
+                      *
+                      * ADD WAY TO SHOW CLASS IS ADDED
+                      *
+                      *
+                      *
+                      *
+                      *
+                      *
+                      *
+                      *
+                    */
+                  }
+        });
+      return false;
     }
 
     function savePopup() {

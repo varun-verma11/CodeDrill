@@ -1,11 +1,14 @@
 from django.template.loader import get_template
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from Forms import SubmitCodeForm
 from django.template import Context
 from django.core.context_processors import csrf
 from djangoSRV.student import get_exercise, getStudentAssignments
 from utils import get_header_navbar
 from acc_queries import *
+import json
+from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course
+
 
 def teacher_account_settings(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
@@ -43,10 +46,28 @@ def class_settings(request):
         context = Context( { 
 			        		'menu' : get_template("teacher_menu.html").render(Context()),
 			        		'header' : elements['header'],
-                            'navbar' : elements['navbar']
+			        		'teaching_hierarchy': get_courses(request.user.user_id),
+                            'navbar' : elements['navbar'],
+                            'years' : range(1,13) #should be added later from DB
 		        	})
         return HttpResponse(get_template("class_settings.html").render(context))
 	return HttpResponseRedirect("/")
+
+def get_registered_students_in_course(request):
+	if (request.user.is_authenticated() and request.is_ajax()):
+		course_id = request.POST["course_id"]
+		students = get_students_in_course(course_id)
+		return HttpResponse(json.dumps(students))
+	return HttpResponseBadRequest()
+
+def add_new_class(request):
+	if (request.user.is_authenticated() and request.is_ajax()):
+		course_name = request.POST["name"]
+		course_year = request.POST["year"]
+		if add_new_course(course_name, int(course_year)):
+			return HttpResponse("added")
+
+	return HttpResponseBadRequest()
 
 def change_password(request):
 	if (request.user.is_authenticated()):

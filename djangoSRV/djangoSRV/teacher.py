@@ -1,4 +1,6 @@
 from model.models import *
+from Views.teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
+
 
 def listAllTeachers(request):
     teachers = Teacher.objects.all()
@@ -47,6 +49,41 @@ def get_all_exercises():
     ch2 = Chapter("Assignment", [as3, as4])
 
     return AssignmentsBook([ch1, ch2])
+
+def get_courses(tch_id):
+    courses = Course.objects.filter(tch_id__exact=tch_id)
+    years = []
+    for course in courses:
+        if course.year not in years:
+            years.append(course.year)
+
+    school_years = []
+    for year in years:
+        classes = courses.filter(year=year).values('name','c_id')
+        school_classes = []
+        for cls in classes:
+            school_classes.append(TeachingClass(cls['name'],cls['c_id']))
+        school_years.append(SchoolYear(str(year), school_classes))
+
+    return TeachingHierarchy(school_years)
+
+def get_students_in_course(course_id):
+    try:
+        course = Course.objects.filter(c_id=course_id)[0]
+    except IndexError:
+        return ([],[])
+    students = []
+    for student in course.students.all():
+        students.append({  'full_name':student.first_name.encode("utf8") + " " + student.last_name.encode("utf8"),
+                        'id' : student.user_id
+                    })
+    return students
+
+def add_new_course(name,year, tch_id):
+    #create course and save it
+    return True
+
+
 
 def viewSubmissionMark(request):
     students = Student.objects.all()
