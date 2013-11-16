@@ -4,40 +4,22 @@ from django.template import Context
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 from utils import get_header_navbar
-from djangoSRV.teacher import get_courses
+from djangoSRV.teacher import get_courses, get_all_exercises
 
 
 def get_set_exercise_page(request):
 	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
 		template = get_template("set_exercise.html")
 		teaching_hierarchy = get_courses(request.user.user_id)
-		assignment_book = __get_assignments_book()
 		name = request.user.first_name + " " + request.user.last_name
 		elements = get_header_navbar("Teacher",name,"Teaching Overview")
 		context = Context( {'header' : elements['header'], 
 							'menu' : get_template("teacher_menu.html").render(Context({"page":"set_ex"})),
 							'teaching_hierarchy' : teaching_hierarchy,
 							'navbar' : elements['navbar'],
-							'assignment_book' : assignment_book})
+							'assignment_book' : get_all_exercises()})
 		return HttpResponse(template.render(context))
 	return HttpResponseRedirect("/")
-
-
-
-def __get_assignments_book():
-	as1 = Assignment("If", 111)
-	as2 = Assignment("If-then-else", 123)
-	ch1 = Chapter("Conditionals", [as1, as2])
-
-	as3 = Assignment("Addition", 145)
-	as4 = Assignment("Subtraction", 143)
-	ch2 = Chapter("Assignment", [as3, as4])
-
-	as5 = Assignment("Print-10-Numbers", 154)
-	as6 = Assignment("Sum", 143)
-	ch3 = Chapter("Loops", [as5, as6])
-
-	return AssignmentsBook([ch1, ch2, ch3])
 
 
 
