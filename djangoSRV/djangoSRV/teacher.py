@@ -83,6 +83,12 @@ def add_new_course(name,year, tch_id):
     #create course and save it
     return True
 
+def get_suggested_names(start):
+    names = []
+    students = Student.objects.filter(first_name__contains=start).values("first_name", "last_name",'uname')
+    for std in students:
+        names.append({'name':std["first_name"] + " " + std["last_name"], "uname": std["uname"]})
+    return names
 
 def rename_course(c_id, name):
     try:

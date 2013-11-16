@@ -4,6 +4,9 @@
 
   {{ header }}
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body>
   {{ navbar }}
@@ -93,6 +96,51 @@
   $("#add_student_btn").click(function(){
     $("#add_student").fadeIn(300);
   });
+
+  // $( "#student_name" ).autocomplete({
+  //     minLength: 0,
+  //     source: projects,
+  //     focus: function( event, ui ) {
+  //       $( "#student_name" ).val( ui.item.label );
+  //       return false;
+  //     },
+  //     select: function( event, ui ) {
+  //       $( "#student_name" ).val( ui.item.label );
+ 
+  //       return false;
+  //     }
+  //   })
+  //   .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+  //     return $( "names" )
+  //       .append( '<li><a href="#">'+ students[i].full_name +'<i class="glyphicon glyphicon-remove"></i></a></li>' )
+  //       ;
+  //   };
+
+  var suggestions = [];
+  get_student_names("v");
+  get_student_names("r");
+
+  function get_student_names(start)
+  {
+    $.ajax({
+      type: 'POST',
+      url: '/teacher/settings/get-student-names/',
+      data: {
+              'start': start
+            },
+      beforeSend: function(xhr, settings) 
+            {
+              xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+            },
+      success: function(response) 
+            {
+              suggestions = JSON.parse(response);
+              alert(suggestions);
+              return true;
+            }
+    });
+    return false;
+  }
 
   var current_class = -1;
 
