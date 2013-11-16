@@ -7,7 +7,7 @@ from djangoSRV.student import get_exercise, getStudentAssignments
 from utils import get_header_navbar
 from acc_queries import *
 import json
-from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course
+from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course, get_suggested_names
 
 
 def teacher_account_settings(request):
@@ -23,7 +23,7 @@ def teacher_account_settings(request):
 		        	})
         settings_page = get_template("account_settings.html").render(context)
         return HttpResponse(settings_page)
-	return HttpResponseRedirect("/")
+	return HttpResponseRedirect("/")	
 
 def student_account_settings(request):
 	if (request.user.is_authenticated() and request.user.is_type("Student")):
@@ -60,6 +60,13 @@ def get_registered_students_in_course(request):
 		return HttpResponse(json.dumps(students))
 	return HttpResponseBadRequest()
 
+def get_names_suggestions(request):
+	if (request.user.is_authenticated() and request.is_ajax()):
+		start = request.POST["start"]
+		return HttpResponse(json.dumps(get_suggested_names(start)))
+	return HttpResponseBadRequest()
+
+
 def add_new_class(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
 		course_name = request.POST["name"]
@@ -79,6 +86,14 @@ def change_password(request):
 			return HttpResponse("yes")
 		return HttpResponse("no")
 	return HttpResponse("no")
+
+def update_class_name(request):
+	if (request.user.is_authenticated() and request.is_ajax()):
+		new_name = request.POST['course_name']
+		course_id = request.POST['course_id']
+		rename_course(course_id, new_name)
+		return HttpResponse("")
+	return HttpResponseBadRequest()
 
 def change_email(request):
     if (request.user.is_authenticated()):

@@ -7,10 +7,11 @@ from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from utils import get_header_navbar
 from Forms import SubmitCodeForm
 from djangoSRV.student import get_exercise
+from djangoSRV.teacher import get_all_exercises
 import json
 
 def view_spec(request):
-	if (request.user.is_authenticated()):
+	if (request.user.is_authenticated() and request.user.is_type("Teacher")) :
 		template = get_template("view_spec.html")
 		name = request.user.first_name + " " + request.user.last_name
 		elements = get_header_navbar("Teacher",name,"View Specification")
@@ -19,21 +20,10 @@ def view_spec(request):
 				  'navbar' : elements['navbar'],
 				  'menu' : get_template("teacher_menu.html").render(Context({"page":"view_spec"})),
 				  'editor' : SubmitCodeForm(),
-				  'assignment_book': __get_assignments_book()
+				  'assignment_book': get_all_exercises()
 				})
 		return HttpResponse(template.render(context))
 	return HttpResponseRedirect("/")
-
-def __get_assignments_book():
-    as1 = Assignment("If", 1)
-    as2 = Assignment("If-then-else", 2)
-    ch1 = Chapter("Conditionals", [as1, as2])
-
-    as3 = Assignment("Addition", 3)
-    as4 = Assignment("Subtraction", 4)
-    ch2 = Chapter("Assignment", [as3, as4])
-
-    return AssignmentsBook([ch1, ch2])
 
 def get_exercise_details(request):
 	if (request.user.is_authenticated() and request.is_ajax()):

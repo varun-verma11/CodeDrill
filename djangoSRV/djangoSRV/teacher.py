@@ -1,6 +1,6 @@
 from model.models import *
 from Views.teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
-
+from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 def listAllTeachers(request):
     teachers = Teacher.objects.all()
@@ -40,15 +40,20 @@ def sendExercisesToClass(request):
     row.save()    
 
 def get_all_exercises():
-    as1 = Assignment("If", 1)
-    as2 = Assignment("If-then-else", 2)
-    ch1 = Chapter("Conditionals", [as1, as2])
+    categories = Exercise.objects.values_list('category').distinct()
+    chapters = []
 
-    as3 = Assignment("Addition", 3)
-    as4 = Assignment("Subtraction", 4)
-    ch2 = Chapter("Assignment", [as3, as4])
+    for category in categories:
+        assignments = []
+        ascii_cat = category[0].encode("ascii")
+        for exercise in Exercise.objects.filter(category=ascii_cat):
+            assignment = Assignment(exercise.title, exercise.ex_id, exercise.content, exercise.description)
+            assignments.append(assignment)      
+        chapter = Chapter(ascii_cat, assignments)
+        chapters.append(chapter)
 
-    return AssignmentsBook([ch1, ch2])
+    
+    return AssignmentsBook(chapters)
 
 def get_courses(tch_id):
     courses = Course.objects.filter(tch_id__exact=tch_id)
@@ -83,6 +88,19 @@ def add_new_course(name,year, tch_id):
     #create course and save it
     return True
 
+def get_suggested_names(start):
+    names = []
+    students = Student.objects.filter(first_name__contains=start).values("first_name", "last_name",'uname')
+    for std in students:
+        names.append({'name':std["first_name"] + " " + std["last_name"], "uname": std["uname"]})
+    return names
+
+def rename_course(c_id, name):
+    try:
+        Course.objects.filter(c_id=c_id).update(name=name)
+        return True
+    except IndexError:
+        return False
 
 
 def viewSubmissionMark(request):

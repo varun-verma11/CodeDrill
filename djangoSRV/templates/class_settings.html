@@ -4,6 +4,9 @@
 
   {{ header }}
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body>
   {{ navbar }}
@@ -16,8 +19,6 @@
             <button type="button" data-toggle="modal" data-target="#newClass" class="btn btn-medium pull-right" style="position:relative; bottom:5px; right: 5px;">
               <i class="glyphicon glyphicon-plus" style="vertical-align: bottom;"></i>New class</button>
           </h5>
-          <button type="button" id="save_name" class="btn btn-default" onclick="saveNewName()">Save</button>
-          <button type="button" id="cancel_name" class="btn btn-default" onclick="cancelNewName()">Cancel</button>
         </div>
         <div class="accordion-inner" id="">
         
@@ -33,7 +34,8 @@
             <div class="accordion-heading" style="padding-left:10px;">
               <h5 id="classTitle"> </h5>
               <input type="text" id="classEditTitle" class="input input-medium" placeholder="Class name..." style="height:30px; position:relative; top:5px">
-              
+              <button type="button" id="save_name" class="btn btn-default" onclick="saveNewName()">Save</button>
+              <button type="button" id="cancel_name" class="btn btn-default" onclick="cancelNewName()">Cancel</button>
               <div id="dropdown" class="btn-group pull-right" style="position: relative; bottom: 35px;"> 
                 <a class="btn btn-link dropdown-toggle" id="settings" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-cog glyphicon-white" style="color:#000;"></i></a>
                 <ul class="dropdown-menu">
@@ -73,157 +75,252 @@
       </select>
       <p>Please insert a name for your class.</p>
       <input id="newClassName" type="text" class="input input-small">
+      <div class="accordion-inner" id="">
+        <ul class="nav nav-pills" id="names">
+          <li><a href="#">Varun Verma<i class="glyphicon glyphicon-remove"></i></a></li>
+        </ul>          
+      </div>
     </div>
     <div class="modal-footer">
       <a href="#" class="btn btn-primary" onclick="makeNewClass(event)">Submit</a>
     </div>
 </div>
-  <script>
-    $("#add_student").hide();
-    $("#classEditTitle").hide();
-    $("#save_name").hide();
-    $("#cancel_name").hide();
+</body>
 
-    $("#add_student_btn").click(function(){
-      $("#add_student").fadeIn(300);
+<script>
+  $("#add_student").hide();
+  $("#classEditTitle").hide();
+  $("#save_name").hide();
+  $("#cancel_name").hide();
+
+  $("#add_student_btn").click(function(){
+    $("#add_student").fadeIn(300);
+  });
+
+  // $( "#student_name" ).autocomplete({
+  //     minLength: 0,
+  //     source: projects,
+  //     focus: function( event, ui ) {
+  //       $( "#student_name" ).val( ui.item.label );
+  //       return false;
+  //     },
+  //     select: function( event, ui ) {
+  //       $( "#student_name" ).val( ui.item.label );
+ 
+  //       return false;
+  //     }
+  //   })
+  //   .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+  //     return $( "names" )
+  //       .append( '<li><a href="#">'+ students[i].full_name +'<i class="glyphicon glyphicon-remove"></i></a></li>' )
+  //       ;
+  //   };
+
+  var suggestions = [];
+  get_student_names("v");
+  get_student_names("r");
+
+  function get_student_names(start)
+  {
+    $.ajax({
+      type: 'POST',
+      url: '/teacher/settings/get-student-names/',
+      data: {
+              'start': start
+            },
+      beforeSend: function(xhr, settings) 
+            {
+              xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+            },
+      success: function(response) 
+            {
+              suggestions = JSON.parse(response);
+              alert(suggestions);
+              return true;
+            }
     });
+    return false;
+  }
 
-    var classes_names = {};
-    {% for year in teaching_hierarchy.get_teaching_years %}
-        {% for cls in year.get_teaching_classes %}
-          classes_names["{{ cls.get_id }}"] = "{{ cls.get_name }}";
-        {% endfor %}
-    {% endfor %}
+  var current_class = -1;
 
-    var students = [];
+  var classes_names = {};
+  {% for year in teaching_hierarchy.get_teaching_years %}
+      {% for cls in year.get_teaching_classes %}
+        classes_names["{{ cls.get_id }}"] = "{{ cls.get_name }}";
+      {% endfor %}
+  {% endfor %}
 
-    function saveNewName() {
-      location.reload();
-    }
+  var students = [];
 
-    function cancelNewName() {
+  function saveNewName() 
+  {
+    var newName = document.getElementById("classEditTitle").value;
+    if (confirm("Are you sure you want to change name of " + classes_names[current_class.toString()] + " to " + newName + "?"))
+    {
+      if (updateNameForCourse(current_class,newName))
+      {
+          classes_names[current_class.toString()] = newName;
+          update_current_class_name();
+      }
       $("#classEditTitle").hide();
       $("#save_name").hide();
       $("#cancel_name").hide();
       $("#classTitle").fadeIn(300);
       $("#dropdown").css('top', -35);
+      location.reload();
     }
+  }
 
-    function updateNames(course_id)
-    {
-      getNamesForClass(course_id);
-      var namesHTML = ""
-      for (i in students)
-      {  
-        namesHTML += '<li><a href="#">'+ students[i].full_name +'<i class="glyphicon glyphicon-remove"></i></a></li>';
-      }
-      document.getElementById("names").innerHTML = namesHTML;
-      document.getElementById("classTitle").innerHTML = classes_names[course_id.toString()];
+  function updateNameForCourse(cls_id, name)
+  {
+    $.ajax({
+      type: 'POST',
+      url: '/teacher/update-class-name/',
+      data: {
+              'course_id': cls_id,
+              'course_name': name
+            },
+      beforeSend: function(xhr, settings) 
+            {
+              xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+            },
+      success: function(response) 
+            {
+              return true;
+            }
+    });
+    return false;
+  }
+
+  function cancelNewName() {
+    $("#classEditTitle").hide();
+    $("#save_name").hide();
+    $("#cancel_name").hide();
+    $("#classTitle").fadeIn(300);
+    $("#dropdown").css('top', -35);
+  }
+
+  function updateNames(course_id)
+  {
+    getNamesForClass(course_id);
+    var namesHTML = ""
+    for (i in students)
+    {  
+      namesHTML += '<li><a href="#">'+ students[i].full_name +'<i class="glyphicon glyphicon-remove"></i></a></li>';
     }
+    document.getElementById("names").innerHTML = namesHTML;
+    update_current_class_name();
+    current_class = course_id;
+  }
 
-    function getNamesForClass(course_id)
-    {
-      var csrftoken = getCsrfToken();
-      $.ajax({
-            type: 'POST',
-            url: '/teacher/get-students-in-class/',
-            data: {
-                    'course_id': course_id
-                  },
-            beforeSend: function(xhr, settings) 
-                  {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                  },
-            success: function(response) 
-                  {
-                    students = JSON.parse(response);
-                  }
-        });
-      return false;
-    }
+  function update_current_class_name()
+  {
+    document.getElementById("classTitle").innerHTML = classes_names[current_class.toString()];
+  }
 
-    function makeNewClass(event) 
-    {
-      $("#newClass").modal('toggle');
-      var class_name = $("#newClassName").val();
-      var class_year = $("#newClassYear").val();
-      var csrftoken = getCsrfToken();
-      $.ajax({
-            type: 'POST',
-            url: '/teacher/add-new-class/',
-            data: {
-                    'name': class_name,
-                    'year': class_year
-                  },
-            beforeSend: function(xhr, settings) 
-                  {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                  },
-            success: function(response) 
-                  {
-                    alert(response);
-                    /*
-                      *
-                      *
-                      *
-                      * ADD WAY TO SHOW CLASS IS ADDED
-                      *
-                      *
-                      * 
-                      *
-                      *
-                      *
-                      *
-                      *
-                    */
-                  }
-        });
-      return false;
-    }
+  function getNamesForClass(course_id)
+  {
+    var csrftoken = getCsrfToken();
+    $.ajax({
+          type: 'POST',
+          url: '/teacher/get-students-in-class/',
+          data: {
+                  'course_id': course_id
+                },
+          beforeSend: function(xhr, settings) 
+                {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+          success: function(response) 
+                {
+                  students = JSON.parse(response);
+                }
+      });
+    return false;
+  }
 
-    function savePopup() {
-      var name = $("#student_name").val();
-      if (name != "") {
-        var response = confirm(name + " will be added to class 1B. Proceed?");
-        if (response) {
-          location.reload();
-        }
-      }
-      var newName = $("#classEditTitle").val();
-      if (newName != "") {
-        var response = confirm("You are about to rename a class. Proceed?");
-        if (response) {
-          location.reload();
-        }
-      }
-    }
+  function makeNewClass(event) 
+  {
+    $("#newClass").modal('toggle');
+    var class_name = $("#newClassName").val();
+    var class_year = $("#newClassYear").val();
+    var csrftoken = getCsrfToken();
+    $.ajax({
+          type: 'POST',
+          url: '/teacher/add-new-class/',
+          data: {
+                  'name': class_name,
+                  'year': class_year
+                },
+          beforeSend: function(xhr, settings) 
+                {
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                },
+          success: function(response) 
+                {
+                  alert(response);
+                  /*
+                    *
+                    *
+                    *
+                    * ADD WAY TO SHOW CLASS IS ADDED
+                    *
+                    *
+                    * 
+                    *
+                    *
+                    *
+                    *
+                    *
+                  */
+                }
+      });
+    return false;
+  }
 
-    function cancelPopup() {
-      var name = $("#student_name").val();
-      var response = confirm("All changes will be cancelled. Proceed?");
+  function savePopup() {
+    var name = $("#student_name").val();
+    if (name != "") {
+      var response = confirm(name + " will be added to class 1B. Proceed?");
       if (response) {
         location.reload();
       }
     }
-
-    function delClassPopup(event) {
-      //For server side use
-      var class_to_delete = $(event.target).parent().parent().parent().parent().find($('#classTitle')).text();
-
-      var response = confirm(class_to_delete + " will be deleted and all students removed from it. Proceed?");
+    var newName = $("#classEditTitle").val();
+    if (newName != "") {
+      var response = confirm("You are about to rename a class. Proceed?");
       if (response) {
         location.reload();
       }
     }
+  }
 
-    function editTitle(event) {
-      $("#classTitle").hide();
-      $("#classEditTitle").fadeIn(100);
-      $("#save_name").fadeIn(100);
-      $("#cancel_name").fadeIn(100);
-      $("#dropdown").css('bottom', 0);
-      $("#dropdown").css('top', 5);
+  function cancelPopup() {
+    var name = $("#student_name").val();
+    var response = confirm("All changes will be cancelled. Proceed?");
+    if (response) {
+      location.reload();
     }
-  </script>
-</body>
+  }
+
+  function delClassPopup(event) {
+    //For server side use
+    var class_to_delete = $(event.target).parent().parent().parent().parent().find($('#classTitle')).text();
+
+    var response = confirm(class_to_delete + " will be deleted and all students removed from it. Proceed?");
+    if (response) {
+      location.reload();
+    }
+  }
+
+  function editTitle(event) {
+    $("#classTitle").hide();
+    $("#classEditTitle").fadeIn(100);
+    $("#save_name").fadeIn(100);
+    $("#cancel_name").fadeIn(100);
+    $("#dropdown").css('bottom', 0);
+    $("#dropdown").css('top', 5);
+  }
+</script>
 </html>

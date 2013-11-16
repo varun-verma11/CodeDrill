@@ -67,6 +67,7 @@ def getStudentAssignments(uid):
         assignments = []
         ascii_cat = category[0].encode("ascii")
         for exercise in Exercise.objects.filter(category=ascii_cat):
+            #TODO this is broken:
             assignment = Assignment(exercise.title, exercise.ex_id, exercise.content, exercise.description)
             assignments.append(assignment)   	
         chapter = Chapter(ascii_cat, assignments)
