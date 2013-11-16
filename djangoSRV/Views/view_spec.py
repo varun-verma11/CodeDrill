@@ -10,7 +10,7 @@ from djangoSRV.student import get_exercise
 import json
 
 def view_spec(request):
-	if (request.user.is_authenticated()):
+	if (request.user.is_authenticated() and request.user.is_type("Teacher")) :
 		template = get_template("view_spec.html")
 		name = request.user.first_name + " " + request.user.last_name
 		elements = get_header_navbar("Teacher",name,"View Specification")
