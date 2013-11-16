@@ -85,13 +85,13 @@
 				<label class="tree-toggler nav-header" onclick="showOverview()">Overview</label>
 			</li>
 			<li>
-				<label class="tree-toggler nav-header" onclick="showY1()">Year 1</label>
+				<label class="tree-toggler nav-header" onclick="showYear(1)">Year 1</label>
 				<ul class="nav nav-list tree">
 					<li class="nav nav-list tree">
-						<a href="#" onclick="showCA()">Class A</a>
+						<a href="#" onclick="showClass(1, 'A')">Class A</a>
 						<ul class="nav nav-list tree">
 							<li class="nav nav-list tree">
-								<a href="#" onclick="showAss1()">Assignment 1</a>
+								<a href="#" onclick="showAssignment(1, 'A', 'ass1')">Assignment 1</a>
 							</li>
 						</ul>
 					</li>
@@ -109,50 +109,100 @@
 </div>
 <script>
 
+var tableHead = "<table class='table'><tbody>";
+var tableFoot = "</tbody> </table>";
+
 showOverview();
 
+/*format for data
+	[
+		{title: string},
+		{average: number}, <-- this does not appear in overview
+		[{table: {
+				column1 : column2,
+				col1data : col2data,
+				...
+			}
+		}]
+	]
+*/
+
+/*
+ * year_no is either 'overview' or an int.
+ */
+function getData(year_no, class_name, assignment_name) {
+	var data;
+	if (year_no == null) {
+		data = [{"title":"Overview"}, {"table":{"Assignment":"Average grade", "Assignment 1":"75", "Assignment 2":"70"}}];
+	} else if (class_name == null) {
+		//use year_no to make ajax request and get the data below
+		data = [{"title":"Performance for year 1"}, {"average": 77.5}, {"table":{"Assignment":"Average grade", "Assignment 1":80, "Assignment 2":75}}];
+	} else if (assignment_name == null) {
+		data = [{"title":"Performance in 1A"}, {"average": 77.5}, {"table":{"Assignment":"Average grade", "Assignment 1":80, "Assignment 2":75, "Assignment 3":65}}];
+	} else {
+		data = [{"title":"Assignment 1 performance for 1A"}, {"average": 77.5}, 
+			{"table":{"Assignment 1":"Grade", "Student name 1":80, "Student name 2":75, "Student name 3":65}}];
+	}
+	return data;
+}
+
+
 function showOverview() {
-	var overview = "<table class='table'> <thead> <tr> <th>Assignment</th> <th>Average grade</th> </tr> </thead> <tbody> <tr> <td>Assignment 1</td> <td>70%</td> </tr> <tr> <td> Assignment 2 </td> <td> 75% </td> </tr> </tbody> </table>";
-	$('#content').html(overview);
-	$('#title').html("Overview");
+	var data = getData();
+	var title = data[0].title;
+	var table = data[1].table;
+	var content = tableHead;
+	for (key in table) {
+		content += "<tr> <td>" + key + "</td><td>" + table[key] + "</td></tr>";
+	}
+	content += tableFoot;
+
+	$('#content').html(content);
+	$('#title').html(title);
 }
 
-function showY1() {
-	var content =  "<p>Average: 77.5%</p> <table class='table'> <thead> <tr> <th>Assignment</th> <th>Average grade</th> </tr> </thead> <tbody> <tr> <td>Assignment 1</td> <td>80%</td> </tr> <tr> <td> Assignment 2 </td> <td> 75% </td> </tr> </tbody> </table>";
+function showYear(year_no) {
+	var data = getData(year_no);
+	var title = data[0].title;
+	var table = data[2].table;
+	var content = "<p>" + data[1].average + "</p>" + tableHead;
+	for (key in table) {
+		content += "<tr> <td>" + key + "</td><td>" + table[key] + "</td></tr>";
+	}
+	content += tableFoot;
+
 	$('#content').html(content);
-	$('#title').html("Performance for year 1");
+	$('#title').html(title);
 }
 
-function showCA() {
-	var content =  "<p>Average: 77.5%</p> <table class='table'> <thead> <tr> <th>Assignment</th> <th>Average grade</th> </tr> </thead> <tbody> <tr> <td>Assignment 1</td> <td>80%</td> </tr> <tr> <td> Assignment 2 </td> <td> 75% </td> </tr> <tr> <td> Assignment 3 </td> <td> 65% </td> </tr> </tbody> </table>";
+function showClass(year_no, class_name) {
+	var data = getData(year_no, class_name);
+	var title = data[0].title;
+	var table = data[2].table;
+	var content = "<p>" + data[1].average + "</p>" + tableHead;
+	for (key in table) {
+		content += "<tr> <td>" + key + "</td><td>" + table[key] + "</td></tr>";
+	}
+	content += tableFoot;
+
 	$('#content').html(content);
-	$('#title').html("Performance in 1A");
+	$('#title').html(title);
 }
 
-function showAss1() {
-	var content =  "<p>Average: 77.5%</p> <table class='table'> <thead> <tr> <th>Assignment 1</th> <th>Grade</th> </tr> </thead> <tbody> <tr> <td>Student name 1</td> <td>80%</td> </tr> <tr> <td> Student name 2 </td> <td> 75% </td> </tr> <tr> <td> Student name 3 </td> <td> N/A </td> </tr> </tbody> </table>";
+function showAssignment(year_no, class_name, assignment_name) {
+	var data = getData(year_no, class_name, assignment_name);
+	var title = data[0].title;
+	var table = data[2].table;
+	var content = "<p>" + data[1].average + "</p>" + tableHead;
+	for (key in table) {
+		content += "<tr> <td>" + key + "</td><td>" + table[key] + "</td></tr>";
+	}
+	content += tableFoot;
+
 	$('#content').html(content);
-	$('#title').html("Assignment 1 performance for 1A");
+	$('#title').html(title);
 }
 
 </script>
 </body>
 </html>
-
-<!--
-
-										<table class="table" id="year-1-class-A-table">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>Chapter</th>
-												<th>Problem name</th>
-												<th>Student name</th>
-												<th>Grade</th>
-												<th style="width: 36px;"></th>
-											</tr>
-										</thead>
-										<tbody>
-
-										</tbody>
-									</table>-->
