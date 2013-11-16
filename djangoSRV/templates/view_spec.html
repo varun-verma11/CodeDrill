@@ -83,7 +83,9 @@
 		            else
 		            {
 		                document.getElementById("id_code").value = (result[0]);
+                                $("#id_code").show();
 		                $("#description").text(result[1]);
+                                console.log($("#id_code").val());
 		            }
 	              }
 	    });
