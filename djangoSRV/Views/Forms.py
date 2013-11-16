@@ -1,5 +1,9 @@
 from django import forms
 from django_ace import AceWidget
+from djangoSRV.models import Student
+from model.lookups import UserLookup
+import selectable.forms as selectable
+
 
 class LoginForm(forms.Form):
 	username = forms.CharField()
@@ -39,5 +43,12 @@ class TeacherRegisterForm(forms.Form):
 		return password2
 
 class SubmitCodeForm(forms.Form):
-	code = forms.CharField(widget=AceWidget(mode='python', theme="cobalt" ,attrs={'size':'40'}))
+	code = forms.CharField(widget=AceWidget(mode='python', theme="cobalt" ,attrs={'size':'40', 'style':""}))
 
+
+class AddStudentForm(forms.Form):
+	student = forms.CharField(
+		        label='Type the name of a student',
+		        widget=selectable.AutoCompleteWidget(UserLookup),
+		        required=False,
+		    )

@@ -5,6 +5,7 @@ from django.template import Context
 from django.core.context_processors import csrf
 from djangoSRV.student import get_exercise, getStudentAssignments
 from utils import get_header_navbar
+from Forms import AddStudentForm
 from acc_queries import *
 import json
 from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course, get_suggested_names
@@ -48,6 +49,7 @@ def class_settings(request):
 			        		'header' : elements['header'],
 			        		'teaching_hierarchy': get_courses(request.user.user_id),
                             'navbar' : elements['navbar'],
+                            'add_student' : AddStudentForm(),
                             'years' : range(1,13) #should be added later from DB
 		        	})
         return HttpResponse(get_template("class_settings.html").render(context))
@@ -62,8 +64,10 @@ def get_registered_students_in_course(request):
 
 def get_names_suggestions(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
-		start = request.POST["start"]
-		return HttpResponse(json.dumps(get_suggested_names(start)))
+		start = request.GET["term"]
+		result = json.dumps(get_suggested_names(start))
+		print result
+		return HttpResponse(result)
 	return HttpResponseBadRequest()
 
 
