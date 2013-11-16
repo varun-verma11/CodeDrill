@@ -16,8 +16,6 @@
             <button type="button" data-toggle="modal" data-target="#newClass" class="btn btn-medium pull-right" style="position:relative; bottom:5px; right: 5px;">
               <i class="glyphicon glyphicon-plus" style="vertical-align: bottom;"></i>New class</button>
           </h5>
-          <button type="button" id="save_name" class="btn btn-default" onclick="saveNewName()">Save</button>
-          <button type="button" id="cancel_name" class="btn btn-default" onclick="cancelNewName()">Cancel</button>
         </div>
         <div class="accordion-inner" id="">
         
@@ -33,7 +31,8 @@
             <div class="accordion-heading" style="padding-left:10px;">
               <h5 id="classTitle"> </h5>
               <input type="text" id="classEditTitle" class="input input-medium" placeholder="Class name..." style="height:30px; position:relative; top:5px">
-              
+              <button type="button" id="save_name" class="btn btn-default" onclick="saveNewName()">Save</button>
+          <button type="button" id="cancel_name" class="btn btn-default" onclick="cancelNewName()">Cancel</button>
               <div id="dropdown" class="btn-group pull-right" style="position: relative; bottom: 35px;"> 
                 <a class="btn btn-link dropdown-toggle" id="settings" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-cog glyphicon-white" style="color:#000;"></i></a>
                 <ul class="dropdown-menu">
