@@ -89,6 +89,13 @@ def add_new_course(name,year, tch_id):
     return True
 
 
+def rename_course(c_id, name):
+    try:
+        Course.objects.filter(c_id=c_id).update(name=name)
+        return True
+    except IndexError:
+        return False
+
 
 def viewSubmissionMark(request):
     students = Student.objects.all()

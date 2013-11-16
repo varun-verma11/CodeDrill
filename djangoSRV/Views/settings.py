@@ -7,7 +7,7 @@ from djangoSRV.student import get_exercise, getStudentAssignments
 from utils import get_header_navbar
 from acc_queries import *
 import json
-from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course
+from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course
 
 
 def teacher_account_settings(request):
@@ -79,6 +79,14 @@ def change_password(request):
 			return HttpResponse("yes")
 		return HttpResponse("no")
 	return HttpResponse("no")
+
+def update_class_name(request):
+	if (request.user.is_authenticated() and request.is_ajax()):
+		new_name = request.POST['course_name']
+		course_id = request.POST['course_id']
+		rename_course(course_id, new_name)
+		return HttpResponse("")
+	return HttpResponseBadRequest()
 
 def change_email(request):
     if (request.user.is_authenticated()):
