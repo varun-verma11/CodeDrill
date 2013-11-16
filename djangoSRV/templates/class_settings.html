@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-{% load staticfiles %} <html lang="en">
+{% load staticfiles %}
+{% load selectable_tags %}
+<html lang="en">
 <head>
-
   {{ header }}
+  {% include_ui_theme %}
+  {% include_jquery_libs %}
+  {{ add_student.media.css }}
+  {{ add_student.media.js }}
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 </head>
 <body>
   {{ navbar }}
@@ -50,7 +52,7 @@
               <ul class="nav nav-pills" id="names">
 
               </ul>          
-              <div id="add_student">Put student <input type="text" id="student_name" class="input input-medium" placeholder="Search for a name..." style="height:30px; position:relative; top:5px"> in Class 1B. Please save or cancel your change.</div>
+              <div id="add_student">Put student {{ add_student.student }} in Class 1B. Please save or cancel your change.</div>
               <button type="button" id="add_student_btn" class="btn btn-small">
                 <i class="glyphicon glyphicon-plus"></i>
               </button>
@@ -97,50 +99,34 @@
     $("#add_student").fadeIn(300);
   });
 
-  // $( "#student_name" ).autocomplete({
-  //     minLength: 0,
-  //     source: projects,
-  //     focus: function( event, ui ) {
-  //       $( "#student_name" ).val( ui.item.label );
-  //       return false;
-  //     },
-  //     select: function( event, ui ) {
-  //       $( "#student_name" ).val( ui.item.label );
- 
-  //       return false;
-  //     }
-  //   })
-  //   .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-  //     return $( "names" )
-  //       .append( '<li><a href="#">'+ students[i].full_name +'<i class="glyphicon glyphicon-remove"></i></a></li>' )
-  //       ;
-  //   };
+  // var suggestions = [];
 
-  var suggestions = [];
-  get_student_names("v");
-  get_student_names("r");
+  // $("#student_name" ).autocomplete({
+  //     minLength: 2,
+  //     source: '/teacher/settings/get-student-names/',
+  // });
 
-  function get_student_names(start)
-  {
-    $.ajax({
-      type: 'POST',
-      url: '/teacher/settings/get-student-names/',
-      data: {
-              'start': start
-            },
-      beforeSend: function(xhr, settings) 
-            {
-              xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
-            },
-      success: function(response) 
-            {
-              suggestions = JSON.parse(response);
-              alert(suggestions);
-              return true;
-            }
-    });
-    return false;
-  }
+  // function get_student_names(start)
+  // {
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: '/teacher/settings/get-student-names/',
+  //     data: {
+  //             'start': start
+  //           },
+  //     beforeSend: function(xhr, settings) 
+  //           {
+  //             xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+  //           },
+  //     success: function(response) 
+  //           {
+  //             suggestions = JSON.parse(response);
+  //             alert(suggestions);
+  //             return true;
+  //           }
+  //   });
+  //   return false;
+  // }
 
   var current_class = -1;
 
