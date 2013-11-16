@@ -23,7 +23,7 @@ def autotester(student_code, unit_test):
         print traceback.format_exc()
         return [0,0,0]
 
-    result = envDict['m'].testResult
+    result = envDict[mockModule].testResult
     return [len(result.errors), len(result.failures), result.testsRun]
 
 if __name__ == "__main__":
