@@ -121,7 +121,7 @@
         var uname = val[1].substring(0,val[1].length-1);
         students[uname] =name;
         class_edits.push({"add":uname});
-        document.getElementById("names").innerHTML += '<li><a href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+        document.getElementById("names").innerHTML += '<li><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
       }
   });
 
@@ -185,7 +185,7 @@
     var namesHTML = ""
     for (i in students)
     {  
-      namesHTML += '<li><a href="#">'+ students[i].full_name +'<i onclick="deleteStudent(\''+ students[i].uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+      namesHTML += '<li><a href="#" id="id_'+ students[i].uname +'">'+ students[i].full_name +'<i onclick="deleteStudent(\''+ students[i].uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
     }
     document.getElementById("names").innerHTML = namesHTML;
     update_current_class_name();
