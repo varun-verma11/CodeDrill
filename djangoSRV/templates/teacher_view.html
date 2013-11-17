@@ -3,83 +3,198 @@
 <html lang="en">
 <head>
 	{{ header }}
+	<script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
 </head>
-
 <body>
 	{{ navbar }}
-	<div class="container-fluid">
+<div class="container-fluid">
+	<div class="row-fluid">
 		<div class="row-fluid">
-			<div class="row-fluid">
-				{{ menu }}
-				<div class="span6">
-						<h2>
-							Overview
-						</h2>
-						<script>
-						$(document).ready(function () {
-							$('label.tree-toggler').click(function () {
-								$(this).parent().children('ul.tree').toggle(300);
-							});
-							$('.table').hide();
-						});
-						</script>
-						<div class="well" style=" padding: 8px 0;">
-							<div style="">
-								<ul class="nav nav-list">
-									{% for year in teaching_hierarchy.get_teaching_years %}
-									<li>
-										<label class="tree-toggler nav-header">Year {{ year.get_name }}</label>
+			{{ menu }}
+			<div class="span3 well" style=" padding: 8px 0;">
+				<ul class="nav nav-list">
+					<li>
+					<label class="tree-toggler nav-header" onclick="displayOverview()">Overview</label>
+					</li>
+					{% for year in teaching_hierarchy.get_teaching_years %}
+						<li>
+							<label class="tree-toggler nav-header" onclick="displayYear({{year.get_name}})">Year {{year.get_name}}</label>
+							<ul class="nav nav-list tree">
+								{% for class in year.get_teaching_classes %}
+									<li class="nav nav-list tree">
+										<a href="#" onclick="displayClass({{year.get_name}}, '{{class.get_name}}')">{{ class.get_name }}</a>
+										{% for ass_name in class.get_assignments %}
 										<ul class="nav nav-list tree">
-											{% for cls in year.get_teaching_classes %}
 											<li class="nav nav-list tree">
-												<a href="#" id="year-{{ year.get_name }}-class-{{ cls.get_name }}">Class {{ cls.get_name }}</a>
-												<ul class="nav nav-list tree">
-													<li>
-														<table class="table" id="year-{{ year.get_name }}-class-{{ cls.get_name }}-table">
-															<thead>
-																<tr>
-																	<th>#</th>
-																	<th>Chapter</th>
-																	<th>Problem name</th>
-																	<th>Student name</th>
-																	<th>Grade</th>
-																	<th style="width: 36px;"></th>
-																</tr>
-															</thead>
-															<tbody>
-																{% for student in cls.get_students_data %}
-																<tr>
-																	<td>{{ student.get_index }}</td>
-																	<td>{{ student.get_chapter }}</td>
-																	<td>{{ student.get_problem_name }}</td>
-																	<td>{{ student.get_student_name }}</td>
-																	<td>{{ student.get_grade }}</td>
-																</tr>
-																{% endfor %}
-															</tbody>
-														</table>
-													</li>
-												</ul>
+											<a href="#" onclick="displayAssignment({{year.get_name}}, '{{class.get_name}}', '{{ass_name}}')">{{ ass_name }}</a>
 											</li>
-											{% endfor %}
 										</ul>
+										{%endfor%}
 									</li>
-									{% endfor %}
-								</ul>
-							</div>
-						</div>
+								{% endfor %}
+							</ul>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="span6 well">
+				<h4 id="title"></h4>
+				<div id="content">
 				</div>
 			</div>
 		</div>
 	</div>
-	<script>
-	{% for year in teaching_hierarchy.get_teaching_years %}
-	{% for cls in year.get_teaching_classes %}
-		$("#year-{{ year.get_name }}-class-{{ cls.get_name }}").click(function () {
-			$("#year-{{ year.get_name }}-class-{{ cls.get_name }}-table").toggle();
-		});
-	{% endfor %}
-	{% endfor %}
-	</script>
+</div>
+<script>
+
+var tableHead = "<table class='table'><tbody>";
+var tableFoot = "</tbody> </table>";
+var year = -1;
+var class_name = "";
+var assignment_name = "";
+
+displayOverview();
+
+/*format for data
+	[
+		{title: string},
+		{average: number}, <-- this does not appear in overview
+		[{table: {
+				column1 : column2,
+				col1data : col2data,
+				...
+	"Assignment 1":"75", "Assignment 2":"70"		}
+		}]
+	]
+*/
+
+/*
+ * year_no is either 'overview' or an int.
+ */
+function getData(year_no, class_name, assignment_name) {
+	var data;
+	if (year_no == null) {
+		var table = getDataFromServer("get-overview/", {});
+		alert(table);
+		// table.unshift({"Assignment":"Average grade"});
+		return ["Overview", table];
+	} else if (class_name == null) {
+		//use year_no to make ajax request and get the data below
+		data = [{"title":"Performance for year 1"}, {"average": 77.5}, {"table":{"Assignment":"Average grade", "Assignment 1":80, "Assignment 2":75}}];
+	} else if (assignment_name == null) {
+		data = [{"title":"Performance in 1A"}, {"average": 77.5}, {"table":{"Assignment":"Average grade", "Assignment 1":80, "Assignment 2":75, "Assignment 3":65}}];
+	} else {
+		data = [{"title":"Assignment 1 performance for 1A"}, {"average": 77.5}, 
+			{"table":{"Assignment 1":"Grade", "Student name 1":80, "Student name 2":75, "Student name 3":65}}];
+	}
+	return data;
+}
+
+function displayOverview()
+{
+	getDataFromServer("get-overview/", {}, showOverview);
+}
+
+function displayYear(year_no)
+{
+	year = year_no;
+	getDataFromServer("get-year-overview/", {"year":year_no}, showYear);
+}
+
+function displayClass(year_no, cls)
+{
+	year = year_no;
+	class_name = cls;
+	getDataFromServer("get-class-overview/", {"year":year, "cls":cls}, showClass)
+}
+
+function displayAssignment(year_no, cls, as_name)
+{
+	year = year_no;
+	class_name = cls;
+	assignment_name = as_name;
+	getDataFromServer("get-assignment-overview/", {"year":year, "cls":cls, "as_name":as_name}, showAssignment);
+}
+
+function getDataFromServer(url, data, callback)
+{
+	var result = []
+	$.ajax({
+      type: 'GET',
+      url: '/teacher/'+url,
+      data: data,
+      beforeSend: function(xhr, settings) 
+            {
+              xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+            },
+      success: function(response) 
+            {
+            	result = JSON.parse(response);
+            	callback(result);
+            }
+    });
+}
+
+function showOverview(table) 
+{
+	var title = "Overview";
+	var content = tableHead;
+	content += "<tr> <td><b>Assignment</b></td><td><b>Average Grade</b></td></tr>";
+	for (i in table) 
+	{
+		content += "<tr> <td>" + table[i].as_name + "</td><td>" + table[i].grade + "</td></tr>";
+	}
+	content += tableFoot;
+
+	$('#content').html(content);
+	$('#title').html(title);
+}
+
+function showYear(table) 
+{
+	var title = "Performance for Year " + year;
+	var content = "<p>" + ""  + "</p>" + tableHead;
+	content += "<tr> <td><b>Assignment</b></td><td><b>Average Grade</b></td></tr>";
+
+	for (key in table) 
+	{
+		content += "<tr> <td>" + table[key].as_name + "</td><td>" + table[key].grade + "</td></tr>";
+	}
+	content += tableFoot;
+
+	$('#content').html(content);
+	$('#title').html(title);
+}
+
+function showClass(table) 
+{
+	var title = "Performance of " + class_name + " in Year " + year;
+	var content = "<p></p>" + tableHead;
+	content += "<tr> <td> Assignment </td><td>Average Grade</td></tr>";
+	for (key in table) 
+	{
+		content += "<tr> <td>" + table[key].as_name + "</td><td>" + table[key].grade + "</td></tr>";
+	}
+	content += tableFoot;
+
+	$('#content').html(content);
+	$('#title').html(title);
+}
+
+function showAssignment(table) 
+{
+	var title = assignment_name + " Performance for Class " + class_name + " of Year " + year;
+	var content = "<p></p>" + tableHead;
+	content += "<tr> <td><b>Student</b></td><td><b>Grade</b></td></tr>";
+	for (key in table) {
+		content += "<tr> <td>" + table[key].std_name + "</td><td>" + table[key].grade + "</td></tr>";
+	}
+	content += tableFoot;
+
+	$('#content').html(content);
+	$('#title').html(title);
+}
+
+</script>
 </body>
 </html>

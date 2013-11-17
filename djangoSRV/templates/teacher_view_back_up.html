@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+	{{ header }}
+</head>
+
+<body>
+	{{ navbar }}
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="row-fluid">
+				{{ menu }}
+				<div class="span6">
+						<h2>
+							Overview
+						</h2>
+						<script>
+						$(document).ready(function () {
+							$('label.tree-toggler').click(function () {
+								$(this).parent().children('ul.tree').toggle(300);
+							});
+							$('.table').hide();
+						});
+						</script>
+						<div class="well" style=" padding: 8px 0;">
+							<div style="">
+								<ul class="nav nav-list">
+									{% for year in teaching_hierarchy.get_teaching_years %}
+									<li>
+										<label class="tree-toggler nav-header">Year {{ year.get_name }}</label>
+										<ul class="nav nav-list tree">
+											{% for cls in year.get_teaching_classes %}
+											<li class="nav nav-list tree">
+												<a href="#" id="year-{{ year.get_name }}-class-{{ cls.get_name }}">Class {{ cls.get_name }}</a>
+												<ul class="nav nav-list tree">
+													<li>
+														<table class="table" id="year-{{ year.get_name }}-class-{{ cls.get_name }}-table">
+															<thead>
+																<tr>
+																	<th>#</th>
+																	<th>Chapter</th>
+																	<th>Problem name</th>
+																	<th>Student name</th>
+																	<th>Grade</th>
+																	<th style="width: 36px;"></th>
+																</tr>
+															</thead>
+															<tbody>
+																{% for student in cls.get_students_data %}
+																<tr>
+																	<td>{{ student.get_index }}</td>
+																	<td>{{ student.get_chapter }}</td>
+																	<td>{{ student.get_problem_name }}</td>
+																	<td>{{ student.get_student_name }}</td>
+																	<td>{{ student.get_grade }}</td>
+																</tr>
+																{% endfor %}
+															</tbody>
+														</table>
+													</li>
+												</ul>
+											</li>
+											{% endfor %}
+										</ul>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	{% for year in teaching_hierarchy.get_teaching_years %}
+	{% for cls in year.get_teaching_classes %}
+		$("#year-{{ year.get_name }}-class-{{ cls.get_name }}").click(function () {
+			$("#year-{{ year.get_name }}-class-{{ cls.get_name }}-table").toggle();
+		});
+	{% endfor %}
+	{% endfor %}
+	</script>
+</body>
+</html>

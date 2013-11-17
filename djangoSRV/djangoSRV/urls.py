@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from teacher import *
-from Views.teacher_view import get_teacher_view
+from Views.teacher_view import get_teacher_view, get_overview, get_year_overview, get_class_overview, get_assignment_overview
 from Views.set_exercise import get_set_exercise_page
 from Views.authenticate import authenticate_student, authenticate_teacher, check_user_name_exists
 from Views.login import student_login, teacher_login
@@ -24,6 +24,10 @@ urlpatterns = patterns('',
     url(r'^selectable/', include('selectable.urls')),
     url(r'^autocomplete/', include(autocomplete.urls)),
     url(r'^teacher/class-settings/manage-class/$', update_course_students),
+    url(r'^teacher/get-overview/', get_overview),
+    url(r'^teacher/get-year-overview/', get_year_overview),
+    url(r'^teacher/get-class-overview/', get_class_overview),
+    url(r'^teacher/get-assignment-overview/', get_assignment_overview),
     url(r'^student/changepassword/$', change_password),
     url(r'^teacher/changepassword/$', change_password),
     url(r'^teacher/get-students-in-class/$', get_registered_students_in_course),

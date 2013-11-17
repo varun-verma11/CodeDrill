@@ -68,7 +68,6 @@ def update_course_students(request):
 		cls = request.POST["cls_id"]
 		additions = []
 		deletions = []
-		print requests
 		for req in requests:
 			for operation in req:
 				if operation=="del":

@@ -1,9 +1,9 @@
 from django.template.loader import get_template
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context
-from exercise_data_structure import AssignmentsBook, Chapter, Assignment
-from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass, StudentData
 from utils import get_header_navbar
+from exercise_data_structure import AssignmentsBook, Chapter, Assignment
+from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
 from djangoSRV.teacher import get_courses, get_all_exercises
 
 
@@ -23,15 +23,8 @@ def get_set_exercise_page(request):
 
 
 
-"""
-This is same function as the teacher_view. only difference being the data about students is not required atm. 
-Similar structure should be followed for generating pages once the data is retrived from the db
-"""
 def __get_teaching_hierarchy(teacher_id):
-	st_a = StudentData(1, "Variable assignment", "Addition", "Mihai", "50%")
-	st_b = StudentData(2, "Conditionals", "If-then-else", "Varun", "100000%")
-	st_c = StudentData(3, "Conditionals", "Case", "Rohan", "-10000%")
-	students = [st_a, st_b, st_c]
+	students = []
 
 	class_a = TeachingClass("A", students)
 	class_b = TeachingClass("B", students)

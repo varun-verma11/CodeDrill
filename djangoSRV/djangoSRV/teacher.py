@@ -72,6 +72,23 @@ def get_courses(tch_id):
 
     return TeachingHierarchy(school_years)
 
+def get_courses_with_assignments(tch_id):
+    courses = Course.objects.filter(tch_id__exact=tch_id)
+    years = []
+    for course in courses:
+        if course.year not in years:
+            years.append(course.year)
+
+    school_years = []
+    for year in years:
+        classes = courses.filter(year=year).values('name','c_id')
+        school_classes = []
+        for cls in classes:
+            school_classes.append(TeachingClass(cls['name'],cls['c_id'], assignments=["As1","As2"]))
+        school_years.append(SchoolYear(str(year), school_classes))
+
+    return TeachingHierarchy(school_years)
+
 def get_students_in_course(course_id):
     try:
         course = Course.objects.filter(c_id=course_id)[0]
@@ -95,6 +112,18 @@ def delete_students_from_class(students, cls_id):
 def add_new_course(name,year, tch_id):
     #create course and save it
     return True
+
+def get_average_for_all_assignments(tch_id):
+    return [{"as_name":"Assignment 1", "grade":"10"}, {"as_name":"Assignment 2","grade":"20"}]
+
+def get_average_grade_for_year(tch_id, year):
+    return [{"as_name":"Assignment 3", "grade":"30"}, {"as_name":"Assignment 4","grade":"40"}]
+
+def get_average_grade_for_class(tch_id, year, cls):
+    return [{"as_name":"Assignment 5", "grade":"50"}, {"as_name":"Assignment 6","grade":"60"}]
+
+def get_student_grades_for_assingments(tch_id, year, cls, as_name):
+    return [{"std_name":"Varun Verma", "grade":"70"}, {"std_name":"Mihai Jiplea","grade":"90"}]
 
 def get_suggested_names(start):
     names = []
