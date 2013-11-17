@@ -84,6 +84,14 @@ def get_students_in_course(course_id):
                     })
     return students
 
+def add_students_to_class(students, cls_id):
+    # add students
+    return;
+
+def delete_students_from_class(students, cls_id):
+    #delete students from class
+    return ;
+
 def add_new_course(name,year, tch_id):
     #create course and save it
     return True
