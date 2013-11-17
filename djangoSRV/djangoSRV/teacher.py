@@ -80,7 +80,7 @@ def get_students_in_course(course_id):
     students = []
     for student in course.students.all():
         students.append({  'full_name':student.first_name.encode("utf8") + " " + student.last_name.encode("utf8"),
-                        'id' : student.user_id
+                        'uname' : student.uname
                     })
     return students
 

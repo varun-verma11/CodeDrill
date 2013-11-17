@@ -14,7 +14,7 @@ from Views.home import home_page
 from Views.logout import logout_user
 from autocomplete.views import autocomplete
 from Views.view_spec import view_spec, get_exercise_details
-from Views.settings import teacher_account_settings, student_account_settings, class_settings, change_password, change_email, get_registered_students_in_course, add_new_class, update_class_name, get_names_suggestions
+from Views.settings import teacher_account_settings, student_account_settings, class_settings, change_password, change_email, get_registered_students_in_course, add_new_class, update_class_name,  update_course_students
 
 admin.autodiscover()
 
@@ -22,12 +22,12 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^teacher/$', viewSubmissionMark),
     url(r'^selectable/', include('selectable.urls')),
-    url('^autocomplete/', include(autocomplete.urls)),
+    url(r'^autocomplete/', include(autocomplete.urls)),
+    url(r'^teacher/class-settings/manage-class/$', update_course_students),
     url(r'^student/changepassword/$', change_password),
     url(r'^teacher/changepassword/$', change_password),
     url(r'^teacher/get-students-in-class/$', get_registered_students_in_course),
     url(r'^teacher/add-new-class/$', add_new_class),
-    url(r'^teacher/settings/get-student-names/', get_names_suggestions),
     url(r'^teacher/get-exercise/$', get_exercise_details),
     url(r'^teacher/update-class-name/', update_class_name),
     url(r'^student/changeemail/$', change_email),

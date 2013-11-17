@@ -62,14 +62,13 @@ def get_registered_students_in_course(request):
 		return HttpResponse(json.dumps(students))
 	return HttpResponseBadRequest()
 
-def get_names_suggestions(request):
+def update_course_students(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
-		start = request.GET["term"]
-		result = json.dumps(get_suggested_names(start))
-		print result
-		return HttpResponse(result)
+		requests = request.POST["ops"]
+		cls = request.POST["cls_id"]
+		print cls, requests
+		return HttpResponse("");
 	return HttpResponseBadRequest()
-
 
 def add_new_class(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
