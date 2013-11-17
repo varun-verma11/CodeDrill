@@ -195,14 +195,18 @@
   function updateNames(course_id)
   {
     getNamesForClass(course_id);
+  }
+
+  function showStudents(course_id)
+  {
     var namesHTML = ""
     for (i in students)
     {  
       namesHTML += '<li><a href="#" id="id_'+ students[i].uname +'">'+ students[i].full_name +'<i onclick="deleteStudent(\''+ students[i].uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
     }
     document.getElementById("names").innerHTML = namesHTML;
-    update_current_class_name();
     current_class = course_id;
+    update_current_class_name();
   }
 
   function update_current_class_name()
@@ -226,6 +230,7 @@
           success: function(response) 
                 {
                   students = JSON.parse(response);
+                  showStudents(course_id);
                 }
       });
     return false;
