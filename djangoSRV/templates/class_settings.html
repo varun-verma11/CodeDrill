@@ -119,11 +119,24 @@
           return ;
         var name = val[0];
         var uname = val[1].substring(0,val[1].length-1);
-        students[uname] =name;
-        class_edits.push({"add":uname});
-        document.getElementById("names").innerHTML += '<li><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+        if (!contains_student(uname))
+        {
+          students.push({'uname':uname, 'name':name});
+          class_edits.push({"add":uname});
+          document.getElementById("names").innerHTML += '<li><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+        }
       }
   });
+
+  function contains_student(uname)
+  {
+    for (i in students)
+    {
+      if (students[i].uname == uname)
+        return true;
+    }
+    return false;
+  }
 
   function deleteStudent(uname)
   {
