@@ -14,9 +14,8 @@ class SchoolYear:
 		return self.name
 
 class TeachingClass:
-	def __init__(self, name, id=-1, assignments=None,students_data=None):
+	def __init__(self, name, id=-1, assignments=None):
 		self.name = name
-		self.students_data = students_data
 		self.id = id
 		self.assignments = assignments
 	def get_assignments(self):
@@ -25,5 +24,3 @@ class TeachingClass:
 		return self.id
 	def get_name(self):
 		return self.name
-	def get_students_data(self):
-		return self.students_data
