@@ -2,6 +2,18 @@ from model.models import *
 from Views.teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
 from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
+def add_students_to_course(student_ids, course_id):
+    #course = Course.objects.filter(c_id=course_id).first()
+    for std_id in student_ids:
+        student = Student.objects.filter(user_id=std_id).first()
+        Course.objects.filter(c_id=course_id).first().students.add(student)
+
+def delete_students_to_course(student_ids, course_id):
+    #course = Course.objects.filter(c_id=course_id).first()
+    for std_id in student_ids:
+        student = Student.objects.filter(user_id=std_id).first()
+        Course.objects.filter(c_id=course_id).first().students.remove(student)
+   
 def listAllTeachers(request):
     teachers = Teacher.objects.all()
     ret = []
