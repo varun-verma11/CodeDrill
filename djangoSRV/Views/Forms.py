@@ -1,6 +1,6 @@
 from django import forms
 from django_ace import AceWidget
-from djangoSRV.models import Student
+from model.models import Student
 from model.lookups import UserLookup
 import selectable.forms as selectable
 
