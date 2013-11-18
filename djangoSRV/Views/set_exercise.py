@@ -1,5 +1,5 @@
 from django.template.loader import get_template
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.template import Context
 from utils import get_header_navbar
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
@@ -23,14 +23,10 @@ def get_set_exercise_page(request):
 
 
 
-def __get_teaching_hierarchy(teacher_id):
-	students = []
-
-	class_a = TeachingClass("A", students)
-	class_b = TeachingClass("B", students)
-	class_c = TeachingClass("C", students)
-
-	year_1 = SchoolYear("1", [class_a, class_b, class_c])
-	year_2 = SchoolYear("5", [class_b, class_c])
-
-	return TeachingHierarchy([year_1, year_2])
+def send_exercise_to_class(request):
+	if (request.user.is_authenticated() and request.is_ajax()):
+		ex = request.POST["exercise"]
+		group = request.POST["group"]
+		print ex, "\t",  group
+		return HttpResponse("")
+	return HttpResponseBadRequest()

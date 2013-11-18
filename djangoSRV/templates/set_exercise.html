@@ -35,7 +35,7 @@
 											<li><label class="tree-toggler nav-header" id="{{ chapter.get_name }}">{{ chapter.get_name }}</label>
 												<ul class="nav nav-list tree">
 												{% for assignment in chapter.get_assignments %}
-													<li><a href="#" id="{{ chapter.get_name }}-{{ assignment.get_name }}"> {{ assignment.get_name }}</a></li>
+													<li><a id="{{ chapter.get_name }}-{{ assignment.get_id }}"> {{ assignment.get_name }}</a></li>
 												{% endfor %}
 												</ul>
 											</ul>
@@ -52,7 +52,7 @@
 												<li><label class="tree-toggler nav-header">Year {{ year.name }}</label>
 												<ul class="nav nav-list tree">
 												{% for cls in year.get_teaching_classes %}
-													<li><a href="#" id="year-{{ year.get_name }}-class-{{ cls.get_name }}">{{cls.get_name}}</a></li>
+													<li><a id="year-{{ year.get_name }}-class-{{ cls.get_id }}">{{cls.get_name}}</a></li>
 												{% endfor %}
 												</ul>
 											</li>
@@ -95,7 +95,7 @@
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
-			groupsDivs.push("year-{{ year.get_name }}-class-{{ cls.get_name }}");
+			groupsDivs.push("year-{{ year.get_name }}-class-{{ cls.get_id }}");
 			groups.push("{{ year.get_name }}{{ cls.get_name }}");
 		{% endfor %}
 	{% endfor %}
@@ -103,7 +103,7 @@
 	{% for chapter in assignment_book.get_chapters %}
 		{% for assignment in chapter.get_assignments %}
 			exercises.push("{{ assignment.get_name }}");
-			exercisesDivs.push("{{ chapter.get_name }}-{{ assignment.get_name }}");
+			exercisesDivs.push("{{ chapter.get_name }}-{{ assignment.get_id }}");
 		{% endfor %}
 	{% endfor %}
 
@@ -162,7 +162,7 @@
 		csrftoken = getCsrfToken();
 		$.ajax({
         type: 'POST',
-        url: '/submit-code/',
+        url: '/teacher/submit-exercise/',
         data: {
                 'group': group,
                 'exercise': exercise
