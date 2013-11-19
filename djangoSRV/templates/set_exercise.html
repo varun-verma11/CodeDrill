@@ -84,33 +84,29 @@
 	</div>
 
 	<script>
-	var exercise = "";
-	var group = "";
+	var exercise = "", group = "";
 	var text = $('#selection-text');
-	var exercises = new Array();
-	var exercisesDivs = new Array();
-	var groups = new Array();
-	var groupsDivs = new Array();
+	var exercises = {}, exercisesDivs = {}, groups = {}, groupsDivs = {};
 	var hlE = false, hlG = false;
+	var idE = 0, idG = 0;
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
-			groupsDivs.push("year-{{ year.get_name }}-class-{{ cls.get_id }}");
-			groups.push("{{ year.get_name }}{{ cls.get_name }}");
+			groupsDivs[idG] = "year-{{ year.get_name }}-class-{{ cls.get_id }}";
+			groups[idG++] = "{{ year.get_name }}{{ cls.get_name }}";
 		{% endfor %}
 	{% endfor %}
 
 	{% for chapter in assignment_book.get_chapters %}
 		{% for assignment in chapter.get_assignments %}
-			exercises.push("{{ assignment.get_name }}");
-			exercisesDivs.push("{{ chapter.get_name }}-{{ assignment.get_id }}");
+			exercises[idE] = "{{ assignment.get_name }}";
+			exercisesDivs[idE++] = "{{ chapter.get_name }}-{{ assignment.get_id }}";
 		{% endfor %}
 	{% endfor %}
 
-	for (i = 0; i < exercisesDivs.length; i++) {
+	for (i in exercisesDivs) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
 			target = "#" + event.currentTarget.id;
-			console.log(event.currentTarget.id);
 			if ($(target).css("background-color") == "rgb(255, 176, 122)") {
 				$(target).attr("style", false);
 				hlE = false;
@@ -119,20 +115,22 @@
 			} else if (!hlE) {
 				$(target).css("background-color","#ffb07a");
 				hlE = true;
-				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				console.log(event.currentTarget.id);
+				console.log(exercisesDivs);
+				exercise = getKeyFromValue(exercisesDivs, event.currentTarget.id);
 				set();
 			} else {
 				clean(exercisesDivs);
 				hlE = false;
 				$(target).css("background-color","#ffb07a");
 				hlE = true;
-				exercise = exercises[exercisesDivs.indexOf(event.currentTarget.id)];
+				exercise = getKeyFromValue(exercisesDivs, event.currentTarget.id);
 				set();
 			}
 		});
 	}
 
-	for (i = 0; i < groupsDivs.length; i++) {
+	for (i in groupsDivs) {
 		$(("#" + groupsDivs[i])).click(function (event) {
 			target = "#" + event.currentTarget.id;
 			
@@ -144,14 +142,14 @@
 			} else if (!hlG) {
 				$(target).css("background-color","#ffb07a");
 				hlG = true;
-				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
+				group = getKeyFromValue(groupsDivs, event.currentTarget.id);
 				set();
 			} else {
 				clean(groupsDivs);
 				hlG = false;
 				$(target).css("background-color","#ffb07a");
 				hlG = true;
-				group = groups[groupsDivs.indexOf(event.currentTarget.id)];
+				group = getKeyFromValue(groupsDivs, event.currentTarget.id);
 				set();
 			}
 		});
@@ -187,7 +185,7 @@
 
 	function set() {
 		if (exercise != "" && group != "") {
-			text.text("Exercise " + exercise + " will be sent to class " + group + ".");
+			text.text("Exercise " + exercises[exercise] + " will be sent to class " + groups[group] + ".");
 			text.hide();
 			text.fadeIn("slow");
 			$('#submit-btn').attr('disabled', false);
@@ -197,6 +195,15 @@
 			text.fadeIn("slow");
 			$('#submit-btn').attr('disabled', true);
 		}
+	}
+
+	function getKeyFromValue(map, value) {
+		for (key in map) {
+			if (map[key] == value) {
+				return key;
+			}
+		}
+		return null;
 	}
 	</script>
 </body>
