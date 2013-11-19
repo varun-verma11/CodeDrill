@@ -130,7 +130,7 @@ class Teacher(models.Model):
 class LatestStudentScore(models.Model):
     stu_id = models.ForeignKey('Student', to_field='user_id')
     ex_id  = models.ForeignKey('Exercise', to_field='ex_id')
-    score = models.TextField('Score', default='N/A')
+    score = models.IntegerField('Score', default=0)
     def __str__(self):
         return self.stu_id
     def __repr__(self):
