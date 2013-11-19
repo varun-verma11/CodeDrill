@@ -76,7 +76,7 @@
 					<br>
 					<form>
 						{% csrf_token %}
-						<button onclick="submit_ex()" class="btn" id="submit-btn">Send</button>
+						<button onclick="submit_ex(); return false;" class="btn" id="submit-btn">Send</button>
 					</form>
 				</div>
 			</div>
@@ -92,15 +92,15 @@
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
-			groupsDivs[idG] = "year-{{ year.get_name }}-class-{{ cls.get_id }}";
-			groups[idG++] = "{{ year.get_name }}{{ cls.get_name }}";
+			groupsDivs["{{cls.get_id}}"] = "year-{{ year.get_name }}-class-{{ cls.get_id }}";
+			groups["{{cls.get_id}}"] = "{{ year.get_name }}{{ cls.get_name }}";
 		{% endfor %}
 	{% endfor %}
 
 	{% for chapter in assignment_book.get_chapters %}
 		{% for assignment in chapter.get_assignments %}
-			exercises[idE] = "{{ assignment.get_name }}";
-			exercisesDivs[idE++] = "{{ chapter.get_name }}-{{ assignment.get_id }}";
+			exercises["{{ assignment.get_id }}"] = "{{ assignment.get_name }}";
+			exercisesDivs["{{ assignment.get_id }}"] = "{{ chapter.get_name }}-{{ assignment.get_id }}";
 		{% endfor %}
 	{% endfor %}
 

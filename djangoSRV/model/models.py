@@ -146,7 +146,7 @@ class Student(models.Model):
     pw = models.CharField('Password', max_length=50)
     last_login = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return self.first_name + " " + self.last_name + "(" + self.uname + ")"
+        return self.first_name + " " + self.last_name + "(" + str(self.user_id) + ")"
     def __repr__(self):
         return self.__str__()
     def __unicode__(self):

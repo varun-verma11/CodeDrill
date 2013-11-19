@@ -5,14 +5,14 @@ from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 def add_students_to_course(student_ids, course_id):
     #course = Course.objects.filter(c_id=course_id).first()
     for std_id in student_ids:
-        student = Student.objects.filter(user_id=std_id).first()
-        Course.objects.filter(c_id=course_id).first().students.add(student)
+        student = Student.objects.filter(user_id=std_id)[0]
+        Course.objects.filter(c_id=course_id)[0].students.add(student)
 
-def delete_students_to_course(student_ids, course_id):
+def delete_students_from_course(student_ids, course_id):
     #course = Course.objects.filter(c_id=course_id).first()
     for std_id in student_ids:
-        student = Student.objects.filter(user_id=std_id).first()
-        Course.objects.filter(c_id=course_id).first().students.remove(student)
+        student = Student.objects.filter(user_id=std_id)[0]
+        Course.objects.filter(c_id=course_id)[0].students.remove(student)
    
 def listAllTeachers(request):
     teachers = Teacher.objects.all()
@@ -109,21 +109,17 @@ def get_students_in_course(course_id):
     students = []
     for student in course.students.all():
         students.append({  'full_name':student.first_name.encode("utf8") + " " + student.last_name.encode("utf8"),
-                        'uname' : student.uname
+                        'user_id' : student.user_id
                     })
     return students
-
-def add_students_to_class(students, cls_id):
-    # add students
-    return;
-
-def delete_students_from_class(students, cls_id):
-    #delete students from class
-    return ;
 
 def add_new_course(name,year, tch_id):
     #create course and save it
     return True
+
+def set_assignment_for_course(ass_id, course_id):
+
+    return True;
 
 def get_average_for_all_assignments(tch_id):
     return [{"as_name":"Assignment 1", "grade":"10"}, {"as_name":"Assignment 2","grade":"20"}]

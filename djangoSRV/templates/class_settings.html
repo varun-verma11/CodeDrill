@@ -123,7 +123,7 @@
         {
           students.push({'uname':uname, 'name':name});
           class_edits.push({"add":uname});
-          document.getElementById("names").innerHTML += '<li><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+          document.getElementById("names").innerHTML += '<li><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\', \''+ students[i].full_name+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
         }
       }
   });
@@ -138,10 +138,10 @@
     return false;
   }
 
-  function deleteStudent(uname)
+  function deleteStudent(std_id, full_name)
   {
-    alert("Delete" + uname);
-    class_edits.push({'del':uname});
+    alert("Are you sure you want to remove " + full_name + " from class?");
+    class_edits.push({'del':std_id});
   }
 
   function saveNewName() 
@@ -202,7 +202,7 @@
     var namesHTML = ""
     for (i in students)
     {  
-      namesHTML += '<li><a href="#" id="id_'+ students[i].uname +'">'+ students[i].full_name +'<i onclick="deleteStudent(\''+ students[i].uname+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+      namesHTML += '<li><a href="#" id="id_'+ students[i].user_id +'">'+ students[i].full_name +'<i onclick="deleteStudent(\''+ students[i].user_id+ '\', \''+ students[i].full_name+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
     }
     document.getElementById("names").innerHTML = namesHTML;
     current_class = course_id;
@@ -294,7 +294,7 @@
         success: function(response) 
               {
                 class_edits = [];
-                alert("done");
+                getNamesForClass(current_class);
               }
       });
     }

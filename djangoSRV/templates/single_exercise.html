@@ -20,7 +20,7 @@
         <div class="panel-body">                
           <form accept-charset="UTF-8" method="POST">
             {% csrf_token %}
-            <p>{{ description }}</p>
+            <p>Description: {{ description }}</p>
             {{ code_form.non_field_errors }}
             {{ code_form.code.errors }}
             {{ code_form.code }}

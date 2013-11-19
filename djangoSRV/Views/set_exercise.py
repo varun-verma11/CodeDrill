@@ -4,7 +4,7 @@ from django.template import Context
 from utils import get_header_navbar
 from exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
-from djangoSRV.teacher import get_courses, get_all_exercises
+from djangoSRV.teacher import get_courses, get_all_exercises, set_assignment_for_course
 
 
 def get_set_exercise_page(request):
@@ -25,8 +25,8 @@ def get_set_exercise_page(request):
 
 def send_exercise_to_class(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
-		ex = request.POST["exercise"]
-		group = request.POST["group"]
-		print ex, "\t",  group
-		return HttpResponse("")
+		ex_id = request.POST["exercise"]
+		course_id = request.POST["group"]
+		if (set_assignment_for_course(ex_id,course_id)):
+			return HttpResponse("")
 	return HttpResponseBadRequest()

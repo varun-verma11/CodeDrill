@@ -8,7 +8,7 @@ from utils import get_header_navbar
 from Forms import AddStudentForm
 from acc_queries import *
 import json
-from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course, get_suggested_names, add_students_to_class, delete_students_from_class
+from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course, get_suggested_names, add_students_to_course, delete_students_from_course
 
 
 def teacher_account_settings(request):
@@ -74,10 +74,10 @@ def update_course_students(request):
 					deletions.append(req[operation])
 				elif operation=="add":
 					additions.append(req[operation])
-		add_students_to_class(additions, cls)
-		delete_students_from_class(deletions, cls)
-		print "add", additions
-		print "del", deletions
+		add_students_to_course(additions, cls)
+		delete_students_from_course(deletions, cls)
+		print "add\t", additions
+		print "del\t", deletions
 		return HttpResponse("");
 	return HttpResponseBadRequest()
 
