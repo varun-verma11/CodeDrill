@@ -115,8 +115,6 @@
 			} else if (!hlE) {
 				$(target).css("background-color","#ffb07a");
 				hlE = true;
-				console.log(event.currentTarget.id);
-				console.log(exercisesDivs);
 				exercise = getKeyFromValue(exercisesDivs, event.currentTarget.id);
 				set();
 			} else {
@@ -178,8 +176,8 @@
 	}
 	
 	function clean(divsList) {
-		for (i = 0; i < divsList.length; i++) {
-			$(("#" + divsList[i])).attr("style", false);
+		for (key in divsList) {
+			$(("#" + divsList[key])).attr("style", false);
 		}
 	}
 
