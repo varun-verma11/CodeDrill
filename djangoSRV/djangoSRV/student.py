@@ -10,7 +10,7 @@ def get_course_ids_by_std_id(user_id):
     return course_ids
 
 def submit_exercise(ex_id, user_id, score):
-    row = LatestStudentScore(user_id = user_id, ex_id = ex_id, score = score)
+    row = LatestStudentScore(stu_id = user_id, ex_id = ex_id, score = score)
     row.save()
 
 def get_score(ex_id, user_id):
