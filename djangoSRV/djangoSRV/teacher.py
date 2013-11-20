@@ -1,6 +1,7 @@
 from model.models import *
 from Views.teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
 from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
+from django.db.models import Avg
 
 def add_students_to_course(student_ids, course_id):
     #course = Course.objects.filter(c_id=course_id).first()
@@ -114,24 +115,51 @@ def get_students_in_course(course_id):
     return students
 
 def add_new_course(name,year, tch_id):
-    #create course and save it
-    return True
+    teacher = Teacher.objects.get(user_id=tch_id)
+    Course(name=name, year=year, tch_id=teacher).save()
 
-def set_assignment_for_course(ass_id, course_id):
 
-    return True;
+def set_assignment_for_course(ex_id, course_id):
+    exercise = Exercise.objects.get(ex_id=ex_id)
+    course = Course.objects.get(c_id=c_id)
+    new_assignment = AssignedExercises(ex_id=exercise, c_id=course)
+    new_assignment.save()
 
 def get_average_for_all_assignments(tch_id):
-    return [{"as_name":"Assignment 1", "grade":"10"}, {"as_name":"Assignment 2","grade":"20"}]
+    #Postponed
+    ret = []
+    for course in Course.objects.filter(tch_id=tch_id):
+        c_id = course.c_id
+        for ass_exercise in AssignedExercises.objects.filter(c_id=c_id):
+            ex_id = ass_exercise.ex_id.ex_id
+            exercise = Exercise.objects.get(ex_id=ex_id)
+            avg_score = LatestStudentScore.objects.filter(ex_id=ex_id).aggregate(Avg('score'))
+            ret.append({'as_name':exercise.title, 'grade':avg_score['score__avg']})
+    return ret
 
+'''
+def get_average_for_all_assignments(tch_id):
+    return [{"as_name":"Assignment 1", "grade":"10"}, {"as_name":"Assignment 2","grade":"20"}]
+'''
 def get_average_grade_for_year(tch_id, year):
+
     return [{"as_name":"Assignment 3", "grade":"30"}, {"as_name":"Assignment 4","grade":"40"}]
 
 def get_average_grade_for_class(tch_id, year, cls):
     return [{"as_name":"Assignment 5", "grade":"50"}, {"as_name":"Assignment 6","grade":"60"}]
 
-def get_student_grades_for_assingments(tch_id, year, cls, as_name):
-    return [{"std_name":"Varun Verma", "grade":"70"}, {"std_name":"Mihai Jiplea","grade":"90"}]
+def get_student_grades_for_assingments(tch_id):
+    ret = []
+    for course in Course.objects.filter(tch_id=tch_id):
+        c_id = course.c_id
+        for ass_exercise in AssignedExercises.objects.filter(c_id=c_id):
+            ex_id = ass_exercise.ex_id_id
+            exercise = Exercise.objects.get(ex_id=ex_id)
+            scores = LatestStudentScore.objects.filter(ex_id=ex_id)
+            for score in scores:
+                student = Student.objects.get(user_id=score.stu_id.user_id)
+                ret.append({'student':student.uname,'as_name':exercise.title, 'grade':score.score})
+    return ret
 
 def get_suggested_names(start):
     names = []
