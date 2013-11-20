@@ -97,8 +97,8 @@ def get_courses_with_assignments(tch_id):
         classes = courses.filter(year=year).values('name','c_id')
         school_classes = []
         for cls in classes:
-            as1 = Assignment("As1", 1)
-            as2 = Assignment("As2", 2)
+            as1 = Assignment("Assignment 1", 1)
+            as2 = Assignment("Assignment 2", 2)
             school_classes.append(TeachingClass(cls['name'],cls['c_id'], assignments=[as1, as2]))
         school_years.append(SchoolYear(str(year), school_classes))
 
