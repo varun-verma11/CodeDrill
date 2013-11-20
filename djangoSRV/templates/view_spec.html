@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
-
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
     {{header}}
     {{editor.media}}
 
@@ -40,10 +40,10 @@
 									<br>
 									<div id="description"></div>
 									<br>
-									{{ editor }}
-									<div class="controls">
+									<pre id="id_code" class="prettyprint lang-python"> </pre>
+									<!-- <div class="controls">
 				                    	<button class="btn btn-success" onclick="save_exercise" value="Save">Save</button>
-				                    </div>
+				                    </div> -->
 								</div>
 							</div>
 						</div>
@@ -82,10 +82,8 @@
 		            }
 		            else
 		            {
-		                document.getElementById("id_code").value = (result[0]);
-                                $("#id_code").show();
+		                $("#id_code").text(result[0]);
 		                $("#description").text(result[1]);
-                                console.log($("#id_code").val());
 		            }
 	              }
 	    });
