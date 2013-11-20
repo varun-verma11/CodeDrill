@@ -53,7 +53,7 @@ class Test(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     test_content = models.TextField('Test Content')
     def __str__(self):
-        return self.ex_id
+        return str(self.ex_id)
     def __repr__(self):
         return self.__str__()
 
