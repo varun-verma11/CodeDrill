@@ -306,7 +306,8 @@
     var name = $("#student_name").val();
     var response = confirm("All changes will be cancelled. Proceed?");
     if (response) {
-      class_edits = []
+      class_edits = [];
+      getNamesForClass(current_class);
     }
   }
 
