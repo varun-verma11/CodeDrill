@@ -123,7 +123,7 @@
         {
           students.push({'uname':uname, 'name':name});
           class_edits.push({"add":uname});
-          document.getElementById("names").innerHTML += '<li><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\', \''+ students[i].full_name+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+          document.getElementById("names").innerHTML += '<li style="background-color=\"#c7ebac\" color=\"#5FA629\""><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\', \''+ students[i].full_name+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
         }
       }
   });
