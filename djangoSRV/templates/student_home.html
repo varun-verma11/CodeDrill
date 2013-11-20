@@ -19,8 +19,8 @@
           <li><label class="tree-toggler nav-header">{{ chapter.get_name}}</label>
           <ul class="nav nav-list tree">
             {% for assignment in chapter.get_assignments %}
-              <li><a href="#" id="{{ chapter.get_name }}-{{ assignment.get_name }}">{{ assignment.get_name }}</a></li>
-              <div id="{{ chapter.get_name }}-{{ assignment.get_name }}-ex">
+              <li><a href="#" id="{{ chapter.get_name }}-{{ assignment.get_id }}">{{ assignment.get_name }}</a></li>
+              <div id="{{ chapter.get_name }}-{{ assignment.get_id }}-ex">
               <li>Description: {{ assignment.get_description }}</li>
                 <div class="panel panel-default">
                   <div class="panel-body">
@@ -34,8 +34,8 @@
                       <td><button class="btn btn-info" onclick="submit_code({{assignment.get_id}}); return false;">Submit</button></td>
                       <td><div id="ok_{{assignment.get_id}}"><i class="glyphicon glyphicon-ok ok"></i></div></td>
                       <td> <div id="wrong_{{assignment.get_id}}"><i class="glyphicon glyphicon-remove wrong"></i></div></td>
-                      <td><button class="btn btn-info">Reset</button></td>
-                      <td><button onclick="submit_code({{assignment.get_id}}); return false;" class="btn btn-info">Run</button></td>
+                      <!-- <td><button class="btn btn-info">Reset</button></td> -->
+                      <!-- <td><button onclick="submit_code({{assignment.get_id}}); return false;" class="btn btn-info">Run</button></td> -->
                       </tr></table>
                     </form>
                   </div>
@@ -56,7 +56,7 @@ var divsNames = new Array();
 divsNames = [];
 {% for chapter in assignments.get_chapters %}
   {% for assignment in chapter.get_assignments %}
-    divsNames.push("{{ chapter.get_name }}-{{ assignment.get_name }}");
+    divsNames.push("{{ chapter.get_name }}-{{ assignment.get_id }}");
     $('#wrong_{{assignment.get_id}}').hide();
     $('#ok_{{assignment.get_id}}').hide();
   {% endfor %}

@@ -97,7 +97,9 @@ def get_courses_with_assignments(tch_id):
         classes = courses.filter(year=year).values('name','c_id')
         school_classes = []
         for cls in classes:
-            school_classes.append(TeachingClass(cls['name'],cls['c_id'], assignments=["As1","As2"]))
+            as1 = Assignment("As1", 1)
+            as2 = Assignment("As2", 2)
+            school_classes.append(TeachingClass(cls['name'],cls['c_id'], assignments=[as1, as2]))
         school_years.append(SchoolYear(str(year), school_classes))
 
     return TeachingHierarchy(school_years)
@@ -121,9 +123,10 @@ def add_new_course(name,year, tch_id):
 
 def set_assignment_for_course(ex_id, course_id):
     exercise = Exercise.objects.get(ex_id=ex_id)
-    course = Course.objects.get(c_id=c_id)
+    course = Course.objects.get(c_id=course_id)
     new_assignment = AssignedExercises(ex_id=exercise, c_id=course)
     new_assignment.save()
+    return True
 
 def get_average_for_all_assignments(tch_id):
     #Postponed
@@ -148,7 +151,7 @@ def get_average_grade_for_year(tch_id, year):
 def get_average_grade_for_class(tch_id, year, cls):
     return [{"as_name":"Assignment 5", "grade":"50"}, {"as_name":"Assignment 6","grade":"60"}]
 
-def get_student_grades_for_assingments(tch_id):
+def get_student_grades_for_assingments(tch_id, cls_id, as_id):
     ret = []
     for course in Course.objects.filter(tch_id=tch_id):
         c_id = course.c_id
@@ -158,7 +161,7 @@ def get_student_grades_for_assingments(tch_id):
             scores = LatestStudentScore.objects.filter(ex_id=ex_id)
             for score in scores:
                 student = Student.objects.get(user_id=score.stu_id.user_id)
-                ret.append({'student':student.uname,'as_name':exercise.title, 'grade':score.score})
+                ret.append({'student':student.first_name + " " + student.last_name + " (" + student.uname + ")",'as_name':exercise.title, 'grade':score.score})
     return ret
 
 def get_suggested_names(start):

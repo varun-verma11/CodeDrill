@@ -23,10 +23,10 @@
 								{% for class in year.get_teaching_classes %}
 									<li class="nav nav-list tree">
 										<a href="#" onclick="displayClass({{year.get_name}}, '{{class.get_name}}')">{{ class.get_name }}</a>
-										{% for ass_name in class.get_assignments %}
+										{% for assignment in class.get_assignments %}
 										<ul class="nav nav-list tree">
 											<li class="nav nav-list tree">
-											<a href="#" onclick="displayAssignment({{year.get_name}}, '{{class.get_name}}', '{{ass_name}}')">{{ ass_name }}</a>
+											<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assingment.get_id}}')">{{ assignment.get_name }}</a>
 											</li>
 										</ul>
 										{%endfor%}
@@ -113,7 +113,7 @@ function displayAssignment(year_no, cls, as_name)
 	year = year_no;
 	class_name = cls;
 	assignment_name = as_name;
-	getDataFromServer("get-assignment-overview/", {"year":year, "cls":cls, "as_name":as_name}, showAssignment);
+	getDataFromServer("get-assignment-overview/", {"cls":cls, "as_name":as_name}, showAssignment);
 }
 
 function getDataFromServer(url, data, callback)
@@ -170,7 +170,7 @@ function showClass(table)
 {
 	var title = "Performance of " + class_name + " in Year " + year;
 	var content = "<p></p>" + tableHead;
-	content += "<tr> <td> Assignment </td><td>Average Grade</td></tr>";
+	content += "<tr> <td> <b>Assignment</b> </td><td><b>Average Grade</b></td></tr>";
 	for (key in table) 
 	{
 		content += "<tr> <td>" + table[key].as_name + "</td><td>" + table[key].grade + "</td></tr>";
@@ -187,7 +187,7 @@ function showAssignment(table)
 	var content = "<p></p>" + tableHead;
 	content += "<tr> <td><b>Student</b></td><td><b>Grade</b></td></tr>";
 	for (key in table) {
-		content += "<tr> <td>" + table[key].std_name + "</td><td>" + table[key].grade + "</td></tr>";
+		content += "<tr> <td>" + table[key].student + "</td><td>" + table[key].grade + "</td></tr>";
 	}
 	content += tableFoot;
 

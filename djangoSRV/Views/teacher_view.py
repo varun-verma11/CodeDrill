@@ -57,9 +57,8 @@ def get_class_overview(request):
 def get_assignment_overview(request):
     if (request.user.is_authenticated() and request.is_ajax()):
         tch_id = request.user.user_id
-        year = request.GET["year"]
         cls = request.GET["cls"]
         as_name = request.GET["as_name"]
-        table = get_student_grades_for_assingments(tch_id, year, cls, as_name)
+        table = get_student_grades_for_assingments(tch_id, cls, as_name)
         return HttpResponse(json.dumps(table))
     return HttpResponseBadRequest()
