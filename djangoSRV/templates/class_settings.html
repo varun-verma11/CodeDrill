@@ -118,12 +118,16 @@
         if (val.length !=2)
           return ;
         var name = val[0];
-        var uname = val[1].substring(0,val[1].length-1);
-        if (!contains_student(uname))
+        var user_id = val[1].substring(0,val[1].length-1);
+        if (!contains_student(user_id))
         {
-          students.push({'uname':uname, 'name':name});
-          class_edits.push({"add":uname});
-          document.getElementById("names").innerHTML += '<li style="background-color=\"#c7ebac\" color=\"#5FA629\""><a id="id_'+ students[i].uname +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ uname+ '\', \''+ students[i].full_name+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+          students.push({'user_id':user_id, 'name':name});
+          class_edits.push({"add":user_id});
+          var html = '<li ><a id="id_'+ user_id +'" href="#">'+ name +'<i onclick="deleteStudent(\''+ user_id + '\', \''+ name+ '\')" class="glyphicon glyphicon-remove"></i></a></li>';
+          // alert(html);
+          document.getElementById("names").innerHTML += html;
+          $("#id_" + user_id).css('background-color', '#c7ebac');
+          $("#id_" + user_id).css('color', '#5FA629');
         }
       }
   });
