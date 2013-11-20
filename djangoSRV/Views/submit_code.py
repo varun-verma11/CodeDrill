@@ -65,5 +65,5 @@ def no_failures(test_result):
 # the rest proportional to successful tests
 def compute_score(test_result):
     if no_tests_run(test_result):
-        return 30
-    return 30 + (test_result[2] - test_result[1] - test_result[0])*70/test_result[2]
+        return 0
+    return (test_result[2] - test_result[1] - test_result[0])*100/test_result[2]
