@@ -31,7 +31,6 @@ def get_overview(request):
     if (request.user.is_authenticated() and request.is_ajax()):
         tch_id = request.user.user_id
         table = get_average_for_all_assignments(tch_id)
-        print table
         return HttpResponse(json.dumps(table))
     return HttpResponseBadRequest()
 
