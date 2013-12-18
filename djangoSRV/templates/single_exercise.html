@@ -12,10 +12,10 @@
 
 <body>
   {{navbar}}
- <div class="container-fluid">
-  <div class="row-fluid">
-   {{ menu }}
-    <div class="span9">
+  <div class="container-fluid">
+    <div class="row-fluid">
+     {{ menu }}
+     <div class="span5">
       <div class="panel panel-default">
         <div class="panel-body">                
           <form accept-charset="UTF-8" method="POST">
@@ -32,17 +32,42 @@
                 <td><div id="wrong_{{ ex_id }}"><i class="glyphicon glyphicon-remove wrong"></i></div></td>
                 <td><button class="btn btn-info">Cancel</button></td>
                 <td><button class="btn btn-info">Run</button></td>
+                <td><button class="btn btn-info">Save</button></td>                
               </tr></table>
             </label>
           </form>
         </div>
       </div>
     </div>
+    <div class="span4">
+      Test program <br>
+      Choose function name to test <input type="text" class="form-control" id="function_name"> <br>
+      Input arguments, separated by commas <input type="text" class="form-control" id="input_args"> <br>
+      <button class="btn btn-info" id="get_results">Run</button>
+      <button class="btn btn-info">Save</button> <br><br>
+      Display output <br> 
+      <div class="well well-small" id="output"></div>
     </div>
   </div>
-  <script>
+</div>
+<script>
+  var function_name = $("#function_name");
+  var input_args = $("#input_args");
+
   $('#wrong_{{ ex_id }}').hide();
   $('#ok_{{ ex_id }}').hide();
-  </script>
+
+  $('#get_results').click(function () {
+    var name = function_name.val();
+    var args = input_args.val().split(",");
+    var response = runTest(name, args);
+    $("#output").text(response);
+  });
+
+  function runTest(name, args) {
+    return "call to server gets response";
+  }
+  
+</script>
 </body>
 </html>
