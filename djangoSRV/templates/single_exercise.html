@@ -28,8 +28,8 @@
             <label style="display:block">
               <table><tr>
                 <td><button class="btn btn-info" type="Submit" onclick="submit_code({{ ex_id }}); return false;">Submit</button></td>
-                <td><div id="ok_{{ ex_id }}"><i class="glyphicon glyphicon-ok ok"></i></div></td>
-                <td><div id="wrong_{{ ex_id }}"><i class="glyphicon glyphicon-remove wrong"></i></div></td>
+                <td id="ok_{{ ex_id }}"><i class="glyphicon glyphicon-circle ok"></i></td>
+                <td id="wrong_{{ ex_id }}"><i class="glyphicon glyphicon-remove wrong"></i></td>
                 <td><button class="btn btn-info">Cancel</button></td>
                 <td><button class="btn btn-info">Run</button></td>
                 <td><button class="btn btn-info">Save</button></td>                
@@ -40,34 +40,47 @@
       </div>
     </div>
     <div class="span4">
-      Test program <br>
-      Choose function name to test <input type="text" class="form-control" id="function_name"> <br>
-      Input arguments, separated by commas <input type="text" class="form-control" id="input_args"> <br>
-      <button class="btn btn-info" id="get_results">Run</button>
-      <button class="btn btn-info">Save</button> <br><br>
-      Display output <br> 
-      <div class="well well-small" id="output"></div>
+      <p> To test your program add a new test, select the function name you want to test and input the chosen arguments you want to test for. The results of running your Python program will be displayed below. You can add as many tests as you want and save them for later use.</p>
+      <a href="#" onclick="return false;"; id="test_link">
+        <i class="glyphicon glyphicon-plus-sign plus-sign"></i>
+        Add new test<br>
+      </a>
+      <div id="student_tests" style="padding-left:25px">
+      </div>
     </div>
   </div>
 </div>
 <script>
-  var function_name = $("#function_name");
-  var input_args = $("#input_args");
+  var testId = 0;
+  var INDEX_POS = 11;
 
   $('#wrong_{{ ex_id }}').hide();
   $('#ok_{{ ex_id }}').hide();
 
-  $('#get_results').click(function () {
-    var name = function_name.val();
-    var args = input_args.val().split(",");
-    var response = runTest(name, args);
-    $("#output").text(response);
+  $('#test_link').click(function () {
+    $("#student_tests").append(createTest());
+    if ($("#output" + testId).text() == "") {
+      $("#output" + testId).hide();
+    }
+    $("#get_results" + testId).click(function (event) {
+      var id = event.currentTarget.id.substring(INDEX_POS);
+      var name = $("#function_name" + id).val();
+      var args = $("#input_args" + id).val().split(",");
+      var response = runTest(name, args);
+      $("#output" + id).text(response);
+      $("#output" + id).fadeIn();
+    });
+    testId++;
   });
 
   function runTest(name, args) {
-    return "call to server gets response";
+    return "student test output running.. call to server gets response";
   }
-  
+
+  function createTest() {
+    var d = "<div id=\"test"+ testId + "\"> Function <input type=\"text\" class=\"form-control\" id=\"function_name" + testId + "\">  <br> Arguments <input type=\"text\" class=\"form-control\" id=\"input_args" + testId + "\"> <br> <button class=\"btn btn-info\" id=\"get_results" + testId + "\">Run</button> <button class=\"btn btn-info\">Save</button> <br><br> <div class=\"well well-small\" id=\"output" + testId + "\"></div> </div>";
+    return d;
+  }
 </script>
 </body>
 </html>
