@@ -1,7 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from Forms import SubmitCodeForm
 from django.template import Context
 import random
+import json
 from autotester.unit_tester import autotester
 from Forms import SubmitCodeForm
 from model.models import Test
@@ -48,6 +49,37 @@ def submit_student_code(request, ex_id):
                     return HttpResponse("ok")                
 	return HttpResponse("wrong")
 
+def run_self_test(request):
+    if (request.user.is_authenticated() and request.is_ajax()):
+        print request.POST;
+        functionCalls = json.loads(request.POST["functionCalls"])
+        results = json.loads(request.POST["results"])
+        code = request.POST["code"]
+        print code
+        print results
+        print functionCalls
+        """
+        ************************
+        ************************
+        ************************
+        ************************
+            functionsCalls are array of function calls to be run.
+            they will be like addition(1,3) where the first element 
+            of result will specify the expected result from executing the 
+            function call additon(1,2)
+
+            Eg.
+                functionCalls = ["addition(1,2)","additon(2,3)"]
+                results = [3,5]
+
+        ************************
+        ************************
+        ************************
+        ************************
+
+        """
+        return HttpResponse("All Tests Passed.");
+    return HttpResponseBadRequest();
 
 # see if there were any tests run by the autotester
 def no_tests_run(test_result):

@@ -7,7 +7,7 @@ from Views.authenticate import authenticate_student, authenticate_teacher, check
 from Views.login import student_login, teacher_login
 from Views.register import register_student, register_teacher
 from Views.student_view import get_student_view
-from Views.submit_code import submit_student_code
+from Views.submit_code import submit_student_code, run_self_test
 from Views.single_exercise_code_view import single_exercise_view
 from Views.student_grades import student_grades_view
 from Views.home import home_page
@@ -53,5 +53,6 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout_user),
     url(r'^view-spec/$', view_spec),
     url(r'^check-username/$', check_user_name_exists),
+    url(r'^student/test/self-defined/$', run_self_test),
     url(r'^$', home_page)
 )

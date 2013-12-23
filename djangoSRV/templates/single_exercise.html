@@ -40,10 +40,11 @@
       </div>
     </div>
     <div class="span4">
-      Test program <br>
-      Choose function name to test <input type="text" class="form-control" id="function_name"> <br>
-      Input arguments, separated by commas <input type="text" class="form-control" id="input_args"> <br>
-      <button class="btn btn-info" id="get_results">Run</button>
+      Test program 
+      <br>
+      Choose function calls name to test <input type="text" class="form-control" id="function_name" rows="4" cols="80"> <br>
+      Input arguments, separated by commas <textarea type="text" class="form-control" id="input_args"></textarea><br>
+      <br><button class="btn btn-info" id="get_results">Run</button>
       <button class="btn btn-info">Save</button> <br><br>
       Display output <br> 
       <div class="well well-small" id="output"></div>
@@ -53,19 +54,50 @@
 <script>
   var function_name = $("#function_name");
   var input_args = $("#input_args");
+  var code = $("#id_code_{{ ex_id }}");
 
   $('#wrong_{{ ex_id }}').hide();
   $('#ok_{{ ex_id }}').hide();
 
   $('#get_results').click(function () {
     var name = function_name.val();
-    var args = input_args.val().split(",");
-    var response = runTest(name, args);
-    $("#output").text(response);
+    var cases = input_args.val().split("\n");
+    var functionCalls = [];
+    var expectedResults = [];
+    for (i in cases)
+    { 
+      testCase = cases[i];
+      var values = testCase.split(",");
+      expectedResults.push(values[values.length-1]);
+      var arguments = values.slice(0,values.length-1);
+      functionCalls.push(name+"("+arguments+")");
+    }
+    runTest(functionCalls, expectedResults);
   });
 
-  function runTest(name, args) {
-    return "call to server gets response";
+  function updateConsole(data)
+  {
+    $("#output").text(data);
+  }
+
+  function runTest(functionCalls, results) 
+  {
+    $.ajax({
+        type: 'POST',
+        url: '/student/test/self-defined/',
+        data: { 'functionCalls' : JSON.stringify(functionCalls),
+                'results': JSON.stringify(results),
+                'code': code.val(),
+              },
+        beforeSend: function(xhr, settings) 
+              {
+                xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+              },
+        success: function(response) 
+              {
+                updateConsole(response);
+              }
+        });
   }
   
 </script>
