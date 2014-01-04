@@ -85,9 +85,8 @@ def add_new_class(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
 		course_name = request.POST["name"]
 		course_year = request.POST["year"]
-		if add_new_course(course_name, int(course_year)):
-			return HttpResponse("added")
-
+		add_new_course(course_name, int(course_year), request.user.user_id)
+		return HttpResponse("added")
 	return HttpResponseBadRequest()
 
 def change_password(request):

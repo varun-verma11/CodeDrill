@@ -65,7 +65,7 @@
   </div>
   <div id="newClass" class="modal hide fade">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <button id="modalCloseButton" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
       <h3>Create a new class</h3>
     </div>
     <div class="modal-body">
@@ -84,7 +84,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <a href="#" class="btn btn-primary" onclick="makeNewClass(event)">Submit</a>
+      <a class="btn btn-primary" onclick="makeNewClass(event)">Submit</a>
     </div>
 </div>
 </body>
@@ -244,7 +244,8 @@
 
   function makeNewClass(event) 
   {
-    $("#newClass").modal('toggle');
+    // $("#newClass").modal('hide');
+    $("#modalCloseButton").click();
     var class_name = $("#newClassName").val();
     var class_year = $("#newClassYear").val();
     var csrftoken = getCsrfToken();
