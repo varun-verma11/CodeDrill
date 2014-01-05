@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load selectable_tags %}
+<html lang="en">
+<head>
+  {{ header }}
+    {% include_ui_theme %}
+  {% include_jquery_libs %}
+   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+</head>
+<body>
+	{{ navbar }}
+  	<div class="container-fluid row-fluid">
+	    {{ menu }}
+	</div>
+</body>
+</html>

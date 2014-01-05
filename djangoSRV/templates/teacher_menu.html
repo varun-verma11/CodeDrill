@@ -21,6 +21,19 @@
 		>
 			<a href="/view-spec/">View specifications</a>
 		</li>
+		</li>
+		<li {% if page|stringformat:"s" == "add_ex"%}
+				class="active"
+		    {% endif %}
+		>
+			<a href="/teacher/add-new-exercise/">Add New Exercise</a>
+		</li>
+		<li {% if page|stringformat:"s" == "view_sub"%}
+				class="active"
+		    {% endif %}
+		>
+			<a href="/teacher/view-submissions/">Submit Feedback</a>
+		</li>
 		<li>
 	     	<a href="/logout/">Log out</a>
 	     </li>

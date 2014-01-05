@@ -14,6 +14,8 @@ from Views.home import home_page
 from Views.logout import logout_user
 from Views.view_spec import view_spec, get_exercise_details
 from Views.settings import teacher_account_settings, student_account_settings, class_settings, change_password, change_email, get_registered_students_in_course, add_new_class, update_class_name,  update_course_students
+from Views.add_new_exercise import add_new_exercise
+from Views.view_submissions import view_student_submissions, view_submissions_teacher
 
 admin.autodiscover()
 
@@ -54,5 +56,8 @@ urlpatterns = patterns('',
     url(r'^view-spec/$', view_spec),
     url(r'^check-username/$', check_user_name_exists),
     url(r'^student/test/self-defined/$', run_self_test),
+    url(r'^teacher/add-new-exercise/$',add_new_exercise),
+    url(r'^student/view-submissions/$', view_student_submissions),
+    url(r'^teacher/view-submissions/$', view_submissions_teacher), 
     url(r'^$', home_page)
 )
