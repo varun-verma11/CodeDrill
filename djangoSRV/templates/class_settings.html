@@ -144,6 +144,7 @@
 
   function deleteStudent(std_id, full_name)
   {
+    // TODO:(irina) add notification
     alert("Are you sure you want to remove " + full_name + " from class?");
     $("#id_" + std_id).css('background-color', '#FFDCD3');
     $("#id_" + std_id).css('color', '#FF5C33');
@@ -261,6 +262,7 @@
                 },
           success: function(response) 
                 {
+                  // TODO:(irina) add notification
                   alert(response);
                   /*
                     *
@@ -299,6 +301,7 @@
               },
         success: function(response) 
               {
+                // TODO:(irina) add notification
                 class_edits = [];
                 getNamesForClass(current_class);
               }
