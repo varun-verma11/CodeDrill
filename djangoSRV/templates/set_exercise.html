@@ -16,7 +16,6 @@
 						<div class="span10">
 							<legend>Set an exercise</legend>
 
-							<label>Choose exercise</label>
 							<script>
 							$(document).ready(function () {
 								$('label.tree-toggler').click(function () {
@@ -28,20 +27,24 @@
 								});
 							</script>
 							<div class="span5">
+								<label>Choose exercise</label>
 								<div class="well" style=" padding: 8px 0;">
-									<div style="">
-										{% for chapter in assignment_book.get_chapters %}
-											<ul class="nav nav-list">
-											<li><label class="tree-toggler nav-header" id="{{ chapter.get_name }}">{{ chapter.get_name }}</label>
-												<ul class="nav nav-list tree">
-												{% for assignment in chapter.get_assignments %}
-													<li><a id="{{ chapter.get_name }}-{{ assignment.get_id }}"> {{ assignment.get_name }}</a></li>
-												{% endfor %}
-												</ul>
+									{% for chapter in assignment_book.get_chapters %}
+										<ul class="nav nav-list">
+										<li><label class="tree-toggler nav-header" id="{{ chapter.get_name }}">{{ chapter.get_name }}</label>
+											<ul class="nav nav-list tree">
+											{% for assignment in chapter.get_assignments %}
+												<li><a id="{{ chapter.get_name }}-{{ assignment.get_id }}"> {{ assignment.get_name }}</a></li>
+											{% endfor %}
 											</ul>
-										{% endfor %}
-									</div>
+										</ul>
+									{% endfor %}
 								</div>
+								<a href="#" id="view_spec"><label><i class="glyphicon glyphicon-eye-open"></i>View specification</label></a>
+								<i id="question">Question</i>
+								<div id="question_text"></div> 
+								<br>
+								<div id="specification_window" class="prettyprint lang-python"> </div>
 							</div>
 							<div class="span5">
 								<label>Choose class</label>
@@ -84,11 +87,16 @@
 	</div>
 
 	<script>
-	var exercise = "", group = "";
+	var exercise = "", group = "", spec_question = "", spec_code = "";
 	var text = $('#selection-text');
 	var exercises = {}, exercisesDivs = {}, groups = {}, groupsDivs = {};
 	var hlE = false, hlG = false;
 	var idE = 0, idG = 0;
+
+	$("#specification_window").hide();
+	$("#view_spec").hide();
+	$("#question").hide();
+	$("#question_text").hide();
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
@@ -112,11 +120,13 @@
 				hlE = false;
 				exercise = "";
 				set();
+				hideSpecificationOptions();
 			} else if (!hlE) {
 				$(target).css("background-color","#ffb07a");
 				hlE = true;
 				exercise = getKeyFromValue(exercisesDivs, event.currentTarget.id);
 				set();
+				showSpecificationOptions(target);
 			} else {
 				clean(exercisesDivs);
 				hlE = false;
@@ -124,6 +134,7 @@
 				hlE = true;
 				exercise = getKeyFromValue(exercisesDivs, event.currentTarget.id);
 				set();
+				showSpecificationOptions(target);
 			}
 		});
 	}
@@ -173,6 +184,41 @@
               }
     	});
 		
+	}
+
+	function showSpecificationOptions(target) {
+		$("#view_spec").fadeIn(600);
+		getSpec(target);
+	}
+
+	$("#view_spec").click(function () {
+		if (spec_question != "") {
+			$("#spec_question").fadeIn(600);
+			$("#question").fadeIn(600);
+			$("#question_text").text(spec_question);
+			$("#question_text").fadeIn(600);
+		}
+
+		if (spec_code != "") {
+			$("#specification_window").text(spec_code);
+			$("#specification_window").fadeIn(600);
+		}
+	});
+
+	function hideSpecificationOptions() {
+		$("#view_spec").fadeOut(600);
+		$("#question").fadeOut(600);
+		$("#question_text").fadeOut(600);
+		$("#specification_window").fadeOut(600);
+	}
+
+	/*
+	 * To be changed with back end calls :-)
+	 */
+	function getSpec(target) {
+		console.log(target);
+		spec_question = "This is a sample question.";
+		spec_code = "def addition(a,b):\ntotal=0\nreturn total";
 	}
 	
 	function clean(divsList) {
