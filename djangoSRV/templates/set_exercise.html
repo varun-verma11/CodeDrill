@@ -4,9 +4,10 @@
 <head>
 	{{ header }}
 	<script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
-
-<body>
+<!-- onload="prettyPrint()" -->
+<body >
 	{{navbar }}
 	<div class="container-fluid">
 		<div class="row-fluid">
@@ -15,13 +16,11 @@
 					{{menu}}
 						<div class="span10">
 							<legend>Set an exercise</legend>
-
 							<script>
 							$(document).ready(function () {
 								$('label.tree-toggler').click(function () {
 									$(this).parent().children('ul.tree').toggle(300);
 								});
-									//$('.tree').hide();
 									$('#selection-text').hide();
 									$('#submit-btn').attr('disabled', 'disabled');
 								});
@@ -44,7 +43,13 @@
 								<i id="question">Question</i>
 								<div id="question_text"></div> 
 								<br>
-								<div id="specification_window" class="prettyprint lang-python"> </div>
+								<div id="specification_window">
+									<a href="#edit_modal" role="button" data-toggle="modal" class="glyphicon glyphicon-pencil pull-right">Edit</a>
+									<pre id="specification_window_text"> <!-- class="prettyprint" -->
+										<code></code>
+									</pre>
+								</div>
+								<div id="temp_change"><i></i></div>
 							</div>
 							<div class="span5">
 								<label>Choose class</label>
@@ -83,6 +88,39 @@
 					</form>
 				</div>
 			</div>
+		</div>
+	</div>
+ 
+	<div id="edit_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Edit exercise</h3>
+		</div>
+		<div class="modal-body">
+			<i>Question</i>
+			<br>
+			<textarea id="question_editor" class="field span4" rows="1"></textarea>
+			<br>
+			<br>
+			<textarea id="code_editor" class="field span4" rows="3"></textarea>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			<div class="dropdown btn-group">
+			    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			        Choose class <span class="caret"></span>
+			    </a>
+			    <ul class="dropdown-menu">
+			        {% for year in teaching_hierarchy.get_teaching_years %}
+						{% for cls in year.get_teaching_classes %}
+							<li id="year-{{ year.get_name }}-class-{{ cls.get_id }}">
+								{{ year.name }} - {{ cls.get_name }}
+							</li>
+						{% endfor %}
+					{% endfor %}
+			    </ul>
+			</div>
+			<button id="send_edited" class="btn btn-primary">Send</button>
 		</div>
 	</div>
 
@@ -200,10 +238,17 @@
 		}
 
 		if (spec_code != "") {
-			$("#specification_window").text(spec_code);
+			$("#specification_window_text").text(spec_code);
 			$("#specification_window").fadeIn(600);
+			$("#code_editor").val(spec_code);
+			$("#question_editor").val(spec_question);
 		}
 	});
+
+	function saveTempExercise(question, code) {
+		hideSpecificationOptions();
+		$("#temp_change").text("Select class to send the following exercise to: <br>" + "sampleQ" + "<br><br>" + "sampleC");
+	}
 
 	function hideSpecificationOptions() {
 		$("#view_spec").fadeOut(600);
@@ -216,7 +261,6 @@
 	 * To be changed with back end calls :-)
 	 */
 	function getSpec(target) {
-		console.log(target);
 		spec_question = "This is a sample question.";
 		spec_code = "def addition(a,b):\ntotal=0\nreturn total";
 	}
