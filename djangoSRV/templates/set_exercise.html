@@ -107,14 +107,16 @@
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 			<div class="dropdown btn-group">
-			    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			    <a id="dropdown" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 			        Choose class <span class="caret"></span>
 			    </a>
-			    <ul class="dropdown-menu">
+			    <ul id="classes" class="dropdown-menu">
 			        {% for year in teaching_hierarchy.get_teaching_years %}
 						{% for cls in year.get_teaching_classes %}
-							<li id="year-{{ year.get_name }}-class-{{ cls.get_id }}">
-								{{ year.name }} - {{ cls.get_name }}
+							<li>
+								<a style="cursor:pointer" id="year-{{ year.get_name }}-class-{{ cls.get_id }}">
+									{{ year.name }} - {{ cls.get_name }}
+								</a>
 							</li>
 						{% endfor %}
 					{% endfor %}
@@ -135,6 +137,19 @@
 	$("#view_spec").hide();
 	$("#question").hide();
 	$("#question_text").hide();
+
+	$("#classes li a").click(function () {
+		$("#dropdown").html($(this).text()+' <span class="caret"></span>');
+	});
+
+	$("#send_edited").click(function() {
+		var class_to_send = $("#dropdown").text();
+		var question = $("#question_editor").val();
+		var code = $("#code_editor").val();
+		$("#edit_modal").modal('hide');
+		$("#temp_change").text("Exercise " + question + " was sent to " + class_to_send + ".");
+		/* server sends new exercise to students */
+	});
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
