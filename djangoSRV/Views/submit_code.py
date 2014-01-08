@@ -5,34 +5,16 @@ import random
 import json
 from autotester.unit_tester import autotester
 from Forms import SubmitCodeForm
-from model.models import Test
+from model.models import Test, ModelSolution
 from djangoSRV.student import submit_exercise
-
+from StringIO import StringIO
+import sys
 def submit_student_code(request, ex_id):
-	# form = SubmitCodeForm(request.POST)
-	# if (form.is_valid()):
-	# 	code = form.cleaned_data["code"]
-
-	# 	"""
-	# 		****************************
-	# 		****************************
-	# 			 CODE TO TEST THE 
-	# 		    SUBMITTED CODE GOES 
-	# 				   HERE
-	# 		****************************
-	# 		****************************
-
-	# 	"""
-	# 	print "returning value now"
-	# 	return HttpResponse("k")
 	if (request.user.is_authenticated() and request.is_ajax()):
 		student_code = request.POST["code"]
-		# test_code = ""
                 unit_tests= Test.objects.filter(ex_id__exact = ex_id)
                 if(not unit_tests.exists()):
                     return HttpResponse("no tests for this exercise")
-		# if (autotester (student_code, test_code)):
-		#     return HttpResponse("ok")
                 test_result = autotester(student_code,
                                          unit_tests[0].test_content)
                 # submit result
@@ -51,34 +33,36 @@ def submit_student_code(request, ex_id):
 
 def run_self_test(request):
     if (request.user.is_authenticated() and request.is_ajax()):
-        print request.POST;
         functionCalls = json.loads(request.POST["functionCalls"])
         results = json.loads(request.POST["results"])
+        ex_id = 1 #Add the ex_id parameter and delete this line
         code = request.POST["code"]
-        print code
-        print results
-        print functionCalls
-        """
-        ************************
-        ************************
-        ************************
-        ************************
-            functionsCalls are array of function calls to be run.
-            they will be like addition(1,3) where the first element 
-            of result will specify the expected result from executing the 
-            function call additon(1,2)
+        model_sollution = ModelSolution.objects.get(ex_id=ex_id).content
+        #print model_sollution
+        #print code
+        #print functionCalls[0]
+        ok = True
+        for i in range(len(functionCalls)):
+            model_code = model_sollution + "\n\n" + "print " + functionCalls[0]
+            actual_code = code + "\n\n" + "print " + functionCalls[0]
 
-            Eg.
-                functionCalls = ["addition(1,2)","additon(2,3)"]
-                results = [3,5]
+            ideal_output = StringIO()
+            sys.stdout = ideal_output
+            exec model_code
+            sys.stdout = sys.__stdout__
 
-        ************************
-        ************************
-        ************************
-        ************************
+            actual_output = StringIO()
+            sys.stdout = actual_output
+            exec actual_code
+            sys.stdout = sys.__stdout__
 
-        """
-        return HttpResponse("All Tests Passed.");
+            ok = ok or (ideal_output.getvalue() == actual_output.getvalue())
+        
+        if ok:
+            return HttpResponse("All Tests Passed.");
+        else:
+            return HttpResponse("You stupid dickhead.");
+
     return HttpResponseBadRequest();
 
 # see if there were any tests run by the autotester
