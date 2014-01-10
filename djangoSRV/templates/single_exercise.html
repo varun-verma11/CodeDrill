@@ -4,7 +4,6 @@
 <head>
   <script type="text/javascript" src="{% static "js/submit_code.js"%}"></script>
   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
-  {{ code_form.media }}
   
   {{ header }}
 
@@ -17,7 +16,8 @@
      {{ menu }}
      <div class="span5">
       <div class="panel panel-default">
-        <div class="panel-body">                
+        <div class="panel-body">
+        {{ code_form.media }}                
           <form accept-charset="UTF-8" method="POST">
             {% csrf_token %}
             <p>Description: {{ description }}</p>

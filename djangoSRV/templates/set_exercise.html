@@ -44,7 +44,7 @@
 								<div id="question_text"></div> 
 								<br>
 								<div id="specification_window">
-									<a href="#edit_modal" role="button" data-toggle="modal" class="glyphicon glyphicon-pencil pull-right">Edit</a>
+									<a href="#edit_modal" onclick="editExercise(); return false;" role="button" data-toggle="modal" class="glyphicon glyphicon-pencil pull-right">Edit</a>
 									<pre id="specification_window_text"> <!-- class="prettyprint" -->
 										<code></code>
 									</pre>
@@ -90,23 +90,30 @@
 			</div>
 		</div>
 	</div>
- 
+	<style type="text/css">
+		.django-ace-editor {
+			width: 100% !important;
+			height: 150px !important;
+		}
+		.modal {
+			width: 70% !important;
+			left: 35% !important;
+		}
+	</style>
 	<div id="edit_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel">Edit exercise</h3>
 		</div>
-		<div class="modal-body">
-			<i>Question</i>
-			<br>
-			<textarea id="question_editor" class="field span4" rows="1"></textarea>
-			<br>
-			<br>
-			<textarea id="code_editor" class="field span4" rows="3"></textarea>
+		<div  class="modal-body">
+			<iframe id="editable_form" src="/teacher/set-exercise/view-spec-form/1/" class="container well well-small span6"
+		           style="height: 365px; width: 90%; ">
+			</iframe>
+	        <!-- {{view_spec_form}} -->
 		</div>
 		<div class="modal-footer">
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-			<div class="dropdown btn-group">
+			<!-- <div class="dropdown btn-group">
 			    <a id="dropdown" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 			        Choose class <span class="caret"></span>
 			    </a>
@@ -121,8 +128,8 @@
 						{% endfor %}
 					{% endfor %}
 			    </ul>
-			</div>
-			<button id="send_edited" class="btn btn-primary">Send</button>
+			</div> -->
+			<button id="send_edited" class="btn btn-primary">Save</button>
 		</div>
 	</div>
 
@@ -237,6 +244,12 @@
               }
     	});
 		
+	}
+
+	function editExercise()
+	{
+		$("#editable_form").attr('src',"/teacher/set-exercise/view-spec-form/" + exercise.toString() + "/");
+		$("#editable_form").contentWindow.location.reload(true);
 	}
 
 	function showSpecificationOptions(target) {

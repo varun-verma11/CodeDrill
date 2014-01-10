@@ -1,0 +1,11 @@
+{% csrf_token %}
+{{form.media}}
+{{ form.non_field_errors }}
+<i>Question</i>
+<br>
+{{ form.description.errors }}
+{{ form.description }}
+<br>
+<br>
+{{form.code.errors}}
+{{form.code}}
