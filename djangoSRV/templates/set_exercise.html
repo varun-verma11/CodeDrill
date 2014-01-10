@@ -149,14 +149,10 @@
 		$("#dropdown").html($(this).text()+' <span class="caret"></span>');
 	});
 
-	$("#send_edited").click(function() {
-		var class_to_send = $("#dropdown").text();
-		var question = $("#question_editor").val();
-		var code = $("#code_editor").val();
-		$("#edit_modal").modal('hide');
-		$("#temp_change").text("Exercise " + question + " was sent to " + class_to_send + ".");
-		/* server sends new exercise to students */
-	});
+	$("#send_edited").click(function () {
+	    $("#question_text").text($('#editable_form').contents().find("#id_description").val());
+	    $("#specification_window_text").text($('#editable_form').contents().find("#id_code").val());
+	})
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
 		{% for cls in year.get_teaching_classes %}
@@ -288,9 +284,42 @@
 	/*
 	 * To be changed with back end calls :-)
 	 */
-	function getSpec(target) {
-		spec_question = "This is a sample question.";
-		spec_code = "def addition(a,b):\ntotal=0\nreturn total";
+	function getSpec(target) 
+	{
+	  var csrftoken = getCsrfToken();
+	  $.ajax({
+	        type: 'GET',
+	        url: "/teacher/get-exercise/",
+	        data: {
+	                'ex_id': exercise
+	              },
+	        beforeSend: function(xhr, settings) 
+	              {
+	                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	              },
+	        success: function(response) 
+	              {
+	              	var result = response.split("$%$");
+
+	              	if (result.length == 1)
+	              	{
+		            	alert("Something went wrong. Please come back later");
+		            }
+		            else
+		            {
+		                spec_question =  result[1];
+		                spec_code = result[0];
+		                $("#question_text").text(spec_question);
+		                $("#specification_window_text").text(spec_code);
+		            }
+	              }
+	    });
+	  return false;
+	}
+
+	function updateSpecDetails(ques, code)
+	{
+
 	}
 	
 	function clean(divsList) {
