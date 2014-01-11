@@ -32,6 +32,11 @@ class ModelSolution(models.Model):
     def __unicode__(self):
         return 'Solution for ' + self.ex_id.__unicode__()
 
+class Feedback(models.Model):
+    ex_id = models.ForeignKey('Exercise', to_field='ex_id', primary_key=True)
+    stu_id = models.ForeignKey('Student', to_field='user_id')
+    tch_id = models.ForeignKey('Teacher', to_field = 'user_id')
+    content = models.TextField('Content')
 
 class StudentSubmission(models.Model):
     stu_id = models.ForeignKey('Student', to_field='user_id')
