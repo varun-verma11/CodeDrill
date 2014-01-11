@@ -27,9 +27,8 @@ def view_spec(request):
 
 def get_exercise_details(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
-		ex_id = request.POST["ex_id"]
+		ex_id = request.GET["ex_id"]
 		exercise_details = get_exercise(ex_id)
 		val = exercise_details[3] + "$%$" + exercise_details[4]
 		return HttpResponse(val)
-
 	return HttpResponse("Invalid Query to the Server")

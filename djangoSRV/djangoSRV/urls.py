@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from teacher import *
 from Views.teacher_view import get_teacher_view, get_overview, get_year_overview, get_class_overview, get_assignment_overview
-from Views.set_exercise import get_set_exercise_page, send_exercise_to_class
+from Views.set_exercise import get_set_exercise_page, send_exercise_to_class, get_view_spec_form
 from Views.authenticate import authenticate_student, authenticate_teacher, check_user_name_exists
 from Views.login import student_login, teacher_login
 from Views.register import register_student, register_teacher
@@ -59,5 +59,6 @@ urlpatterns = patterns('',
     url(r'^teacher/add-new-exercise/$',add_new_exercise),
     url(r'^student/view-submissions/$', view_student_submissions),
     url(r'^teacher/view-submissions/$', view_submissions_teacher), 
+    url(r'^teacher/set-exercise/view-spec-form/(\d+)/$', get_view_spec_form),
     url(r'^$', home_page)
 )
