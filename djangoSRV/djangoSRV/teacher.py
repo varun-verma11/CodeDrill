@@ -200,3 +200,13 @@ def viewSubmissionMark(request):
             ret.append(ret_aux)
             # needs more cowbell and a HttpResponse
     return ret
+
+# gets one submission of the student for a given assignment
+# TODO: change it to pick up the right submission
+# TODO: put assignment description as well
+def get_submission_by(stu_id, asgn_id):
+    submissions=StudentSubmission.objects.filter(stu_id__exact=stu_id, assign_id__exact=asgn_id)
+    if submissions:
+        # we map it with the content
+        return {'code': submissions[0].content.encode("utf8")}
+    return {'code': None}
