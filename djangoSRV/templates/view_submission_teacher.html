@@ -20,37 +20,46 @@
 			$(this).parent().children('ul.tree').toggle(300);
 		});
 		
-		$('#sub-info').hide();
+		//$('#sub-info').hide();
 		});
 		</script>
-		<div class="span3">
-			<div class="well" style=" padding: 8px 0;">
-				<ul class="nav nav-list">
-				{% for year in teaching_hierarchy.get_teaching_years %}
-					<li>
-						<label class="tree-toggler nav-header">Year {{ year.name }}</label>
-						<ul class="nav nav-list tree">
-						{% for cls in year.get_teaching_classes %}
-							<li>
-								<label class="tree-toggler nav-header">{{cls.get_name}}</label>
-								<ul class="nav nav-list tree">
-								{% for assignment in cls.get_assignments %}
-									<li class="nav nav-list tree">
-										<a onclick="getStudentsOnCourse({{cls.get_id}})">
-											{{ assignment.get_name}}
-										</a>
-									</li>
-								{% endfor%}
-								</ul>
-							</li>
-						{% endfor %}
+		<div class="container-fluid">
+				<ul class="nav nav-tabs">
+					<li class="active dropdown" style="width:70%;">
+						<a href="#" data-toggle="dropdown" class="dropdown-toggle">Choose an assignment bla bla bla... <b class="caret" style="float:right;"></b></a>
+						<ul class="dropdown-menu">
+							{% for year in teaching_hierarchy.get_teaching_years %}
+								<li>
+									<label class="tree-toggler nav-header">Year {{ year.name }}</label>
+									<ul class="nav nav-list tree">
+									{% for cls in year.get_teaching_classes %}
+										<li>
+											<label class="tree-toggler nav-header">{{cls.get_name}}</label>
+											<ul class="nav nav-list tree">
+											{% for assignment in cls.get_assignments %}
+												<li class="nav nav-list tree">
+													<a onclick="getStudentsOnCourse({{cls.get_id}})">
+														{{ assignment.get_name}}
+													</a>
+												</li>
+											{% endfor%}
+											</ul>
+										</li>
+									{% endfor %}
+									</ul>
+								</li>
+							{% endfor %}
 						</ul>
-					</li>
-				{% endfor %}
+					</li>			
 				</ul>
-			</div>
 		</div>
-                <div id="sub-info" class="span7 well">
+	        <div class="container-fluid row-fluid">
+			<div id="sub-info" class="span3 well">
+				<label class="nav-header">There is no course selected yet.</label>
+			</div>
+			<div id="feedback area" class="span7 well">
+				<label class="nav-header"> Area under construction. </label>
+			</div>
 		</div>
             </div>
 	</div>
