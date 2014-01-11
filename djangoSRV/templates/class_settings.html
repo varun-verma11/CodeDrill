@@ -225,7 +225,7 @@
   {
     var csrftoken = getCsrfToken();
     $.ajax({
-          type: 'POST',
+          type: 'GET',
           url: '/teacher/get-students-in-class/',
           data: {
                   'course_id': course_id

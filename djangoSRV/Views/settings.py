@@ -57,7 +57,7 @@ def class_settings(request):
 
 def get_registered_students_in_course(request):
 	if (request.user.is_authenticated() and request.is_ajax()):
-		course_id = request.POST["course_id"]
+		course_id = request.GET["course_id"]
 		students = get_students_in_course(course_id)
 		return HttpResponse(json.dumps(students))
 	return HttpResponseBadRequest()
