@@ -52,3 +52,8 @@ class AddStudentForm(forms.Form):
 		        widget=selectable.AutoCompleteWidget(UserLookup),
 		        required=False,
 		    )
+
+class ViewSpecificationForm(forms.Form):
+	description = forms.CharField(widget=forms.Textarea(attrs={"rows" : "2", 'style' : "width: 100%;"}))
+	code = forms.CharField(widget=AceWidget(mode='python', theme="cobalt"))
+

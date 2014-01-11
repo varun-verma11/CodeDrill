@@ -3,6 +3,10 @@ from Views.teaching_data_structure import TeachingHierarchy, SchoolYear, Teachin
 from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 from django.db.models import Avg
 
+def get_exercise(ex_id):
+    arr = Exercise.objects.filter(ex_id=ex_id).values_list()
+    return arr[0]
+
 def add_students_to_course(student_ids, course_id):
     #course = Course.objects.filter(c_id=course_id).first()
     for std_id in student_ids:
