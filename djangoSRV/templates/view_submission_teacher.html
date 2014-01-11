@@ -16,8 +16,9 @@
             	<legend>Submit feedback</legend>
 		<script>
 		$(document).ready(function () {
-		$('label.tree-toggler').click(function () {
+		$('label.tree-toggler').click(function(event) {
 			$(this).parent().children('ul.tree').toggle(300);
+			event.stopPropagation();
 		});
 		
 		//$('#sub-info').hide();
@@ -26,7 +27,7 @@
 		<div class="container-fluid">
 				<ul class="nav nav-tabs">
 					<li class="active dropdown" style="width:70%;">
-						<a href="#" data-toggle="dropdown" class="dropdown-toggle">Choose an assignment bla bla bla... <b class="caret" style="float:right;"></b></a>
+						<a id="asgn-menu" href="#" data-toggle="dropdown" class="dropdown-toggle">Choose an assignment bla bla bla... <b class="caret" style="float:right;"></b></a>
 						<ul class="dropdown-menu">
 							{% for year in teaching_hierarchy.get_teaching_years %}
 								<li>
@@ -38,8 +39,8 @@
 											<ul class="nav nav-list tree">
 											{% for assignment in cls.get_assignments %}
 												<li class="nav nav-list tree">
-													<a onclick="getStudentsOnCourse({{cls.get_id}})">
-														{{ assignment.get_name}}
+													<a onclick="getStudentsOnCourse({{cls.get_id}}, 'Year {{year.name}} - {{cls.get_name}} - {{assignment.get_name}}')">
+														{{ assignment.get_name }}
 													</a>
 												</li>
 											{% endfor%}
@@ -86,8 +87,9 @@ function getDataFromServer(url, data, callback)
 	});
 }
 
-function getStudentsOnCourse(class_id)
+function getStudentsOnCourse(class_id, displayTitle)
 {
+	$('#asgn-menu').html(displayTitle);
 	getDataFromServer("get-students-in-class/",{'course_id' : class_id}, showStudentsOnCourse);
 }
 
