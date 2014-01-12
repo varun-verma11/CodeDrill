@@ -7,6 +7,8 @@
     {% include_ui_theme %}
   {% include_jquery_libs %}
    <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+   <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+
 </head>
  <body>
   {{ navbar }}
@@ -27,7 +29,7 @@
 		<div class="container-fluid">
 				<ul class="nav nav-tabs">
 					<li class="active dropdown" style="width:70%;">
-						<a id="asgn-menu" href="#" data-toggle="dropdown" class="dropdown-toggle">Choose an assignment bla bla bla... <b class="caret" style="float:right;"></b></a>
+						<a id="asgn-menu" href="#" data-toggle="dropdown" class="dropdown-toggle">Choose an assignment bla bla bla... <b class="caret pull-right"></b></a>
 						<ul class="dropdown-menu">
 							{% for year in teaching_hierarchy.get_teaching_years %}
 								<li>
@@ -39,7 +41,7 @@
 											<ul class="nav nav-list tree">
 											{% for assignment in cls.get_assignments %}
 												<li class="nav nav-list tree">
-													<a onclick="getStudentsOnCourse({{cls.get_id}}, 'Year {{year.name}} - {{cls.get_name}} - {{assignment.get_name}}')">
+													<a onclick="getAssignmentInfo({{cls.get_id}}, {{assignment.get_id}}, 'Year {{year.name}} - {{cls.get_name}} - {{assignment.get_name}}')">
 														{{ assignment.get_name }}
 													</a>
 												</li>
@@ -58,15 +60,18 @@
 			<div id="sub-info" class="span3 well">
 				<label class="nav-header">There is no course selected yet.</label>
 			</div>
-			<div id="feedback area" class="span7 well">
-				<label class="nav-header"> Area under construction. </label>
+			<div id="specification-window" class="span7">
+				<i id="question">Question:</i>
+				<div id="question-text"></div> 
+				<pre id="specification-window-text">Dude I swear, my dog ate the effing screen!
+				</pre>
 			</div>
 		</div>
             </div>
 	</div>
 <script>
 
-
+var curr_assignment
 
 function getDataFromServer(url, data, callback)
 {
@@ -87,28 +92,59 @@ function getDataFromServer(url, data, callback)
 	});
 }
 
-function getStudentsOnCourse(class_id, displayTitle)
+function getAssignmentInfo(class_id, assignment_id, displayTitle)
 {
 	$('#asgn-menu').html(displayTitle);
+        curr_assignment = assignment_id;
 	getDataFromServer("get-students-in-class/",{'course_id' : class_id}, showStudentsOnCourse);
 }
 
 function showStudentsOnCourse(table)
 {
-	var listHeader = "<ul class=\"nav nav-list\"><li><label class=\"tree-toggler nav-header\">Submissions</label><ul class=\"nav nav-list tree\">";
-        var listFooter = "</ul></li></ul>";
-	var content = listHeader;
+	var listHeader = "<ul class=\"nav nav-list\"><li><label class=\"tree-toggler nav-header\">Submissions</label><ul class=\"nav nav-list tree\">"
+        var listFooter = "</ul></li></ul>"
+	var content = listHeader
 	var title = "Submissions"
 	for (i in table) 
 	{
-		content += "<li><a id=\"" + table[i].user_id + "\">" + table[i].full_name + "</a></li>";
+		content += "<li><a id=\"stu" + table[i].user_id + "\">" + table[i].full_name + "</a></li>";
 	}
 	content += listFooter;
 
+	// now make it all visible
 	$('#sub-info').html(content);
+	$('#specification-window-text').html("Please select a student to view his (eventual) submission.");
+	setStudentLinks(curr_assignment, table);
 	//$('#sub-info-heading').html(title);
 	$('#sub-info').fadeIn(300);
 }
+
+function showSubmissionContent(submission)
+{
+	$('#specification-window-text').html(submission.code != null ? submission.code :
+		"No submission for this assignment has been registered on behalf of the student.");
+}
+
+function setStudentLinks(assignment_id, stu_table)
+{
+	var stu
+	var asgn = assignment_id.toString()
+	for(i in stu_table)
+	{
+		stu = stu_table[i].user_id;
+		$('#stu'+stu).on('click', getSubmissionFunction(stu,asgn));
+	}
+}
+
+//this is a sort of currying for the students function after figuring out some error
+//in parameter binding
+function getSubmissionFunction(stu, asgn)
+{
+	return	function() { 
+			getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
+		};
+}
+
 
 </script>
 </body>

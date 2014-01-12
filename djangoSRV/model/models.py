@@ -48,7 +48,7 @@ class StudentSubmission(models.Model):
         auto_now_add=True)
     result = models.DecimalField(max_digits=3, decimal_places=2)
     def __str__(self):
-        return self.stu_id
+        return str(self.stu_id)
     def __repr__(self):
         return self.__str__()
 
@@ -67,7 +67,7 @@ class AssignedExercises(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     c_id = models.ForeignKey('Course', to_field='c_id')
     def __str__(self):
-        return str(self.ex_id)
+        return self.ex_id.__str__() + ' - ' + self.c_id.__str__()
     def __repr__(self):
         return self.__str__()
 

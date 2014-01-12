@@ -8,7 +8,7 @@ from utils import get_header_navbar
 from Forms import AddStudentForm
 from acc_queries import *
 import json
-from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course, get_suggested_names, add_students_to_course, delete_students_from_course
+from djangoSRV.teacher import get_courses, get_students_in_course, add_new_course, rename_course, get_suggested_names, add_students_to_course, delete_students_from_course, get_submission_by
 
 
 def teacher_account_settings(request):
@@ -116,3 +116,12 @@ def change_email(request):
         update_email(new_email, uid, user_type)
         return HttpResponse("yes")
     return HttpResponse("no")
+
+# returns submission content for 'GET' ajax requests
+def get_student_submission(request):
+    if(request.user.is_authenticated() and request.is_ajax()):
+        stu_id = request.GET["student_id"]
+        asgn_id = request.GET["assign_id"]
+        return HttpResponse(json.dumps(get_submission_by(stu_id, asgn_id)))
+    return HttpResponseBadRequest() 
+
