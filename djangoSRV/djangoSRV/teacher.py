@@ -101,6 +101,26 @@ def get_courses_with_assignments(tch_id):
         classes = courses.filter(year=year).values('name','c_id')
         school_classes = []
         for cls in classes:
+            '''
+
+                **********************************************
+                **********************************************
+                **********************************************
+                **********************************************
+                
+                DUDE WE NEED THIS FIXED!!!!
+                Here for each of the classes, you could be adding
+                the assignments assigned to them.
+
+                I guess u can somehow use the one's from student.py 
+
+                
+
+                **********************************************
+                **********************************************
+                **********************************************
+                **********************************************
+            '''
             as1 = Assignment("Assignment 1", 1)
             as2 = Assignment("Assignment 2", 2)
             school_classes.append(TeachingClass(cls['name'],cls['c_id'], assignments=[as1, as2]))
