@@ -26,7 +26,7 @@
 											<li><label class="tree-toggler nav-header" id="var"> {{ chapter.get_name }}</label>
 												<ul class="nav nav-list tree">
 													{% for assignment in chapter.get_assignments %}
-														<li><a onclick="get_exercise_details({{ assignment.get_id }} )" id="var-add"> {{ assignment.get_name }}</a></li>
+														<li><a href="#" onclick="get_exercise_details({{ assignment.get_id }} )" id="var-add"> {{ assignment.get_name }}</a></li>
 													{% endfor %}
 												</ul>
 											</li>

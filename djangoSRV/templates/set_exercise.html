@@ -28,16 +28,22 @@
 							<div class="span5">
 								<label>Choose exercise</label>
 								<div class="well" style=" padding: 8px 0;">
-									{% for chapter in assignment_book.get_chapters %}
 										<ul class="nav nav-list">
-										<li><label class="tree-toggler nav-header" id="{{ chapter.get_name }}">{{ chapter.get_name }}</label>
-											<ul class="nav nav-list tree">
-											{% for assignment in chapter.get_assignments %}
-												<li><a id="{{ chapter.get_name }}-{{ assignment.get_id }}"> {{ assignment.get_name }}</a></li>
+											{% for chapter in assignment_book.get_chapters %}
+											<li><label class="tree-toggler nav-header" id="{{ chapter.get_name }}">{{ chapter.get_name }}</label>
+												<ul class="nav nav-list tree">
+												{% for assignment in chapter.get_assignments %}
+													<li><a id="{{ chapter.get_name }}-{{ assignment.get_id }}"> {{ assignment.get_name }}</a></li>
+												{% endfor %}
+												</ul>
+											</li>
 											{% endfor %}
-											</ul>
+											<li><label class="tree-toggler nav-header" id="custom">Custom</label>
+												<ul class="nav nav-list tree">
+													<li><a id="custom_ex">Custom question</a></li>
+												</ul>
+											</li>
 										</ul>
-									{% endfor %}
 								</div>
 								<a href="#" id="view_spec"><label><i class="glyphicon glyphicon-eye-open"></i>View specification</label></a>
 								<i id="question">Question</i>
@@ -168,6 +174,8 @@
 		{% endfor %}
 	{% endfor %}
 
+	//TODO please add a loop for the custom exercises too
+
 	for (i in exercisesDivs) {
 		$(("#" + exercisesDivs[i])).click(function (event) {
 			target = "#" + event.currentTarget.id;
@@ -247,6 +255,11 @@
 	{
 		$("#editable_form").attr('src',"/teacher/set-exercise/view-spec-form/" + exercise.toString() + "/");
 		$("#editable_form").contentWindow.location.reload(true);
+	}
+
+	function addCustom(q, id) {
+		// add to db
+		console.log(q, id);
 	}
 
 	function showSpecificationOptions(target) {

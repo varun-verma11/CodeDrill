@@ -4,14 +4,89 @@
 <html lang="en">
 <head>
   {{ header }}
-    {% include_ui_theme %}
+  {% include_ui_theme %}
   {% include_jquery_libs %}
    <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
 </head>
  <body>
 	{{ navbar }}
 	<div class="container-fluid row-fluid">
-	    {{ menu }}
+		<div class="span12">
+	    	{{ menu }}
+	    	<div class="span3">
+				<div class="well" style=" padding: 8px 0;">
+					<ul class="nav nav-list">
+						<li><label class="tree-toggler nav-header" id="title">Custom questions</label>
+							<ul class="nav nav-list tree">		
+									<li><a href="#" onclick="get_exercise_details('question_name')"> Question 1</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<a style="cursor:pointer;" id="new_question"><i class="glyphicon glyphicon-plus"></i>New custom question</a>
+			</div>
+			<div class="span5">
+				<div id="spec">
+					<i>Question</i>
+					<br>
+					<div id="description"></div>
+					<br>
+					<pre id="code" class="prettyprint lang-python"> </pre>
+				</div>
+
+				<div id="new_question_form">
+					<i>Question</i>
+					<br>
+					<textarea id="question_editor" rows="1"></textarea>
+					<br><br>
+					<i>Code</i>
+					<br>
+					<textarea id="code_editor" rows="3"></textarea>
+					<br><br>
+					<button id="cancel" class="btn btn-primary">Cancel</button>
+					<button id="save" class="btn btn-primary">Save</button>
+				</div>
+
+				<div id="confirmation"></div>
+			</div>
+		</div>
 	</div>
+
+	<script>
+		$("#spec").hide();
+		$("#confirmation").text("");
+
+		function get_exercise_details(question)
+		{
+			var description = "description returned from server";
+			var code = "code returned from server";
+			$("#description").text(description);
+			$("#code").text(code);
+			$("#spec").fadeIn("slow");
+			$("#confirmation").text("");
+		}
+
+		$("#title").click(function () {
+			$("#spec").fadeOut("slow");
+			$("#confirmation").text("");
+		});
+		
+		$("#new_question").click(function () {
+			$("#spec").fadeOut("slow");
+			$("#confirmation").text("");
+		});
+
+		$("#cancel").click(function () {
+			$("#new_question_form").fadeOut("slow");
+			$("#confirmation").text("");
+		});
+
+		$("#save").click(function () {
+			var conf = "The custom question '" + $("#question_editor").val() + "'has been saved, along with the following code: " + $("#code_editor").val();
+			$("#confirmation").text(conf);
+		});
+
+	</script>
 </body>
 </html>
