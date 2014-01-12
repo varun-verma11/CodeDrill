@@ -33,12 +33,13 @@ class ModelSolution(models.Model):
         return 'Solution for ' + self.ex_id.__unicode__()
 
 class Feedback(models.Model):
-    ex_id = models.ForeignKey('Exercise', to_field='ex_id', primary_key=True)
-    stu_id = models.ForeignKey('Student', to_field='user_id')
+    #ex_id = models.ForeignKey('Exercise', to_field='ex_id', primary_key=True)
+    #stu_id = models.ForeignKey('Student', to_field='user_id')
     tch_id = models.ForeignKey('Teacher', to_field = 'user_id')
+    sub_id = models.ForeignKey('StudentSubmission')
     content = models.TextField('Content')
     def __str__(self):
-        return str(self.ex_id)
+        return 'Feedback for ' + self.sub_id.__str__()
     def __repr__(self):
         return self.__str__()
 

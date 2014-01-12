@@ -238,10 +238,11 @@ def viewSubmissionMark(request):
 # TODO: change it to pick up the right submission
 # TODO: put assignment description as well
 def get_submission_by(stu_id, asgn_id):
-    print stu_id, asgn_id
-    submissions=StudentSubmission.objects.filter(stu_id__exact=stu_id, assign_id__pk__exact=asgn_id)
-    print(submissions)
-    if submissions:
-        # we map it with the content
-        return {'code': submissions[0].content.encode("utf8")}
-    return {'code': None}
+    submissions = StudentSubmission.objects.filter(stu_id__exact=stu_id, assign_id__pk__exact=asgn_id)
+    asgns = AssignedExercises.objects.filter(pk__exact=asgn_id).select_related('ex_id__description')
+    # obtaining data independently
+    code = submissions[0].content.encode("utf8") if submissions else None
+    q = asgns[0].ex_id.description.encode("utf8") if asgns else None
+    return { 'q': q,
+             'code':code
+           }

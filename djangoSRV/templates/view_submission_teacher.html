@@ -22,8 +22,9 @@
 			$(this).parent().children('ul.tree').toggle(300);
 			event.stopPropagation();
 		});
+		$('#feedback-window').fadeTo(0,0);
+		$('#question').fadeOut(0);
 		
-		//$('#sub-info').hide();
 		});
 		</script>
 		<div class="container-fluid">
@@ -60,11 +61,15 @@
 			<div id="sub-info" class="span3 well">
 				<label class="nav-header">There is no course selected yet.</label>
 			</div>
-			<div id="specification-window" class="span7">
+			<div id="specification-window" class="span4">
 				<i id="question">Question:</i>
 				<div id="question-text"></div> 
 				<pre id="specification-window-text">Dude I swear, my dog ate the effing screen!
 				</pre>
+			</div>
+			<div id="feedback-window" class="span3" >
+				<a onClick="openFeedback();" role="button"> Submit feedback</a>
+				<textarea></textarea>
 			</div>
 		</div>
             </div>
@@ -95,6 +100,9 @@ function getDataFromServer(url, data, callback)
 function getAssignmentInfo(class_id, assignment_id, displayTitle)
 {
 	$('#asgn-menu').html(displayTitle);
+	$('#feedback-window').fadeTo(600,0);
+	$('#question').fadeOut(600);
+	$('#question-text').fadeOut(600,0);
         curr_assignment = assignment_id;
 	getDataFromServer("get-students-in-class/",{'course_id' : class_id}, showStudentsOnCourse);
 }
@@ -115,14 +123,18 @@ function showStudentsOnCourse(table)
 	$('#sub-info').html(content);
 	$('#specification-window-text').html("Please select a student to view his (eventual) submission.");
 	setStudentLinks(curr_assignment, table);
-	//$('#sub-info-heading').html(title);
-	$('#sub-info').fadeIn(300);
+	$('#sub-info').fadeTo(300,100);
 }
 
 function showSubmissionContent(submission)
 {
+	console.log(submission);
 	$('#specification-window-text').html(submission.code != null ? submission.code :
 		"No submission for this assignment has been registered on behalf of the student.");
+	$('#question-text').html(submission.q != null? submission.q : '');
+	$('#question').fadeIn(300);
+	$('#question-text').fadeIn(300);
+	$('#feedback-window').fadeTo(300,1);
 }
 
 function setStudentLinks(assignment_id, stu_table)
@@ -145,6 +157,10 @@ function getSubmissionFunction(stu, asgn)
 		};
 }
 
+function openFeedback()
+{
+
+}
 
 </script>
 </body>
