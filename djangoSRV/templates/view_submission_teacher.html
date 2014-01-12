@@ -132,11 +132,19 @@ function setStudentLinks(assignment_id, stu_table)
 	for(i in stu_table)
 	{
 		stu = stu_table[i].user_id;
-		$('#stu'+stu).on('click', function() {
-			getDataFromServer('get-student-submission',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
-		});
+		$('#stu'+stu).on('click', getSubmissionFunction(stu,asgn));
 	}
 }
+
+//this is a sort of currying for the students function after figuring out some error
+//in parameter binding
+function getSubmissionFunction(stu, asgn)
+{
+	return	function() { 
+			getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
+		};
+}
+
 
 </script>
 </body>

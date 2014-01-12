@@ -120,8 +120,8 @@ def change_email(request):
 # returns submission content for 'GET' ajax requests
 def get_student_submission(request):
     if(request.user.is_authenticated() and request.is_ajax()):
-        asgn_id = request.GET["student_id"]
-        stu_id = request.GET["assign_id"]
+        stu_id = request.GET["student_id"]
+        asgn_id = request.GET["assign_id"]
         return HttpResponse(json.dumps(get_submission_by(stu_id, asgn_id)))
     return HttpResponseBadRequest() 
 

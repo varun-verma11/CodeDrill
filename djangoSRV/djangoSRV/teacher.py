@@ -98,7 +98,7 @@ def get_courses_with_assignments(tch_id):
 
     school_years = []
     for year in years:
-        classes = courses.filter(year=year).values('name','c_id')
+        classes = courses.filter(year__exact=year).values('name','c_id')
         school_classes = []
         for cls in classes:
             '''
@@ -125,8 +125,21 @@ def get_courses_with_assignments(tch_id):
             as2 = Assignment("Assignment 2", 2)
             school_classes.append(TeachingClass(cls['name'],cls['c_id'], assignments=[as1, as2]))
         school_years.append(SchoolYear(str(year), school_classes))
-
     return TeachingHierarchy(school_years)
+
+#a cleaner variant of the above, prone to testing
+def get_courses_with_assignments2(tch_id):
+    courses = Course.objects.filter(tch_id__exact=tch_id).prefetch_related('assignedexercises_set')
+    asgn_years = courses.values_list('year', flat=True).distinct()
+    # now for setting the hierarchy, a huge piece of magic
+    h = TeachingHierarchy(  [SchoolYear(str(y), 
+                                [TeachingClass(c.name, c.c_id,
+                                    assignments=[Assignment('Assignment'+str(a.pk), a.pk)
+                    for a in c.assignedexercises_set.all()])
+                for c in courses.filter(year__exact=y)]) 
+            for y in asgn_years])
+    #list comprehension            
+    return h
 
 def get_students_in_course(course_id):
     try:
@@ -225,7 +238,9 @@ def viewSubmissionMark(request):
 # TODO: change it to pick up the right submission
 # TODO: put assignment description as well
 def get_submission_by(stu_id, asgn_id):
-    submissions=StudentSubmission.objects.filter(stu_id__exact=stu_id, assign_id__exact=asgn_id)
+    print stu_id, asgn_id
+    submissions=StudentSubmission.objects.filter(stu_id__exact=stu_id, assign_id__pk__exact=asgn_id)
+    print(submissions)
     if submissions:
         # we map it with the content
         return {'code': submissions[0].content.encode("utf8")}
