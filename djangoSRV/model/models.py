@@ -37,6 +37,10 @@ class Feedback(models.Model):
     stu_id = models.ForeignKey('Student', to_field='user_id')
     tch_id = models.ForeignKey('Teacher', to_field = 'user_id')
     content = models.TextField('Content')
+    def __str__(self):
+        return str(self.ex_id)
+    def __repr__(self):
+        return self.__str__()
 
 class StudentSubmission(models.Model):
     stu_id = models.ForeignKey('Student', to_field='user_id')

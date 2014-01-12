@@ -1,10 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context
 from django.core.context_processors import csrf
 from Forms import LoginForm, StudentRegisterForm, TeacherRegisterForm
 
 def student_login(request):
+	if (request.user.is_authenticated() and request.user.is_type("Student")):
+		return HttpResponseRedirect("/student-view/")
 	login_form = LoginForm()
 	reg_form = StudentRegisterForm()
 	header = get_template("header.html").render(Context( {'loggedIn':False, 'title':"Student Login"}))
@@ -26,6 +28,8 @@ def student_login(request):
 	return HttpResponse(template.render(context))
 
 def teacher_login(request):
+	if (request.user.is_authenticated() and request.user.is_type("Teacher")):
+		return HttpResponseRedirect("/teacher-view/")
 	login_form = LoginForm()
 	reg_form = TeacherRegisterForm()
 	header = get_template("header.html").render(Context( {'loggedIn':False, 'title':"Teacher Login"}))
