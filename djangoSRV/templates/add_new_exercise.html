@@ -151,6 +151,7 @@
 			$("#code").text(code);
 			$("#spec").fadeIn("slow");
 			$("#confirmation").text("");
+			$("#new_question_form").fadeOut("slow");
 		}
 
 		$("#title").click(function () {
@@ -161,6 +162,7 @@
 		$("#new_question").click(function () {
 			$("#spec").fadeOut("slow");
 			$("#confirmation").text("");
+			$("#new_question_form").fadeIn("slow");
 		});
 
 		$("#cancel").click(function () {
@@ -171,6 +173,7 @@
 		$("#save").click(function () {
 			var conf = "The custom question '" + $("#question_editor").val() + "'has been saved, along with the following code: " + $("#code_editor").val();
 			$("#confirmation").text(conf);
+			$("#new_question_form").fadeOut("slow");
 		});
 
 	</script>
