@@ -6,7 +6,9 @@
   {{ header }}
   {% include_ui_theme %}
   {% include_jquery_libs %}
-   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+   	<script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+	<script src="{% static "js/bootstrap-tooltip.js"%}"></script>
+	<script src="{% static "js/bootstrap-popover.js"%}"></script>
 </head>
  <body>
 	{{ navbar }}
@@ -40,6 +42,11 @@
 					<form>
 						{% csrf_token %}
 						<i>Question</i>
+
+						<label class="checkbox pull-right">
+	      					<input type="checkbox" id="checkbox"> Private <a href="#" id="private_info" class="glyphicon glyphicon-info-sign pull" rel="popover" data-content="All custom exercises are public. Tick this box to make this exercise private."></a>
+	    				</label>
+
 						<br>
 						{{new_ex.media}}
 						{{new_ex.non_field_errors}}
@@ -80,8 +87,9 @@
 	</div>
 
 	<script>
-		var testId = 0;
-
+		var testId = 0;  
+		$("#private_info").popover();
+		$("#example").popover(); 
 		$("#spec").hide();
 		$("#confirmation").text("");
 		$("#new_question_form").hide();
@@ -175,6 +183,9 @@
 			var conf = "The custom question '" + $("#question_editor").val() + "'has been saved, along with the following code: " + $("#code_editor").val();
 			$("#confirmation").text(conf);
 			$("#new_question_form").fadeOut("slow");
+			var private_exercise = $("#checkbox").is(':checked') ? 1 : 0;
+			console.log(private_exercise);
+			//TODO server side
 		});
 
 	</script>
