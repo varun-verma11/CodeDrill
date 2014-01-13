@@ -61,6 +61,16 @@
 						<br>
 						<br>
 						<br>
+						<div>
+						    <p> To test your program add a new test, select the function name you want to test and input the chosen arguments you want to test for. The results of running your Python program will be displayed below. You can add as many tests as you want and save them for later use.</p>
+						    <a href="#" onclick="return false;"; id="test_link">
+							    <i class="glyphicon glyphicon-plus-sign plus-sign"></i>
+						      	Add new test
+						      	<br>
+						    </a>
+						    <div id="student_tests" style="padding-left:25px">
+						    </div>
+						</div>
 					</form>
 				</div>
 
@@ -70,8 +80,36 @@
 	</div>
 
 	<script>
+		var testId = 0;
+
 		$("#spec").hide();
 		$("#confirmation").text("");
+
+		$('#test_link').click(function () {
+	    $("#student_tests").append(createTest());
+	    
+	    if ($("#output" + testId).text() == "") 
+	    {
+	      $("#output" + testId).hide();
+	    }
+	    $("#get_results" + testId).click(function (event) {
+		      var id = event.currentTarget.id.substring(INDEX_POS);
+		      var name = $("#function_name" + id).val();
+		      var cases = $("#input_args" + id).val().split("\n");
+		      var functionCalls = [];
+		      var expectedResults = [];
+		      for (i in cases)
+		      { 
+		        testCase = cases[i];
+		        var values = testCase.split(",");
+		        expectedResults.push(values[values.length-1]);
+		        var arguments = values.slice(0,values.length-1);
+		        functionCalls.push(name+"("+arguments+")");
+		      }
+		      runTest(functionCalls, expectedResults, id);
+		    });
+		    testId++;
+	  	});
 
 		function get_exercise_details(ex_id)
 		{
@@ -99,6 +137,12 @@
 			            }
 		              }
 		    });
+		}
+
+		function createTest() 
+		{
+		    var d = "<div id=\"test"+ testId + "\"> Function <input type=\"text\" class=\"form-control\" id=\"function_name" + testId + "\">  <br> Arguments <input type=\"text\" class=\"form-control\" id=\"input_args" + testId + "\"> <br> <button class=\"btn btn-info\" id=\"get_results" + testId + "\">Run</button> <button class=\"btn btn-info\">Save</button> <br><br> <div class=\"well well-small\" id=\"output" + testId + "\"></div> </div>";
+		    return d;
 		}
 
 		function display_exercise_details(description, code)
