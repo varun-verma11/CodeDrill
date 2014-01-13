@@ -37,28 +37,31 @@
 				</div>
 
 				<div id="new_question_form">
-					<i>Question</i>
-					<br>
-					{{new_ex.media}}
-					{{new_ex.non_field_errors}}
-					{{new_ex.description.errors}}
-					{{new_ex.description}}
-					<br><br>
-					<i>Code</i>		
-					<br>
-					{{new_ex.code.errors}}
-					{{new_ex.code}}
-					<br><br>
-					<i>Sample Solution</i>
-					<br>
-					{{new_ex.sample_answer.errors}}
-					{{new_ex.sample_answer}}
-					<br><br>
-					<button id="cancel" class="btn btn-primary">Cancel</button>
-					<button id="save" class="btn btn-primary">Save</button>
-					<br>
-					<br>
-					<br>
+					<form>
+						{% csrf_token %}
+						<i>Question</i>
+						<br>
+						{{new_ex.media}}
+						{{new_ex.non_field_errors}}
+						{{new_ex.description.errors}}
+						{{new_ex.description}}
+						<br><br>
+						<i>Code</i>		
+						<br>
+						{{new_ex.code.errors}}
+						{{new_ex.code}}
+						<br><br>
+						<i>Sample Solution</i>
+						<br>
+						{{new_ex.sample_answer.errors}}
+						{{new_ex.sample_answer}}
+						<br><br>
+						<button id="cancel" class="btn btn-primary">Cancel</button>
+						<button id="save" class="btn btn-primary">Save</button>
+						<br>
+						<br>
+						<br>
+					</form>
 				</div>
 
 				<div id="confirmation"></div>
