@@ -186,7 +186,7 @@ def get_average_grade_for_year(tch_id, year):
     return [{"as_name":"Assignment 3", "grade":"30"}, {"as_name":"Assignment 4","grade":"40"}]
 
 def get_average_grade_for_class(tch_id, year, cls):
-    return [{"as_name":"Assignment 5", "grade":"50"}, {"as_name":"Assignment 6","grade":"60"}]
+    return [{"as_name":"Assignment 1", "grade":"50"}, {"as_name":"Assignment 2","grade":"60"}]
 
 def get_student_grades_for_assingments(tch_id, cls_id, as_id):
     ret = []
