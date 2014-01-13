@@ -57,3 +57,8 @@ class ViewSpecificationForm(forms.Form):
 	description = forms.CharField(widget=forms.Textarea(attrs={"rows" : "2", 'style' : "width: 100%;"}))
 	code = forms.CharField(widget=AceWidget(mode='python', theme="cobalt"))
 
+class NewExerciseForm(forms.Form):
+	description = forms.CharField(widget=forms.Textarea(attrs={"rows" : "2", 'style' : "width: 100%;"}))
+	code = forms.CharField(widget=AceWidget(mode='python', theme="cobalt"))
+	sample_answer = forms.CharField(widget=AceWidget(mode='python', theme="cobalt"))
+

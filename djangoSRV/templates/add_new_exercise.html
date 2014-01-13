@@ -18,7 +18,8 @@
 					<ul class="nav nav-list">
 						<li><label class="tree-toggler nav-header" id="title">Custom questions</label>
 							<ul class="nav nav-list tree">		
-									<li><a href="#" onclick="get_exercise_details('question_name')"> Question 1</a></li>
+									<li><a href="#" onclick="get_exercise_details(1)"> Question 1</a></li>
+									<li><a href="#" onclick="get_exercise_details(2)"> Question 2</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -38,14 +39,26 @@
 				<div id="new_question_form">
 					<i>Question</i>
 					<br>
-					<textarea id="question_editor" rows="1"></textarea>
+					{{new_ex.media}}
+					{{new_ex.non_field_errors}}
+					{{new_ex.description.errors}}
+					{{new_ex.description}}
 					<br><br>
-					<i>Code</i>
+					<i>Code</i>		
 					<br>
-					<textarea id="code_editor" rows="3"></textarea>
+					{{new_ex.code.errors}}
+					{{new_ex.code}}
+					<br><br>
+					<i>Sample Solution</i>
+					<br>
+					{{new_ex.sample_answer.errors}}
+					{{new_ex.sample_answer}}
 					<br><br>
 					<button id="cancel" class="btn btn-primary">Cancel</button>
 					<button id="save" class="btn btn-primary">Save</button>
+					<br>
+					<br>
+					<br>
 				</div>
 
 				<div id="confirmation"></div>
@@ -57,10 +70,36 @@
 		$("#spec").hide();
 		$("#confirmation").text("");
 
-		function get_exercise_details(question)
+		function get_exercise_details(ex_id)
 		{
-			var description = "description returned from server";
-			var code = "code returned from server";
+			var csrftoken = getCsrfToken();
+			$.ajax({
+		        type: 'GET',
+		        url: "/teacher/get-exercise/",
+		        data: {
+		                'ex_id': ex_id
+		              },
+		        beforeSend: function(xhr, settings) 
+		              {
+		                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		              },
+		        success: function(response) 
+		              {
+		              	var result = response.split("$%$");
+		              	if (result.length == 1)
+		              	{
+			            	alert("Something went wrong. Please come back later");
+			            }
+			            else
+			            {
+			            	display_exercise_details(result[1], result[0]);
+			            }
+		              }
+		    });
+		}
+
+		function display_exercise_details(description, code)
+		{
 			$("#description").text(description);
 			$("#code").text(code);
 			$("#spec").fadeIn("slow");
