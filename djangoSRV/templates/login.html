@@ -180,16 +180,16 @@
 
   //For filled in forms check
   for (var i = 0; i < all.length; i++) {
-    all[i].keyup(checkFilledForms);
+    all[i].blur(checkFilledForms);
   }
 
   $('#user_ok').hide();
   $('#user_taken').hide();
 
-  user.keyup(checkUserNotTaken);
-  email.keyup(checkEmailValid);
-  pwId.keyup(checkPasswordValid);
-  pwConf.keyup(checkPasswordValid);
+  user.blur(checkUserNotTaken);
+  email.blur(checkEmailValid);
+  pwId.blur(checkPasswordValid);
+  pwConf.blur(checkPasswordValid);
 
   function checkFilledForms() {
     var forms = $('#divCheckFilledIn');
