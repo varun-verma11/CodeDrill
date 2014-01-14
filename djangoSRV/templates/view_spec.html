@@ -18,27 +18,26 @@
 					{{menu}}
 						<div class="span10">
 							<legend>View specifications</legend>
-							<div class ="span2">
+							<div class ="span3">
 								<label>Sample exercises</label>
-								<div style="">
-										<ul class="nav nav-list">
-											{% for chapter in assignment_book.get_chapters %}
-											<li><label class="tree-toggler nav-header" id="var"> {{ chapter.get_name }}</label>
-												<ul class="nav nav-list tree">
-													{% for assignment in chapter.get_assignments %}
-														<li><a href="#" onclick="get_exercise_details({{ assignment.get_id }} )" id="var-add"> {{ assignment.get_name }}</a></li>
-													{% endfor %}
-												</ul>
-											</li>
-											{% endfor %}
-											<li><label class="tree-toggler nav-header" id="custom">Custom</label>
-												<ul class="nav nav-list tree" id="custom_list">
-													<!-- TODO replace below with a loop -->
-														<li><a href="#" onclick="get_exercise_details('custom')" id="custom_question">Custom question</a></li>
-												</ul>
-											</li>
-										</ul>
-								</div>
+									<ul class="nav nav-list">
+										{% for chapter in assignment_book.get_chapters %}
+										<li><label class="tree-toggler nav-header" id="var"> {{ chapter.get_name }}</label>
+											<ul class="nav nav-list tree">
+												{% for assignment in chapter.get_assignments %}
+													<li><a href="#" onclick="get_exercise_details({{ assignment.get_id }} )" id="var-add"> {{ assignment.get_name }}</a></li>
+												{% endfor %}
+											</ul>
+										</li>
+										{% endfor %}
+										<!-- TODO remove if not necessary-->
+										<li><label class="tree-toggler nav-header" id="custom">Custom</label>
+											<ul class="nav nav-list tree" id="custom_list">
+												<!-- TODO replace below with a loop -->
+													<li><a href="#" onclick="get_exercise_details('custom')" id="custom_question">Custom question</a></li>
+											</ul>
+										</li>
+									</ul>
 							</div>
 							<div class ="span7">
 								<div id="var-add-ex">
@@ -68,7 +67,7 @@
 	if ($("#custom_list").children().length == 0) {
 		$("#custom").hide();
 	}
-	
+
 	function get_exercise_details(ex_id) 
 	{
 	  var csrftoken = getCsrfToken();
