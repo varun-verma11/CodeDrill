@@ -69,13 +69,12 @@
     $("#output" + test_id).fadeIn();
   }
 
-  function runTest(functionCalls, results, test_id) 
+  function runTest(functionCalls, test_id) 
   {
     $.ajax({
         type: 'POST',
         url: '/student/test/self-defined/',
         data: { 'functionCalls' : JSON.stringify(functionCalls),
-                'results': JSON.stringify(results),
                 'code': code.val(),
               },
         beforeSend: function(xhr, settings) 
@@ -99,16 +98,13 @@
       var name = $("#function_name" + id).val();
       var cases = $("#input_args" + id).val().split("\n");
       var functionCalls = [];
-      var expectedResults = [];
       for (i in cases)
       { 
         testCase = cases[i];
-        var values = testCase.split(",");
-        expectedResults.push(values[values.length-1]);
-        var arguments = values.slice(0,values.length-1);
+        var arguments = testCase.split(",");
         functionCalls.push(name+"("+arguments+")");
       }
-      runTest(functionCalls, expectedResults, id);
+      runTest(functionCalls, id);
     });
     testId++;
   });

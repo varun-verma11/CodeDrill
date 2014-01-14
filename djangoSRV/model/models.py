@@ -16,9 +16,8 @@ class Exercise(models.Model):
         return self.title
     def __repr__(self):
         return self.__str__()
-
- #   def __unicode__(self):
- #       return self.category + ' - ' + self.title
+    def __unicode__(self):
+       return self.__str__()
 
 
 class ModelSolution(models.Model):

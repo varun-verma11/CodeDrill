@@ -34,7 +34,6 @@ def submit_student_code(request, ex_id):
 def run_self_test(request):
     if (request.user.is_authenticated() and request.is_ajax()):
         functionCalls = json.loads(request.POST["functionCalls"])
-        results = json.loads(request.POST["results"])
         ex_id = 1 #Add the ex_id parameter and delete this line
         code = request.POST["code"]
         model_sollution = ModelSolution.objects.get(ex_id=ex_id).content
@@ -61,7 +60,7 @@ def run_self_test(request):
         if ok:
             return HttpResponse("All Tests Passed.");
         else:
-            return HttpResponse("You stupid dickhead.");
+            return HttpResponse("Some Tests Failed.");
 
     return HttpResponseBadRequest();
 
