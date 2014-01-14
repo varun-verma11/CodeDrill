@@ -28,13 +28,13 @@
             <ul class="nav nav-pills">
               <li><span class="label" style="position:relative; top:5px;">Year {{ year.get_name }}</span></li>
               {% for cls in year.get_teaching_classes %}
-                <li><a href="#" onclick="updateNames({{ cls.get_id }}); return false;">{{ cls.get_name }}</a></li>
+                <li><a href="#" onclick="updateNames({{ cls.get_id }}); return false;" id="{{ cls.get_id }}">{{ cls.get_name }}</a></li>
               {% endfor %}
             </ul>
           {% endfor %}
-           <div class="accordion-group" style="background-color:#F0F0F0;">
+           <div class="accordion-group" style="background-color:#F0F0F0;" id="class_panel">
             <div class="accordion-heading" style="padding-left:10px;">
-              <h5 id="classTitle"> </h5>
+              <h5 id="classTitle"></h5>
               <input type="text" id="classEditTitle" class="input input-medium" placeholder="Class name..." style="height:30px; position:relative; top:5px">
               <button type="button" id="save_name" class="btn btn-default" onclick="saveNewName()">Save</button>
               <button type="button" id="cancel_name" class="btn btn-default" onclick="cancelNewName()">Cancel</button>
@@ -48,11 +48,11 @@
                 </ul>
               </div>
             </div>
-            <div class="accordion-inner" id="">
+            <div class="accordion-inner">
               <ul class="nav nav-pills" id="names">
 
               </ul>          
-              <div id="add_student">Put student {{ add_student.student }} in Class 1B. Please save or cancel your change.</div>
+              <div id="add_student">Put student {{ add_student.student }} in Class 1B by pressing Enter. Please save or cancel your change.</div>
               <button type="button" id="add_student_btn" class="btn btn-small">
                 <i class="glyphicon glyphicon-plus"></i>
               </button>
@@ -94,6 +94,7 @@
   $("#classEditTitle").hide();
   $("#save_name").hide();
   $("#cancel_name").hide();
+  $("#class_panel").hide();
 
   $("#add_student_btn").click(function(){
     $("#add_student").fadeIn(300);
@@ -202,6 +203,11 @@
   function updateNames(course_id)
   {
     getNamesForClass(course_id);
+    var a = $("#" + course_id);
+    $("#classTitle").text(a.text());
+    $("#class_panel").show();
+    $("#add_student").hide();
+    cancelNewName();
   }
 
   function showStudents(course_id)
@@ -218,7 +224,7 @@
 
   function update_current_class_name()
   {
-    document.getElementById("classTitle").innerHTML = classes_names[current_class.toString()];
+    $("#classTitle").innerHTML = classes_names[current_class.toString()];
   }
 
   function getNamesForClass(course_id)
