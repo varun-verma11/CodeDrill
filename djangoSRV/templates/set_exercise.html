@@ -136,7 +136,7 @@
 					{% endfor %}
 			    </ul>
 			</div> -->
-			<button id="send_edited" class="btn btn-primary">Save</button>
+			<button id="send_edited" data-dismiss="modal" class="btn btn-primary">Save</button>
 		</div>
 	</div>
 
@@ -159,6 +159,7 @@
 	$("#send_edited").click(function () {
 	    $("#question_text").text($('#editable_form').contents().find("#id_description").val());
 	    $("#specification_window_text").text($('#editable_form').contents().find("#id_code").val());
+	    exercise = "Custom question (" + $("#question_text").text() + ")";
 	})
 
 	{% for year in teaching_hierarchy.get_teaching_years %}
@@ -258,11 +259,6 @@
 		$("#editable_form").contentWindow.location.reload(true);
 	}
 
-	function addCustom(q, id) {
-		// add to db
-		console.log(q, id);
-	}
-
 	function showSpecificationOptions(target) {
 		$("#view_spec").fadeIn(600);
 		getSpec(target);
@@ -345,7 +341,14 @@
 
 	function set() {
 		if (exercise != "" && group != "") {
-			text.text("Exercise " + exercises[exercise] + " will be sent to class Year " + groups[group] + ".");
+			var selected_exercise;
+			if (exercises[exercise]) {
+				selected_exercise = "Exercise " + exercises[exercise] + " will be sent to class Year " + groups[group] + ".";
+			} else {
+				selected_exercise = exercise + " will be sent to class Year " + groups[group] + ".";
+			}
+
+			text.text(selected_exercise);
 			text.hide();
 			text.fadeIn("slow");
 			$('#submit-btn').attr('disabled', false);

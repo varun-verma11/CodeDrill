@@ -148,7 +148,7 @@
         url: '/{{type}}/changeemail/',
         data: { 'email' : $("#email").val(),
                 'id': {{id}},
-                'type': '{{type}}}',
+                'type': '{{type}}' },
         beforeSend: function(xhr, settings) 
               {
                 xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
@@ -158,7 +158,6 @@
                 // TODO:(irina) add notification
                 l.stop();
               }
-            }
         });
       return false;
     });

@@ -7,61 +7,52 @@
 </head>
 <body>
 	{{ navbar }}
-<div class="container-fluid">
-	<div class="row-fluid">
+	<div class="container-fluid">
 		<div class="row-fluid">
 			{{ menu }}
-			<div class="span3 well" style=" padding: 8px 0;">
-				<script>
-				$(document).ready(function () {
-					$('label.tree-toggler').click(function () {
-					$(this).parent().children('ul.tree').toggle(300);
-					});
-				});
-				</script>
-
+			<div id="well1" class="span3 well" style=" padding: 8px 0;">
 				<ul class="nav nav-list">
 					<li>
-					<label class="tree-toggler nav-header" onclick="displayOverview()">Overview</label>
+						<label class="tree-toggler nav-header" onclick="displayOverview()">Overview</label>
 					</li>
 					{% for year in teaching_hierarchy.get_teaching_years %}
-						<li>
-							<label class="tree-toggler nav-header" onclick="displayYear({{year.get_name}})">Year {{year.get_name}}</label>
-							<ul class="nav nav-list tree">
-								{% for class in year.get_teaching_classes %}
+					<li>
+						<label class="tree-toggler nav-header" onclick="displayYear({{year.get_name}})">Year {{year.get_name}}</label>
+						<ul class="nav nav-list tree">
+							{% for class in year.get_teaching_classes %}
+							<li class="nav nav-list tree">
+								<label class="tree-toggler nav-header" onclick="displayClass({{year.get_name}}, '{{class.get_name}}')">{{ class.get_name }}</label>
+								{% for assignment in class.get_assignments %}
+								<ul class="nav nav-list tree">
 									<li class="nav nav-list tree">
-										<label class="tree-toggler nav-header" onclick="displayClass({{year.get_name}}, '{{class.get_name}}')">{{ class.get_name }}</label>
-										{% for assignment in class.get_assignments %}
-										<ul class="nav nav-list tree">
-											<li class="nav nav-list tree">
-											<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assingment.get_id}}')">{{ assignment.get_name }}</a>
-											</li>
-										</ul>
-										{%endfor%}
+										<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assingment.get_id}}')">{{ assignment.get_name }}</a>
 									</li>
-								{% endfor %}
-							</ul>
-						</li>
+								</ul>
+								{%endfor%}
+							</li>
+							{% endfor %}
+						</ul>
+					</li>
 					{% endfor %}
 				</ul>
 			</div>
-			<div class="span6 well">
+			<div id="well2" class="span6 well">
 				<h4 id="title"></h4>
 				<div id="content">
 				</div>
 			</div>
 		</div>
+		<img id="loader" src="{% static "img/loader.gif"%}" style="position:absolute; left: 50%; bottom: 50%" />
 	</div>
-</div>
-<script>
+	<script>
+	var tableHead = "<table class='table'><tbody>";
+	var tableFoot = "</tbody> </table>";
+	var year = -1;
+	var class_name = "";
+	var assignment_name = "";
 
-var tableHead = "<table class='table'><tbody>";
-var tableFoot = "</tbody> </table>";
-var year = -1;
-var class_name = "";
-var assignment_name = "";
-
-displayOverview();
+	displayOverview();
+	hidePanels();
 
 /*format for data
 	[
@@ -74,16 +65,16 @@ displayOverview();
 	"Assignment 1":"75", "Assignment 2":"70"		}
 		}]
 	]
-*/
+	*/
 
 /*
  * year_no is either 'overview' or an int.
  */
-function getData(year_no, class_name, assignment_name) {
-	var data;
-	if (year_no == null) {
-		var table = getDataFromServer("get-overview/", {});
-		alert(table);
+ function getData(year_no, class_name, assignment_name) {
+ 	var data;
+ 	if (year_no == null) {
+ 		var table = getDataFromServer("get-overview/", {});
+ 		alert(table);
 		// table.unshift({"Assignment":"Average grade"});
 		return ["Overview", table];
 	} else if (class_name == null) {
@@ -93,7 +84,7 @@ function getData(year_no, class_name, assignment_name) {
 		data = [{"title":"Performance in 1A"}, {"average": 77.5}, {"table":{"Assignment":"Average grade", "Assignment 1":80, "Assignment 2":75, "Assignment 3":65}}];
 	} else {
 		data = [{"title":"Assignment 1 performance for 1A"}, {"average": 77.5}, 
-			{"table":{"Assignment 1":"Grade", "Student name 1":80, "Student name 2":75, "Student name 3":65}}];
+		{"table":{"Assignment 1":"Grade", "Student name 1":80, "Student name 2":75, "Student name 3":65}}];
 	}
 	return data;
 }
@@ -128,19 +119,23 @@ function getDataFromServer(url, data, callback)
 {
 	var result = []
 	$.ajax({
-      type: 'GET',
-      url: '/teacher/'+url,
-      data: data,
-      beforeSend: function(xhr, settings) 
-            {
-              xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
-            },
-      success: function(response) 
-            {
-            	result = JSON.parse(response);
-            	callback(result);
-            }
-    });
+		type: 'GET',
+		url: '/teacher/'+url,
+		data: data,
+		beforeSend: function(xhr, settings) 
+		{
+			xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+			$("#loader").show();
+			hidePanels();
+		},
+		success: function(response) 
+		{
+			result = JSON.parse(response);
+			$("#loader").hide();
+			showPanels();
+			callback(result);
+		}
+	});
 }
 
 function showOverview(table) 
@@ -201,6 +196,16 @@ function showAssignment(table)
 
 	$('#content').html(content);
 	$('#title').html(title);
+}
+
+function hidePanels() {
+	$("#well1").hide();
+	$("#well2").hide();
+}
+
+function showPanels() {
+	$("#well1").show();
+	$("#well2").show();
 }
 
 </script>
