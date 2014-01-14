@@ -186,6 +186,10 @@ def get_average_grade_for_year(tch_id, year):
 
     return [{"as_name":"Assignment 3", "grade":"30"}, {"as_name":"Assignment 4","grade":"40"}]
 
+def delete_class(cls_id):
+    print "deleting class: ", cls_id
+    return 0;
+
 def get_average_grade_for_class(tch_id, year, cls):
     return [{"as_name":"Assignment 1", "grade":"50"}, {"as_name":"Assignment 2","grade":"60"}]
 

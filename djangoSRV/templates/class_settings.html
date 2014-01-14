@@ -291,7 +291,8 @@
     return false;
   }
 
-  function savePopup() {
+  function savePopup() 
+  {
     var name = $("#student_name").val();
 
     if (class_edits.length>0 && current_class>0 && confirm("Are you sure you want to update the class?"))
@@ -326,14 +327,27 @@
     }
   }
 
-  function delClassPopup(event) {
-    //TODO delete the class, useful vars provided below
-    //For server side use
+  function delClassPopup(event) 
+  {
     var class_to_delete = $(event.target).parent().parent().parent().parent().find($('#classTitle')).text();
 
     var response = confirm(class_to_delete + " will be deleted and all students removed from it. Proceed?");
     if (response) {
-      location.reload();
+      $.ajax({
+        type: 'POST',
+        url: '/teacher/class-settings/delete-class/',
+        data: {
+                'cls_id':current_class
+              },
+        beforeSend: function(xhr, settings) 
+              {
+                xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+              },
+        success: function(response) 
+              {
+                location.reload();
+              }
+      });
     }
   }
 
