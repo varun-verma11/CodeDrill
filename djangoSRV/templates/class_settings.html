@@ -52,12 +52,12 @@
               <ul class="nav nav-pills" id="names">
 
               </ul>          
-              <div id="add_student">Put student {{ add_student.student }} in Class 1B by pressing Enter. Please save or cancel your change.</div>
+              <div id="add_student">Put student {{ add_student.student }} in this class by pressing Enter. Please save or cancel your change.</div>
               <button type="button" id="add_student_btn" class="btn btn-small">
                 <i class="glyphicon glyphicon-plus"></i>
               </button>
-              <button type="button" class="btn btn-default" onclick="savePopup()">Save</button>
-              <button type="button" class="btn btn-default" onclick="cancelPopup()">Cancel</button>
+              <button id="save" type="button" class="btn btn-default" onclick="savePopup()">Save</button>
+              <button id="cancel" type="button" class="btn btn-default" onclick="cancelPopup()">Cancel</button>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
       <div class="accordion-inner" id="">
         <!-- <ul class="nav nav-pills" id="names">
           <li><a href="#">Varun Verma<i class="glyphicon glyphicon-remove"></i></a></li>
-        </ul>   -->        
+        </ul> -->
       </div>
     </div>
     <div class="modal-footer">
@@ -146,6 +146,7 @@
   function deleteStudent(std_id, full_name)
   {
     // TODO:(irina) add notification
+    
     alert("Are you sure you want to remove " + full_name + " from class?");
     $("#id_" + std_id).css('background-color', '#FFDCD3');
     $("#id_" + std_id).css('color', '#FF5C33');
@@ -308,9 +309,9 @@
               },
         success: function(response) 
               {
-                // TODO:(irina) add notification
                 class_edits = [];
                 getNamesForClass(current_class);
+                location.reload();
               }
       });
     }
@@ -341,8 +342,6 @@
     $("#classEditTitle").fadeIn(100);
     $("#save_name").fadeIn(100);
     $("#cancel_name").fadeIn(100);
-    $("#dropdown").css('bottom', 0);
-    $("#dropdown").css('top', 5);
   }
 </script>
 </html>
