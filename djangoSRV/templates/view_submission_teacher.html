@@ -12,22 +12,22 @@
 </head>
  <body>
   {{ navbar }}
-        <div class="container-fluid row-fluid">
-                {{ menu }}
-                <div class="span10">
-            	        <legend>Submit feedback</legend>
-		        <script>
-		        $(document).ready(function () {
-		                $('label.tree-toggler').click(function(event) {
-			                $(this).parent().children('ul.tree').toggle(300);
-			                event.stopPropagation();
-                                });
-                                $('#feedback-window').fadeTo(0,0);
-                                $('#question').fadeOut(0);
+  	<div class="container-fluid row-fluid">
+	    {{ menu }}
+            <div class="span10">
+            	<legend>Submit feedback</legend>
+		<script>
+		$(document).ready(function () {
+		$('label.tree-toggler').click(function(event) {
+			$(this).parent().children('ul.tree').toggle(300);
+			event.stopPropagation();
+		});
+		$('#feedback-window').fadeTo(0,0);
+		$('#question').fadeOut(0);
 		
-		        });
-		        </script>
-		        <div class="container-fluid">
+		});
+		</script>
+		<div class="container-fluid">
 				<ul class="nav nav-tabs">
 					<li class="active dropdown" style="width:70%;">
 						<a id="asgn-menu" href="#" data-toggle="dropdown" class="dropdown-toggle">Choose an assignment bla bla bla... <b class="caret pull-right"></b></a>
@@ -56,25 +56,27 @@
 						</ul>
 					</li>			
 				</ul>
-                                <div id="sub-info" class="well" style="padding-top:0px;">
-        		                <label class="nav-header">There is no course selected yet.</label>
-	                        </div>
-		                <div id="specification-window" class="span4">
-			                <i id="question">Question:</i>
-        			        <div id="question-text"></div> 
-        		        	<pre id="specification-window-text">Dude I swear, my dog ate the effing screen!</pre>
-                                </div>
-                                <div id="feedback-window" class="span3" >
-        			        <a onClick="openFeedback();" role="button"> Submit feedback</a>
-        			        <textarea></textarea>
-        		        </div>
-		        </div>
-                </div>
+		</div>
+	        <div class="container-fluid row-fluid">
+			<div id="sub-info" class="span3 well">
+				<label class="nav-header">There is no course selected yet.</label>
+			</div>
+			<div id="specification-window" class="span4">
+				<i id="question">Question:</i>
+				<div id="question-text"></div> 
+				<pre id="specification-window-text">Dude I swear, my dog ate the effing screen!
+				</pre>
+			</div>
+			<div id="feedback-window" class="span3" >
+				<a onClick="openFeedback();" role="button"> Submit feedback</a>
+				<textarea></textarea>
+			</div>
+		</div>
+            </div>
 	</div>
 <script>
 
 var curr_assignment
-var submissions
 
 function getDataFromServer(url, data, callback)
 {
@@ -102,7 +104,6 @@ function getAssignmentInfo(class_id, assignment_id, displayTitle)
 	$('#question').fadeOut(600);
 	$('#question-text').fadeOut(600,0);
         curr_assignment = assignment_id;
-        submissions = {}
 	getDataFromServer("get-students-in-class/",{'course_id' : class_id}, showStudentsOnCourse);
 }
 
@@ -127,6 +128,7 @@ function showStudentsOnCourse(table)
 
 function showSubmissionContent(submission)
 {
+	console.log(submission);
 	$('#specification-window-text').html(submission.code != null ? submission.code :
 		"No submission for this assignment has been registered on behalf of the student.");
 	$('#question-text').html(submission.q != null? submission.q : '');
@@ -142,18 +144,17 @@ function setStudentLinks(assignment_id, stu_table)
 	for(i in stu_table)
 	{
 		stu = stu_table[i].user_id;
-    getSubmission(stu,asgn);
-		$('#stu'+stu).click( gn));
+		$('#stu'+stu).on('click', getSubmissionFunction(stu,asgn));
 	}
 }
 
 //this is a sort of currying for the students function after figuring out some error
 //in parameter binding
-function getSubmission(stu, asgn)
+function getSubmissionFunction(stu, asgn)
 {
-	getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, function(result){
-            submissions.push({'id':stu, 'sub': result});
-        });
+	return	function() { 
+			getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
+		};
 }
 
 function openFeedback()
