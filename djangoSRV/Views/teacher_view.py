@@ -4,7 +4,7 @@ from django.template import Context
 from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
 from utils import get_header_navbar
 import json
-from djangoSRV.teacher import get_average_for_all_assignments, get_average_grade_for_year, get_average_grade_for_class, get_student_grades_for_assingments, get_courses_with_assignments
+from djangoSRV.teacher import get_average_for_all_assignments, get_average_grade_for_year, get_average_grade_for_class, get_student_grades_for_assingments, get_courses_with_assignments2
 
 #from auth import auth_utils
 #from model.models import Teacher, Course 
@@ -15,7 +15,7 @@ def get_teacher_view(request):
     # a key named 'user_id' representing a teacher
     if (request.user.is_authenticated() and request.user.is_type("Teacher")):
         name = request.user.first_name + " " + request.user.last_name
-        teaching_hierarchy = get_courses_with_assignments(request.user.user_id)
+        teaching_hierarchy = get_courses_with_assignments2(request.user.user_id)
         template = get_template("teacher_view.html")
         elements = get_header_navbar("Teacher",name,"Teaching Overview")
         context = Context( {'header' : elements['header'],

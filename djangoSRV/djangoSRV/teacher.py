@@ -134,7 +134,7 @@ def get_courses_with_assignments2(tch_id):
     # now for setting the hierarchy, a huge piece of magic
     h = TeachingHierarchy(  [SchoolYear(str(y), 
                                 [TeachingClass(c.name, c.c_id,
-                                    assignments=[Assignment('Assignment'+str(a.pk), a.pk)
+                                    assignments=[Assignment(str(a), a.pk)
                     for a in c.assignedexercises_set.all()])
                 for c in courses.filter(year__exact=y)]) 
             for y in asgn_years])

@@ -72,7 +72,7 @@ class AssignedExercises(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     c_id = models.ForeignKey('Course', to_field='c_id')
     def __str__(self):
-        return self.ex_id.__str__() + ' - ' + self.c_id.__str__()
+        return self.ex_id.__str__()
     def __repr__(self):
         return self.__str__()
 
