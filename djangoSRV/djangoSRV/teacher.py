@@ -7,16 +7,17 @@ def get_exercise(ex_id):
     arr = Exercise.objects.filter(ex_id=ex_id).values_list()
     return arr[0]
 
-def add_students_to_course(student_ids, course_id):
+def add_students_to_course(student_names, course_id):
     #course = Course.objects.filter(c_id=course_id).first()
-    for std_id in student_ids:
-        student = Student.objects.filter(user_id=std_id)[0]
+    for std_name in student_names:
+        student = Student.objects.filter(uname=std_name)[0]
         Course.objects.filter(c_id=course_id)[0].students.add(student)
 
 def delete_students_from_course(student_ids, course_id):
     #course = Course.objects.filter(c_id=course_id).first()
-    for std_id in student_ids:
-        student = Student.objects.filter(user_id=std_id)[0]
+    print "Deleting student from class"
+    for stu_id in student_ids:
+        student = Student.objects.filter(user_id=stu_id)[0]
         Course.objects.filter(c_id=course_id)[0].students.remove(student)
    
 def listAllTeachers(request):
