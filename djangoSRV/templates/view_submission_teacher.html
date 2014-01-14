@@ -36,12 +36,12 @@
 										<label class="tree-toggler nav-header">Year {{ year.name }}</label>
 										<ul class="nav nav-list tree">
 										{% for cls in year.get_teaching_classes %}
-											<li>
+											<li style="padding-left: 1em;">
 												<label class="tree-toggler nav-header">{{cls.get_name}}</label>
 												<ul class="nav nav-list tree">
 												{% for assignment in cls.get_assignments %}
 													<li class="nav nav-list tree">
-														<a onclick="getAssignmentInfo({{cls.get_id}}, {{assignment.get_id}}, 'Year {{year.name}} - {{cls.get_name}} - {{assignment.get_name}}')">
+														<a onclick="getAssignmentInfo({{cls.get_id}}, {{assignment.get_id}}, 'Year {{year.name}} - {{cls.get_name}} - {{assignment.get_name}}')" style="cursor:pointer;">
 															{{ assignment.get_name }}
 														</a>
 													</li>
@@ -63,19 +63,22 @@
 				<div id="specification-window" class="span4">
 					<i id="question">Question:</i>
 					<div id="question-text"></div> 
-					<pre id="specification-window-text">Dude I swear, my dog ate the effing screen!
+					<pre id="specification-window-text">Dude I swear, my dog ate the screen!
 					</pre>
 				</div>
-				<div id="feedback-window" class="span3" >
-					<a onClick="openFeedback();" role="button"> Submit feedback</a>
-					<textarea></textarea>
+				<div id="feedback-window" class="span3">
+					<p id="feedback-window-text">Submit feedback</p>
+					<textarea id="feedback-text" class="field span12"></textarea>
+					<br><br>
+					<button class="btn btn-primary pull-right" id="send">Send feedback</button>
 				</div>
 			</div>
 	            </div>
 		</div>
 	<script>
 
-	var curr_assignment
+	var curr_assignment;
+	var curr_student, curr_student_id;
 
 	function getDataFromServer(url, data, callback)
 	{
@@ -109,12 +112,12 @@
 	function showStudentsOnCourse(table)
 	{
 		var listHeader = "<ul class=\"nav nav-list\"><li><label class=\"tree-toggler nav-header\">Submissions</label><ul class=\"nav nav-list tree\">"
-	        var listFooter = "</ul></li></ul>"
+	    var listFooter = "</ul></li></ul>"
 		var content = listHeader
 		var title = "Submissions"
 		for (i in table) 
 		{
-			content += "<li><a id=\"stu" + table[i].user_id + "\">" + table[i].full_name + "</a></li>";
+			content += "<li><a style=\"cursor:pointer;\" id=\"stu" + table[i].user_id + "\">" + table[i].full_name + "</a></li>";
 		}
 		content += listFooter;
 
@@ -142,23 +145,27 @@
 		for(i in stu_table)
 		{
 			stu = stu_table[i].user_id;
-			$('#stu'+stu).on('click', getSubmissionFunction(stu,asgn));
+			$('#stu'+stu).on('click', getSubmissionFunction(stu, asgn, stu_table[i].full_name));
 		}
 	}
 
 	//this is a sort of currying for the students function after figuring out some error
 	//in parameter binding
-	function getSubmissionFunction(stu, asgn)
+	function getSubmissionFunction(stu, asgn, stu_full_name)
 	{
+		curr_student = stu_full_name;
+		curr_student_id = stu;
+		$("#feedback-window-text").text("Submit feedback for " + curr_student);
 		return	function() { 
 				getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
 			};
 	}
 
-	function openFeedback()
-	{
-
-	}
+	$("#send").click(function () {
+		//TODO: send feedback to student
+		var feedback = $("#feedback-text").val();
+		var user_id = curr_student_id;
+	});
 
 	</script>
 	</body>
