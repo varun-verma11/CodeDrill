@@ -30,6 +30,9 @@ def get_exercise(ex_id):
 def get_number_of_submissions(user_id):
     return LatestStudentScore.objects.filter(stu_id=user_id).count()
 
+def get_student_feedback(ex_id, std_id):
+    return {'code': 'def add():\n\treturn 0', 'feedback':'Amazing work'}
+
 def get_grades(user_id, page_num, page_size):
     course_ids = get_course_ids_by_std_id(user_id)
     ex_ids = []
