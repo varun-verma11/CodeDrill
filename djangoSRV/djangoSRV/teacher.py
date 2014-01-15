@@ -191,19 +191,26 @@ def delete_class(cls_id):
     return 0;
 
 def get_average_grade_for_class(tch_id, year, cls):
-    return [{"as_name":"Assignment 1", "grade":"50"}, {"as_name":"Assignment 2","grade":"60"}]
+    c_id = Course.objects.get(name=cls).c_id
+    ass = AssignedExercises.objects.filter(c_id__exact=c_id)
+    ret = []
+    for a in ass:
+        ex=a.ex_id
+        avg_score = LatestStudentScore.objects.filter(ex_id=ex.ex_id).aggregate(Avg('score'))
+        ret.append({'as_name':ex.title, 'grade':avg_score['score__avg']})
+    return ret
 
 def get_student_grades_for_assingments(tch_id, cls_id, as_id):
     ret = []
-    for course in Course.objects.filter(tch_id=tch_id):
-        c_id = course.c_id
-        for ass_exercise in AssignedExercises.objects.filter(c_id=c_id):
-            ex_id = ass_exercise.ex_id_id
-            exercise = Exercise.objects.get(ex_id=ex_id)
-            scores = LatestStudentScore.objects.filter(ex_id=ex_id)
-            for score in scores:
-                student = Student.objects.get(user_id=score.stu_id.user_id)
-                ret.append({'student':student.first_name + " " + student.last_name + " (" + student.uname + ")",'as_name':exercise.title, 'grade':score.score})
+    #for course in Course.objects.filter(tch_id=tch_id):
+    c_id = cls_id
+    ass_exercise = AssignedExercises.objects.get(c_id=c_id)
+    ex_id = ass_exercise.ex_id_id
+    exercise = Exercise.objects.get(ex_id=ex_id)
+    scores = LatestStudentScore.objects.filter(ex_id=ex_id)
+    for score in scores:
+        student = Student.objects.get(user_id=score.stu_id.user_id)
+        ret.append({'student':student.first_name + " " + student.last_name + " (" + student.uname + ")",'as_name':exercise.title, 'grade':score.score})
     return ret
 
 def get_suggested_names(start):
