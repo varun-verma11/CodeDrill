@@ -26,3 +26,8 @@
 	padding-left:15px;
 	padding-top: 5px;
 }
+
+.terminal-style {
+  background-color: #000 !important;
+  color: #eaeaea !important;
+}
