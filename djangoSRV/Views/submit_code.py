@@ -34,7 +34,7 @@ def submit_student_code(request, ex_id):
 def run_self_test(request):
     if (request.user.is_authenticated() and request.is_ajax()):
         functionCalls = json.loads(request.POST["functionCalls"])
-        ex_id = 1 #Add the ex_id parameter and delete this line
+        ex_id = request.POST["ex_id"]
         code = request.POST["code"]
         model_sollution = ModelSolution.objects.get(ex_id=ex_id).content
         #print model_sollution
