@@ -10,11 +10,17 @@ def get_course_ids_by_std_id(user_id):
     return course_ids
 
 def submit_exercise(ex_id, user_id, score):
-    row = LatestStudentScore(stu_id = user_id, ex_id = ex_id, score = score)
-    row.save()
+    arr = LatestStudentScore.objects.filter(ex_id=ex_id, stu_id=user_id)
+    if len(arr) >= 1:
+        p = LatestStudentScore.objects.get(ex_id=ex_id, stu_id=user_id)
+        p.score = score
+        p.save()
+    else:
+        row = LatestStudentScore(stu_id = user_id, ex_id = ex_id, score = score)
+        row.save()
 
 def get_score(ex_id, user_id):
-    arr = LatestStudentScore.objects.filter(ex_id=ex_id, user_id=user_id).values()
+    arr = LatestStudentScore.objects.filter(ex_id=ex_id, stu_id=user_id).values()
     return arr[0]['score']
 
 def get_exercise(ex_id):
