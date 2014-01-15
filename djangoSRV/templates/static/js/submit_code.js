@@ -1,6 +1,5 @@
 function submit_code(ex_id) {
   var csrftoken = getCsrfToken();
-  alert("start");
   $.ajax({
         type: 'POST',
         url: '/submit-code/'+ex_id+"/",
@@ -22,7 +21,6 @@ function submit_code(ex_id) {
                   $('#ok_'+ex_id).hide();
                   $('#wrong_'+ex_id).show();
                 }
-                alert("done");
               }
     });
   return false;
