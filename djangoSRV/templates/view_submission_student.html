@@ -3,15 +3,72 @@
 {% load selectable_tags %}
 <html lang="en">
 <head>
-  {{ header }}
+  	{{ header }}
     {% include_ui_theme %}
-  {% include_jquery_libs %}
-   <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+  	{% include_jquery_libs %}
+    <script type="text/javascript" src="{% static "js/get_csrf_token.js"%}"></script>
+	<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
 </head>
 <body>
 	{{ navbar }}
   	<div class="container-fluid row-fluid">
 	    {{ menu }}
+
+	    <div class="span10">
+	        <legend>View previous submissions and feedback</legend>
+	        <div class="span3 well" style=" padding: 8px 0;">
+	        	<p class="nav-header">Submissions</p>
+        		<ul id="submissions">
+        			{% for chapter in assignments.get_chapters %}
+				        <ul class="nav nav-list">
+				          <li><label class="tree-toggler nav-header"> {{ chapter.get_name }}</label>
+				          <ul class="nav nav-list tree menu-list">
+				            {% for assignment in chapter.get_assignments %}
+				              <li><a style="cursor:pointer" id="assignment_{{assignment.get_id}}" onclick="getData({{assignment.get_id}})">{{ assignment.get_name }}</a></li>
+				            {% endfor %}
+				          </ul>
+				          </li>
+				        </ul>
+				    {% endfor %}
+        		</ul>
+	        </div>
+	        <div class="span3">
+	        	<p id="code-column"></p>
+	        	<pre class="prettyprint lang-pythong" id="code"></pre>
+	        </div>
+	        <div class="span3 well" id="feedback">
+	        </div>
+		</div>
 	</div>
+	<script>
+		var code = "";
+		var feedback = "";
+		checkFeedback();
+
+		function checkFeedback() {
+			if (code == "") {
+				$("#code-column").text("No submission has been recorded for this assignment.");	
+				$("#code").hide();
+			}	
+			if (feedback == "") {
+				$("#feedback").text("No feedback has been recorded for this assignment.");
+			}
+		}
+
+		function getData(id) {
+			
+			code = "code";
+			feedback = "feedback";
+
+			$("#code").text(code);
+			$("#feedback").text(feedback);
+			checkFeedback();
+			if (code != "") {
+				$("#code").show();
+				$("#code-column").text("");
+			}
+		}
+	</script>
 </body>
 </html>
+
