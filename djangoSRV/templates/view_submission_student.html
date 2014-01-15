@@ -55,18 +55,37 @@
 			}
 		}
 
-		function getData(id) {
-			
-			code = "code";
-			feedback = "feedback";
+		function getData(id) 
+		{
+			$.ajax({
+		      type: 'POST',
+		      url: '/student/view-submissions/get-feedback/'+id.toString()+"/",
+		      data: {
+		            },
+		      beforeSend: function(xhr, settings) 
+		            {
+		              	xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+		            },
+		      success: function(response) 
+		            {
+		            	var result = JSON.parse(response);
+		            	if (result.length==1)
+		            	{
+			              	code = result[0]['code'];
+							feedback = result[0]["feedback"];
 
-			$("#code").text(code);
-			$("#feedback").text(feedback);
-			checkFeedback();
-			if (code != "") {
-				$("#code").show();
-				$("#code-column").text("");
-			}
+							$("#code").text(code);
+							$("#feedback").text(feedback);
+							checkFeedback();
+							if (code != "")
+							{
+								$("#code").show();
+								$("#code-column").text("");
+							}
+						}
+		            }
+		    });
+		    return false;
 		}
 	</script>
 </body>
