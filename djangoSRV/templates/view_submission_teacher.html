@@ -162,9 +162,28 @@
 	}
 
 	$("#send").click(function () {
-		//TODO: send feedback to student
 		var feedback = $("#feedback-text").val();
 		var user_id = curr_student_id;
+
+		$.ajax({
+			type: 'POST',
+			url: '/teacher/view-submissions/send-feedback/',
+			data: 
+				{
+					'ex_id' : curr_assignment,
+					'stu_id': user_id,
+					'feedback': feedback
+				},
+			beforeSend: function(xhr, settings) 
+				{
+					xhr.setRequestHeader("X-CSRFToken", getCsrfToken());
+				},
+			success: function(response) 
+				{
+					//MAYBE ALERT SUBMITTED FEEDBACK
+				}
+		});
+
 	});
 
 	</script>

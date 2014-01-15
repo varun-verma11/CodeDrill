@@ -27,6 +27,10 @@ def get_exercise(ex_id):
     arr = Exercise.objects.filter(ex_id=ex_id).values_list()
     return arr[0]
 
+def submit_feedback_for_student(std_id,ex_id,feedback):
+
+    return True;
+
 def get_number_of_submissions(user_id):
     return LatestStudentScore.objects.filter(stu_id=user_id).count()
 
