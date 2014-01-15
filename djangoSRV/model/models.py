@@ -51,7 +51,6 @@ class StudentSubmission(models.Model):
     content = models.TextField('Content', blank=True)
     submit_time = models.DateTimeField('Time of Submission',
         auto_now_add=True)
-    result = models.DecimalField(max_digits=3, decimal_places=2)
     def __str__(self):
         return str(self.stu_id)
     def __repr__(self):
