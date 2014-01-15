@@ -46,23 +46,36 @@ def run_self_test(request):
             model_code = model_sollution + "\n\n" + "print " + functionCalls[0]
             actual_code = code + "\n\n" + "print " + functionCalls[0]
 
-            ideal_output = StringIO()
-            sys.stdout = ideal_output
-            exec model_code
-            sys.stdout = sys.__stdout__
+            try:
+                ideal_output = StringIO()
+                sys.stdout = ideal_output
+                exec model_code
+                sys.stdout = sys.__stdout__
+            except:
+                return HttpResponse("The function has errors")
 
-            actual_output = StringIO()
-            sys.stdout = actual_output
-            exec actual_code
-            sys.stdout = sys.__stdout__
+            try:
+                actual_output = StringIO()
+                sys.stdout = actual_output
+                exec actual_code
+                sys.stdout = sys.__stdout__
+            except:
+                return HttpResponse("Some error has occured:\n\n" + str(sys.exc_info()))
 
-            ok = ok and (ideal_output.getvalue() == actual_output.getvalue())
+            output = ""
+            output += "Expected output:\n"
+            output += ideal_output.getvalue() + "\n"
+            output += "Actual output:\n"
+            output += actual_output.getvalue() + "\n"
+
+
+            ok = (ideal_output.getvalue() == actual_output.getvalue())
         
         if ok:
-            return HttpResponse("All Tests Passed.");
+            output += "\nTest Passed"
         else:
-            return HttpResponse("Some Tests Failed.");
-
+            output += "\nTest Failed"
+        return HttpResponse(output)
     return HttpResponseBadRequest();
 
 # see if there were any tests run by the autotester
