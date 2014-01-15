@@ -36,8 +36,7 @@ def authenticate_teacher(request):
 def check_user_name_exists(request):
 	if (request.is_ajax()):
 		username = request.POST["username"]
-		if (Student.objects.filter(uname=username).count() or Teacher.objects.filter(uname=username).count()):
-			print username ,":\tyes"
+		if (Student.objects.filter(uname=username).count()):
 			return HttpResponse("yes")
 		return HttpResponse("no")
 	return HttpResponse("invalid query")
