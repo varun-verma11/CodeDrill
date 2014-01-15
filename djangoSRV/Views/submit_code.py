@@ -35,6 +35,7 @@ def run_self_test(request):
     if (request.user.is_authenticated() and request.is_ajax()):
         functionCalls = json.loads(request.POST["functionCalls"])
         ex_id = request.POST["ex_id"]
+        print ex_id
         code = request.POST["code"]
         model_sollution = ModelSolution.objects.get(ex_id=ex_id).content
         #print model_sollution
@@ -55,7 +56,7 @@ def run_self_test(request):
             exec actual_code
             sys.stdout = sys.__stdout__
 
-            ok = ok or (ideal_output.getvalue() == actual_output.getvalue())
+            ok = ok and (ideal_output.getvalue() == actual_output.getvalue())
         
         if ok:
             return HttpResponse("All Tests Passed.");
