@@ -26,14 +26,14 @@
             {{ code_form.code }}
             <br>
             <label style="display:block">
-              <table><tr>
+              <table>
+              <tr>
                 <td><button class="btn btn-info" type="Submit" onclick="submit_code({{ ex_id }}); return false;">Submit</button></td>
-                <td id="ok_{{ ex_id }}"><i class="glyphicon glyphicon-circle ok"></i></td>
+                <td id="ok_{{ ex_id }}"><i class="glyphicon glyphicon-ok ok"></i></td>
                 <td id="wrong_{{ ex_id }}"><i class="glyphicon glyphicon-remove wrong"></i></td>
-                <td><button class="btn btn-info">Cancel</button></td>
-                <td><button class="btn btn-info">Run</button></td>
-                <td><button class="btn btn-info">Save</button></td>                
-              </tr></table>
+                <td><button class="btn btn-info">Cancel</button></td>              
+              </tr>
+              </table>
             </label>
           </form>
         </div>
@@ -41,7 +41,7 @@
     </div>
     <div class="span4">
       <p> To test your program add a new test, select the function name you want to test and input the chosen arguments you want to test for. The results of running your Python program will be displayed below. You can add as many tests as you want and save them for later use.</p>
-      <a href="#" onclick="return false;"; id="test_link">
+      <a href="#" onclick="return false;" id="test_link">
         <i class="glyphicon glyphicon-plus-sign plus-sign"></i>
         Add new test<br>
       </a>
@@ -69,14 +69,14 @@
     $("#output" + test_id).fadeIn();
   }
 
-  function runTest(functionCalls, results, test_id) 
+  function runTest(functionCalls, test_id) 
   {
     $.ajax({
         type: 'POST',
         url: '/student/test/self-defined/',
         data: { 'functionCalls' : JSON.stringify(functionCalls),
-                'results': JSON.stringify(results),
                 'code': code.val(),
+                'ex_id':{{ex_id}}
               },
         beforeSend: function(xhr, settings) 
               {
@@ -99,16 +99,13 @@
       var name = $("#function_name" + id).val();
       var cases = $("#input_args" + id).val().split("\n");
       var functionCalls = [];
-      var expectedResults = [];
       for (i in cases)
       { 
         testCase = cases[i];
-        var values = testCase.split(",");
-        expectedResults.push(values[values.length-1]);
-        var arguments = values.slice(0,values.length-1);
+        var arguments = testCase.split(",");
         functionCalls.push(name+"("+arguments+")");
       }
-      runTest(functionCalls, expectedResults, id);
+      runTest(functionCalls, id);
     });
     testId++;
   });
