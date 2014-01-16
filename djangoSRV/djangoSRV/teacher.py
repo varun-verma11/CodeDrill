@@ -191,8 +191,7 @@ def delete_class(cls_id):
     return 0;
 
 def get_average_grade_for_class(tch_id, year, cls):
-    c_id = Course.objects.get(name=cls).c_id
-    ass = AssignedExercises.objects.filter(c_id__exact=c_id)
+    ass = AssignedExercises.objects.filter(c_id__c_id__exact=cls)
     ret = []
     for a in ass:
         ex=a.ex_id

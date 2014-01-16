@@ -25,7 +25,7 @@
 								{% for assignment in class.get_assignments %}
 								<ul class="nav nav-list tree">
 									<li class="nav nav-list tree">
-										<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assingment.get_id}}')">{{ assignment.get_name }}</a>
+										<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assignment.get_id}}')">{{ assignment.get_name }}</a>
 									</li>
 								</ul>
 								{%endfor%}
@@ -210,7 +210,7 @@ function showClass(table)
 
 function showAssignment(table) 
 {
-	var title = assignments_names[assignment_name] + " Performance for Class " +  class_names[class_name] + " of Year " + year;
+	var title = assignments_names[assignment_name] + " -  Performance for Class " +  class_names[class_name] + " of Year " + year;
 	var content = "<p></p>" + tableHead;
 	content += "<tr> <td><b>Student</b></td><td><b>Grade</b></td></tr>";
 	for (key in table) {
