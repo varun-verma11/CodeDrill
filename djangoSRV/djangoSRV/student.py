@@ -1,4 +1,4 @@
-from model.models import Student, LatestStudentScore, Exercise, AssignedExercises, Student, Course, Exercise, StudentSubmission, Feedback
+from model.models import Student, LatestStudentScore, Exercise, AssignedExercises, Student, Course, Exercise, StudentSubmission, Feedback, Teacher
 from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 def get_course_ids_by_std_id(user_id):
@@ -27,9 +27,12 @@ def get_exercise(ex_id):
     arr = Exercise.objects.filter(ex_id=ex_id).values_list()
     return arr[0]
 
-def submit_feedback_for_student(std_id,ex_id,feedback):
-
-    return True;
+def submit_feedback_for_student(stu_id, tch_id, ex_id, feedback):
+    assign_id = AssignedExercises.objects.get(ex_id=ex_id)
+    sub_id = StudentSubmission.objects.get(stu_id=stu_id, assign_id=assign_id)
+    teacher = Teacher.objects.get(user_id=tch_id)
+    row = Feedback(tch_id=teacher, sub_id=sub_id, content=feedback)
+    row.save()
 
 def get_number_of_submissions(user_id):
     return LatestStudentScore.objects.filter(stu_id=user_id).count()
