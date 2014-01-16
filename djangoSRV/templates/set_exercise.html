@@ -251,7 +251,11 @@
 				$("#question_text").hide();
 				$("#specification_window_text").text("");
 				$("#specification_window").hide();
-              }
+              },
+        error: function(xhr, textStatus, errorThrown)
+	          {
+			       alert('Exercise was already assigned.');
+			  }
     	});
 		
 	}
