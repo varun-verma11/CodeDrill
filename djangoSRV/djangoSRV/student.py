@@ -3,6 +3,7 @@ from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 def get_course_ids_by_std_id(user_id):
     course_ids = []
+
     for course in Course.objects.all():
         student_entries = course.students.filter(user_id=user_id)
         if(student_entries.count() > 0):
@@ -63,6 +64,8 @@ def getStudentAssignments(uid):
     course_ids = get_course_ids_by_std_id(user_id)
     ex_ids = []
 
+    #Get the exercises assigned to the courses that the
+    #student is subscribed to
     for exco in AssignedExercises.objects.all():
         if exco.c_id in course_ids:
             ex_ids.append(exco.ex_id)
@@ -74,9 +77,11 @@ def getStudentAssignments(uid):
         ascii_cat = category[0].encode("ascii")
         for exercise in Exercise.objects.filter(category=ascii_cat):
             #TODO this is broken:
-            assignment = Assignment(exercise.title, exercise.ex_id, exercise.content, exercise.description)
-            assignments.append(assignment)   	
-        chapter = Chapter(ascii_cat, assignments)
-        chapters.append(chapter)
+            if exercise.ex_id in ex_ids:
+                assignment = Assignment(exercise.title, exercise.ex_id, exercise.content, exercise.description)
+                assignments.append(assignment)
+        if len(assignments) > 0:
+            chapter = Chapter(ascii_cat, assignments)
+            chapters.append(chapter)
     return AssignmentsBook(chapters)
 
