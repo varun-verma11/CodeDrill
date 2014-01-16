@@ -39,17 +39,26 @@
 				</div>
 
 				<div id="new_question_form">
-					<form>
+					<form action="/teacher/add-new-exercise/submit-exercise/" method="POST">
 						{% csrf_token %}
-						<i>Question</i>
 
-						<label class="checkbox pull-right">
+						<!-- <label class="checkbox pull-right">
 	      					<input type="checkbox" id="checkbox"> Private <a href="#" id="private_info" class="glyphicon glyphicon-info-sign pull" rel="popover" data-content="All custom exercises are public. Tick this box to make this exercise private."></a>
-	    				</label>
+	    				</label> -->
 
 						<br>
 						{{new_ex.media}}
 						{{new_ex.non_field_errors}}
+
+						<!-- label for title -->
+						{{new_ex.title.errors}}
+						{{new_ex.title}}
+						<!-- label for chapter -->
+						{{new_ex.chapter.errors}}
+						{{new_ex.chapter}}
+						<br>
+						<i>Question</i>
+						<br>
 						{{new_ex.description.errors}}
 						{{new_ex.description}}
 						<br><br>
@@ -64,7 +73,7 @@
 						{{new_ex.sample_answer}}
 						<br><br>
 						<button id="cancel" class="btn btn-primary">Cancel</button>
-						<button id="save" class="btn btn-primary">Save</button>
+						<button id="save" value="Submit" class="btn btn-primary">Save</button>
 						<br>
 						<br>
 						<br>

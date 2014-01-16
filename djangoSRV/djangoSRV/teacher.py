@@ -204,6 +204,10 @@ def get_average_grade_for_class(tch_id, year, cls):
 #        ret.append({'as_name':ex.title, 'grade':avg_score['score__avg']})
 #    return ret
 
+def create_new_exercise(title, chapter, description, code, sample_answer):
+
+    return True
+
 def get_student_grades_for_assingments(tch_id, cls_id, as_id):
     ret = []
     #for course in Course.objects.filter(tch_id=tch_id):

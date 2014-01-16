@@ -23,7 +23,7 @@ def view_submissions_teacher(request):
 	return HttpResponseBadRequest()
 
 def view_student_submissions(request):
-	if (request.user.is_authenticated()):
+	if (request.user.is_authenticated()) :
 		assignments = getStudentAssignments(request.user.user_id)
 		menu = get_template("student_menu.html").render(Context({ 'assignments' : assignments, 'page':'view_sub'}))
 		elements = get_header_navbar("Student",request.user.first_name + " " + request.user.last_name,"Add New Exercise")
