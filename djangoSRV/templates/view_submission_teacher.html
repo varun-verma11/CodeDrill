@@ -138,6 +138,11 @@
 		$('#question').fadeIn(300);
 		$('#question-text').fadeIn(300);
 		$('#feedback-window').fadeTo(300,1);
+		if (submission.code == null) {
+			$("#send").attr('disabled', true);
+		} else {
+			$("#send").attr('disabled', false);
+		}
 	}
 
 	function setStudentLinks(assignment_id, stu_table)
