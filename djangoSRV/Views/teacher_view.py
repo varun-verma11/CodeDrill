@@ -58,6 +58,6 @@ def get_assignment_overview(request):
         tch_id = request.user.user_id
         cls = request.GET["cls"]
         as_name = request.GET["as_name"]
-        table = get_student_grades_for_assingments(tch_id, cls, as_namef)
+        table = get_student_grades_for_assingments(tch_id, cls, as_name)
         return HttpResponse(json.dumps(table))
     return HttpResponseBadRequest()
