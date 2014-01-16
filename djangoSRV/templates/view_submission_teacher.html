@@ -155,11 +155,11 @@
 	//in parameter binding
 	function getSubmissionFunction(stu, asgn, stu_full_name)
 	{
-		curr_student = stu_full_name;
-		curr_student_id = stu;
-		$("#feedback-window-text").text("Submit feedback for " + curr_student);
-		$("#feedback_confirmation").fadeOut();
 		return	function() { 
+				curr_student = stu_full_name;
+				curr_student_id = stu;
+				$("#feedback-window-text").text("Submit feedback for " + curr_student);
+				$("#feedback_confirmation").fadeOut();
 				getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
 			};
 	}
