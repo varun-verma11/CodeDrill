@@ -55,7 +55,7 @@ def get_feedback_for_student(ex_id, stu_id):
         code = arr[0].content
         c_id = AssignedExercises.objects.get(ex_id=ex_id).c_id.c_id
         tch_id = Course.objects.get(c_id=c_id).tch_id
-        arr2 = Feedback.objects.filter(sub_id=arr[0], tch_id=tch_id)
+        arr2 = Feedback.objects.order_by('-pk').filter(sub_id=arr[0], tch_id=tch_id)
         if len(arr2) >=1:
             feedback = arr2[0].content
 
@@ -107,7 +107,6 @@ def getStudentAssignments(uid):
         assignments = []
         ascii_cat = category[0].encode("ascii")
         for exercise in Exercise.objects.filter(category=ascii_cat):
-            #TODO this is broken:
             if exercise.ex_id in ex_ids:
                 assignment = Assignment(exercise.title, exercise.ex_id, exercise.content, exercise.description)
                 assignments.append(assignment)

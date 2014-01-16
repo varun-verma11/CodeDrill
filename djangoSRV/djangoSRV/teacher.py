@@ -186,10 +186,7 @@ def get_average_for_all_assignments(tch_id):
             ret.append({'as_name':exercise.title, 'grade':avg_score['score__avg']})
     return ret
 
-'''
-def get_average_for_all_assignments(tch_id):
-    return [{"as_name":"Assignment 1", "grade":"10"}, {"as_name":"Assignment 2","grade":"20"}]
-'''
+
 def get_average_grade_for_year(tch_id, year):
 
     return [a for cls in [c.c_id for c in Teacher.objects.get(user_id__exact=tch_id).course_set.filter(year__exact=year)]
