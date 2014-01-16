@@ -15,21 +15,7 @@
 	<div class="container-fluid row-fluid">
 		<div class="span12">
 	    	{{ menu }}
-	    	<div class="span3">
-				<div class="well" style=" padding: 8px 0;">
-					<ul class="nav nav-list">
-						<li><label class="tree-toggler nav-header" id="title">Custom questions</label>
-							<ul class="nav nav-list tree">		
-									<li><a href="#" onclick="get_exercise_details(1)"> Question 1</a></li>
-									<li><a href="#" onclick="get_exercise_details(2)"> Question 2</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-
-				<a style="cursor:pointer;" id="new_question"><i class="glyphicon glyphicon-plus"></i>New custom question</a>
-			</div>
-			<div class="span5">
+			<div class="span9">
 				<div id="spec">
 					<i>Question</i>
 					<br>
@@ -51,9 +37,11 @@
 						{{new_ex.non_field_errors}}
 
 						<!-- label for title -->
+						<label class="heading">Exercise title</label>
 						{{new_ex.title.errors}}
 						{{new_ex.title}}
 						<!-- label for chapter -->
+						<label class="heading">Chapter title</label>
 						{{new_ex.chapter.errors}}
 						{{new_ex.chapter}}
 						<br>
@@ -72,7 +60,6 @@
 						{{new_ex.sample_answer.errors}}
 						{{new_ex.sample_answer}}
 						<br><br>
-						<button id="cancel" class="btn btn-primary">Cancel</button>
 						<button id="save" value="Submit" class="btn btn-primary">Save</button>
 						<br>
 						<br>
@@ -96,12 +83,9 @@
 	</div>
 
 	<script>
-		var testId = 0;  
-		$("#private_info").popover();
-		$("#example").popover(); 
+		var testId = 0;
 		$("#spec").hide();
 		$("#confirmation").text("");
-		$("#new_question_form").hide();
 
 		$('#test_link').click(function () {
 	    $("#student_tests").append(createTest());
@@ -159,7 +143,7 @@
 
 		function createTest() 
 		{
-		    var d = "<div id=\"test"+ testId + "\"> Function <input type=\"text\" class=\"form-control\" id=\"function_name" + testId + "\">  <br> Arguments <input type=\"text\" class=\"form-control\" id=\"input_args" + testId + "\"> <br> <button class=\"btn btn-info\" id=\"get_results" + testId + "\">Run</button> <button class=\"btn btn-info\">Save</button> <br><br> <div class=\"well well-small\" id=\"output" + testId + "\"></div> </div>";
+		    var d = "<div id=\"test"+ testId + "\"> Function <input type=\"text\" class=\"form-control\" id=\"function_name" + testId + "\">  <br> Arguments <input type=\"text\" class=\"form-control\" id=\"input_args" + testId + "\"> <br> <button class=\"btn btn-info\">Save</button> <br><br> <div class=\"well well-small\" id=\"output" + testId + "\"></div> </div>";
 		    return d;
 		}
 
@@ -186,14 +170,6 @@
 		$("#cancel").click(function () {
 			$("#new_question_form").fadeOut("slow");
 			$("#confirmation").text("");
-		});
-
-		$("#save").click(function () {
-			var conf = "The custom question '" + $("#question_editor").val() + "'has been saved, along with the following code: " + $("#code_editor").val();
-			$("#confirmation").text(conf);
-			$("#new_question_form").fadeOut("slow");
-			var private_exercise = $("#checkbox").is(':checked') ? 1 : 0;
-			//TODO server side
 		});
 
 	</script>

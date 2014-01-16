@@ -5,7 +5,7 @@ from teaching_data_structure import TeachingHierarchy, SchoolYear, TeachingClass
 from utils import get_header_navbar
 import json
 from djangoSRV.teacher import get_courses_with_assignments2
-from djangoSRV.student import getStudentAssignments, get_student_feedback, getStudentAssignments, submit_feedback_for_student
+from djangoSRV.student import getStudentAssignments, getStudentAssignments, submit_feedback_for_student, get_feedback_for_student
 
 
 def view_submissions_teacher(request):
@@ -38,7 +38,8 @@ def view_student_submissions(request):
 
 def get_student_feedback(request,ex_id):
 	if (request.user.is_authenticated() and request.is_ajax()):
-		return HttpResponse(json.dumps([get_student_feedback(request.user.user_id, ex_id)]))
+		print request.user.user_id, ex_id
+		return HttpResponse(json.dumps([get_feedback_for_student(ex_id, request.user.user_id)]))
 	return HttpResponseBadRequest()
 
 def submit_student_feedback(request):

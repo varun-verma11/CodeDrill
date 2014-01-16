@@ -6,7 +6,7 @@ import json
 from autotester.unit_tester import autotester
 from Forms import SubmitCodeForm
 from model.models import Test, ModelSolution
-from djangoSRV.student import submit_exercise
+from djangoSRV.student import submit_exercise_score,  submit_exercise_code
 from StringIO import StringIO
 import sys
 def submit_student_code(request, ex_id):
@@ -21,9 +21,13 @@ def submit_student_code(request, ex_id):
                 final_score = compute_score(test_result)
                 print test_result
                 print request.user.user_id
-                submit_exercise(unit_tests[0].ex_id, 
+                submit_exercise_score(unit_tests[0].ex_id, 
                                 request.user,
                                 final_score)
+                submit_exercise_code(request.user, 
+                                unit_tests[0].ex_id, 
+                                student_code)
+
                 if no_tests_run(test_result):
                     return HttpResponse("testing did not start")
                 if no_errors(test_result) and no_failures(test_result):
