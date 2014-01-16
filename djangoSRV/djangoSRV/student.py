@@ -10,7 +10,12 @@ def get_course_ids_by_std_id(user_id):
             course_ids.append(course.c_id)
     return course_ids
 
-def submit_exercise(ex_id, user_id, score):
+def submit_exercise_code(stu_id, ex_id, code):
+    assign = AssignedExercises.objects.filter(ex_id=ex_id)[0]
+    submission = StudentSubmission(stu_id=stu_id, assign_id=assign, content=code)
+    submission.save()
+
+def submit_exercise_score(ex_id, user_id, score):
     arr = LatestStudentScore.objects.filter(ex_id=ex_id, stu_id=user_id)
     if len(arr) >= 1:
         p = LatestStudentScore.objects.get(ex_id=ex_id, stu_id=user_id)
@@ -29,16 +34,18 @@ def get_exercise(ex_id):
     return arr[0]
 
 def submit_feedback_for_student(stu_id, tch_id, ex_id, feedback):
-    assign_id = AssignedExercises.objects.get(ex_id=ex_id)
-    sub_id = StudentSubmission.objects.get(stu_id=stu_id, assign_id=assign_id)
+    #print stu_id,  tch_id, ex_id, feedback
+    assign_id = ex_id
+    sub_id = StudentSubmission.objects.order_by('-pk').filter(stu_id=stu_id, assign_id=assign_id)[0]
     teacher = Teacher.objects.get(user_id=tch_id)
     row = Feedback(tch_id=teacher, sub_id=sub_id, content=feedback)
     row.save()
+    return True
 
 def get_number_of_submissions(user_id):
     return LatestStudentScore.objects.filter(stu_id=user_id).count()
 
-def get_student_feedback(ex_id, stu_id):
+def get_feedback_for_student(ex_id, stu_id):
     code = "No code submitted"
     feedback = "No feedback submitted by teacher"
     assigned = AssignedExercises.objects.get(ex_id=ex_id)
@@ -77,7 +84,6 @@ def get_grades(user_id, page_num, page_size):
             score = submission_row[0].score
             aux_row.append(score)
         ret.append(aux_row)
-
 
     return ret
 

@@ -50,12 +50,7 @@ def authenticateTeacher(request):
     teacher = Teacher.objects.filter(uname__exact = parameters['username'], pw = parameters['password'])
     return len(teacher) == 1
 
-def sendExercisesToClass(request):
-    parameters = request.GET
-    ex_id = parameters['ex_id']
-    c_id = parameters['c_id']
-    row = AssignedExercises(ex_id=ex_id, c_id=c_id)
-    row.save()    
+
 
 def get_all_exercises():
     categories = Exercise.objects.values_list('category').distinct()
@@ -158,12 +153,25 @@ def add_new_course(name,year, tch_id):
     teacher = Teacher.objects.get(user_id=tch_id)
     Course(name=name, year=year, tch_id=teacher).save()
 
-
+'''
 def set_assignment_for_course(ex_id, course_id):
     exercise = Exercise.objects.get(ex_id=ex_id)
     course = Course.objects.get(c_id=course_id)
     new_assignment = AssignedExercises(ex_id=exercise, c_id=course)
     new_assignment.save()
+    return True
+'''
+def set_assignment_for_course(ex_id, course_id):
+    exercise = Exercise.objects.get(ex_id=ex_id)
+    course = Course.objects.get(c_id=course_id)
+    arr = AssignedExercises.objects.filter(ex_id=ex_id)
+    if len(arr) >= 1:
+        return False
+    #parameters = request.GET
+    #ex_id = parameters['ex_id']
+    #c_id = parameters['c_id']
+    row = AssignedExercises(ex_id=exercise, c_id=course)
+    row.save()
     return True
 
 def get_average_for_all_assignments(tch_id):
