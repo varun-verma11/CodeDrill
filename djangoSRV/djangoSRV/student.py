@@ -1,4 +1,4 @@
-from model.models import Student, LatestStudentScore, Exercise, AssignedExercises, Student, Course, Exercise
+from model.models import Student, LatestStudentScore, Exercise, AssignedExercises, Student, Course, Exercise, StudentSubmission, Feedback
 from Views.exercise_data_structure import AssignmentsBook, Chapter, Assignment
 
 def get_course_ids_by_std_id(user_id):
@@ -30,8 +30,21 @@ def get_exercise(ex_id):
 def get_number_of_submissions(user_id):
     return LatestStudentScore.objects.filter(stu_id=user_id).count()
 
-def get_student_feedback(ex_id, std_id):
-    return {'code': 'def add():\n\treturn 0', 'feedback':'Amazing work'}
+def get_student_feedback(ex_id, stu_id):
+    code = "No code submitted"
+    feedback = "No feedback submitted by teacher"
+    assigned = AssignedExercises.objects.get(ex_id=ex_id)
+    arr = StudentSubmission.objects.order_by('-pk').filter(stu_id=stu_id, assign_id=assigned)
+
+    if len(arr) >= 1:
+        code = arr[0].content
+        c_id = AssignedExercises.objects.get(ex_id=ex_id).c_id.c_id
+        tch_id = Course.objects.get(c_id=c_id).tch_id
+        arr2 = Feedback.objects.filter(sub_id=arr[0], tch_id=tch_id)
+        if len(arr2) >=1:
+            feedback = arr2[0].content
+
+    return {'code': code, 'feedback':feedback}
 
 def get_grades(user_id, page_num, page_size):
     course_ids = get_course_ids_by_std_id(user_id)
