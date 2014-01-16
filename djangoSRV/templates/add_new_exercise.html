@@ -15,21 +15,7 @@
 	<div class="container-fluid row-fluid">
 		<div class="span12">
 	    	{{ menu }}
-	    	<div class="span3">
-				<div class="well" style=" padding: 8px 0;">
-					<ul class="nav nav-list">
-						<li><label class="tree-toggler nav-header" id="title">Custom questions</label>
-							<ul class="nav nav-list tree">		
-									<li><a href="#" onclick="get_exercise_details(1)"> Question 1</a></li>
-									<li><a href="#" onclick="get_exercise_details(2)"> Question 2</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-
-				<a style="cursor:pointer;" id="new_question"><i class="glyphicon glyphicon-plus"></i>New custom question</a>
-			</div>
-			<div class="span5">
+			<div class="span9">
 				<div id="spec">
 					<i>Question</i>
 					<br>
@@ -39,17 +25,28 @@
 				</div>
 
 				<div id="new_question_form">
-					<form>
+					<form action="/teacher/add-new-exercise/submit-exercise/" method="POST">
 						{% csrf_token %}
-						<i>Question</i>
 
-						<label class="checkbox pull-right">
+						<!-- <label class="checkbox pull-right">
 	      					<input type="checkbox" id="checkbox"> Private <a href="#" id="private_info" class="glyphicon glyphicon-info-sign pull" rel="popover" data-content="All custom exercises are public. Tick this box to make this exercise private."></a>
-	    				</label>
+	    				</label> -->
 
 						<br>
 						{{new_ex.media}}
 						{{new_ex.non_field_errors}}
+
+						<!-- label for title -->
+						<label class="heading">Exercise title</label>
+						{{new_ex.title.errors}}
+						{{new_ex.title}}
+						<!-- label for chapter -->
+						<label class="heading">Chapter title</label>
+						{{new_ex.chapter.errors}}
+						{{new_ex.chapter}}
+						<br>
+						<i>Question</i>
+						<br>
 						{{new_ex.description.errors}}
 						{{new_ex.description}}
 						<br><br>
@@ -63,8 +60,7 @@
 						{{new_ex.sample_answer.errors}}
 						{{new_ex.sample_answer}}
 						<br><br>
-						<button id="cancel" class="btn btn-primary">Cancel</button>
-						<button id="save" class="btn btn-primary">Save</button>
+						<button id="save" value="Submit" class="btn btn-primary">Save</button>
 						<br>
 						<br>
 						<br>
@@ -87,12 +83,9 @@
 	</div>
 
 	<script>
-		var testId = 0;  
-		$("#private_info").popover();
-		$("#example").popover(); 
+		var testId = 0;
 		$("#spec").hide();
 		$("#confirmation").text("");
-		$("#new_question_form").hide();
 
 		$('#test_link').click(function () {
 	    $("#student_tests").append(createTest());
@@ -183,8 +176,6 @@
 			var conf = "The custom question '" + $("#question_editor").val() + "'has been saved, along with the following code: " + $("#code_editor").val();
 			$("#confirmation").text(conf);
 			$("#new_question_form").fadeOut("slow");
-			var private_exercise = $("#checkbox").is(':checked') ? 1 : 0;
-			//TODO server side
 		});
 
 	</script>
