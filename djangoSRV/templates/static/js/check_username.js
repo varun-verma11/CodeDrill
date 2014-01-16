@@ -1,4 +1,4 @@
-function check_username_exists()
+function check_username_exists(callback)
 {
 	var csrftoken = getCsrfToken();
 	$.ajax({
@@ -13,14 +13,7 @@ function check_username_exists()
 	              },
 	        success: function(response) 
 	              {
-	                if(response=="yes")
-	                {
-	                	return true;
-	                } else if (response=="no")
-	                {
-	                 return false;
-	                }
+	                callback(response);
 	              }
 	    });
-	return false;
 }

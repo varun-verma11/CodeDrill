@@ -214,15 +214,21 @@
       $('#user_taken').hide();
     } else 
     {
-      if (check_username_exists())
-      {
-        $('#user_ok').hide();
-        $('#user_taken').fadeIn();
-      } else
-      {
-        $('#user_taken').hide();
-        $('#user_ok').fadeIn();
-      }
+      check_username_exists(updateUserNameCheck);
+    }
+  }
+
+  function updateUserNameCheck(response)
+  {
+    // alert(response);
+    if(response=="yes")
+    {
+      $('#user_ok').hide();
+      $('#user_taken').fadeIn();
+    } else if (response=="no")
+    {
+      $('#user_taken').hide();
+      $('#user_ok').fadeIn();
     }
   }
 

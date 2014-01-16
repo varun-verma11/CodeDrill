@@ -76,8 +76,6 @@ def update_course_students(request):
 					additions.append(req[operation])
 		add_students_to_course(additions, cls)
 		delete_students_from_course(deletions, cls)
-		print "add\t", additions
-		print "del\t", deletions
 		return HttpResponse("")
 	return HttpResponseBadRequest()
 

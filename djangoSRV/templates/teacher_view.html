@@ -21,11 +21,11 @@
 						<ul class="nav nav-list tree">
 							{% for class in year.get_teaching_classes %}
 							<li class="nav nav-list tree">
-								<label class="tree-toggler nav-header" onclick="displayClass({{year.get_name}}, '{{class.get_name}}')">{{ class.get_name }}</label>
+								<label class="tree-toggler nav-header" onclick="displayClass({{year.get_name}}, '{{class.get_id}}')">{{ class.get_name }}</label>
 								{% for assignment in class.get_assignments %}
 								<ul class="nav nav-list tree">
 									<li class="nav nav-list tree">
-										<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assingment.get_id}}')">{{ assignment.get_name }}</a>
+										<a href="#" onclick="displayAssignment({{year.get_name}},'{{class.get_id}}', '{{assignment.get_id}}')">{{ assignment.get_name }}</a>
 									</li>
 								</ul>
 								{%endfor%}
@@ -53,6 +53,30 @@
 
 	displayOverview();
 	hidePanels();
+
+	var assignments_names = 
+	{
+		{% for year in teaching_hierarchy.get_teaching_years %}
+			{% for cls in year.get_teaching_classes %}
+				{% for assignment in cls.get_assignments %}
+					'{{assignment.get_id}}' : '{{assignment.get_name}}',
+				{%endfor%}
+			{% endfor %}
+		{% endfor %}
+		'-1':'No Name'
+	};
+
+	var class_names = 
+	{
+		{% for year in teaching_hierarchy.get_teaching_years %}
+			{% for cls in year.get_teaching_classes %}
+				'{{cls.get_id}}' : '{{cls.get_name}}',
+			{% endfor %}
+		{% endfor %}
+		'-1':'No Name'
+	};
+
+
 
 /*format for data
 	[
@@ -145,7 +169,7 @@ function showOverview(table)
 	content += "<tr> <td><b>Assignment</b></td><td><b>Average Grade</b></td></tr>";
 	for (i in table) 
 	{
-		content += "<tr> <td>" + table[i].as_name + "</td><td>" + table[i].grade + "</td></tr>";
+		content += "<tr> <td>" + table[i].as_name + "</td><td>" + coalesce(table[i].grade, "N/A") + "</td></tr>";
 	}
 	content += tableFoot;
 
@@ -171,7 +195,7 @@ function showYear(table)
 
 function showClass(table) 
 {
-	var title = "Performance of " + class_name + " in Year " + year;
+	var title = "Performance of " + class_names[class_name] + " in Year " + year;
 	var content = "<p></p>" + tableHead;
 	content += "<tr> <td> <b>Assignment</b> </td><td><b>Average Grade</b></td></tr>";
 	for (key in table) 
@@ -186,7 +210,7 @@ function showClass(table)
 
 function showAssignment(table) 
 {
-	var title = assignment_name + " Performance for Class " + class_name + " of Year " + year;
+	var title = assignments_names[assignment_name] + " -  Performance for Class " +  class_names[class_name] + " of Year " + year;
 	var content = "<p></p>" + tableHead;
 	content += "<tr> <td><b>Student</b></td><td><b>Grade</b></td></tr>";
 	for (key in table) {
@@ -206,6 +230,10 @@ function hidePanels() {
 function showPanels() {
 	$("#well1").show();
 	$("#well2").show();
+}
+
+function coalesce(value1, value2) {
+	return value1 == null ? value2 : value1;
 }
 
 </script>
