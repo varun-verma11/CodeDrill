@@ -46,6 +46,6 @@ def submit_student_feedback(request):
 		std_id = request.POST['stu_id']
 		ex_id  = request.POST['ex_id']
 		feedback = request.POST['feedback']
-		if (submit_feedback_for_student(std_id,ex_id,feedback)):
+		if (submit_feedback_for_student(std_id, request.user.user_id, ex_id,feedback)):
 			return HttpResponse("")
 	return HttpResponseBadRequest()
