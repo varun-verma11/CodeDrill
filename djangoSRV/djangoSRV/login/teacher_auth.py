@@ -3,12 +3,13 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class TeacherBackend(object):
     
-    def authenticate(self, username=None, password=None):
+    def authenticate(self, username=None, password=None, token=None):
         user = None
-        try:
-            user = Teacher.objects.get(uname=username, pw=password)
-        except ObjectDoesNotExist:
-            pass
+        if(token == "teacher"):
+            try:
+                user = Teacher.objects.get(uname=username, pw=password)
+            except ObjectDoesNotExist:
+                pass
         return user
 
     def get_user(self, user_id):
