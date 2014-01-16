@@ -89,11 +89,13 @@ def getStudentAssignments(uid):
 
     #Get the exercises assigned to the courses that the
     #student is subscribed to
+    print course_ids
     for exco in AssignedExercises.objects.all():
-        if exco.c_id in course_ids:
-            ex_ids.append(exco.ex_id)
+        if exco.c_id_id in course_ids:
+            ex_ids.append(exco.ex_id_id)
 
     chapters = []
+    print ex_ids
     categories = Exercise.objects.values_list('category').distinct()
     for category in categories:
         assignments = []
