@@ -184,20 +184,25 @@ def get_average_for_all_assignments(tch_id):
 '''
 def get_average_grade_for_year(tch_id, year):
 
-    return [{"as_name":"Assignment 3", "grade":"30"}, {"as_name":"Assignment 4","grade":"40"}]
+    return [a for cls in [c.c_id for c in Teacher.objects.get(user_id__exact=tch_id).course_set.filter(year__exact=year)]
+                for a in get_average_grade_for_class(tch_id,year,cls)]
 
 def delete_class(cls_id):
     print "deleting class: ", cls_id
     return 0;
 
 def get_average_grade_for_class(tch_id, year, cls):
-    ass = AssignedExercises.objects.filter(c_id__c_id__exact=cls)
+    ass = AssignedExercises.objects.filter(c_id__exact=cls)
     ret = []
-    for a in ass:
-        ex=a.ex_id
-        avg_score = LatestStudentScore.objects.filter(ex_id=ex.ex_id).aggregate(Avg('score'))
-        ret.append({'as_name':ex.title, 'grade':avg_score['score__avg']})
-    return ret
+    return  [{  'as_name': a.ex_id.title, 
+                'grade': LatestStudentScore.objects.filter(ex_id=a.ex_id).aggregate(Avg('score'))['score__avg']
+             }
+            for a in ass]
+#    for a in ass:
+#        ex=a.ex_id
+#        avg_score = LatestStudentScore.objects.filter(ex_id=ex.ex_id).aggregate(Avg('score'))
+#        ret.append({'as_name':ex.title, 'grade':avg_score['score__avg']})
+#    return ret
 
 def get_student_grades_for_assingments(tch_id, cls_id, as_id):
     ret = []

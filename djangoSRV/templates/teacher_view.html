@@ -169,7 +169,7 @@ function showOverview(table)
 	content += "<tr> <td><b>Assignment</b></td><td><b>Average Grade</b></td></tr>";
 	for (i in table) 
 	{
-		content += "<tr> <td>" + table[i].as_name + "</td><td>" + table[i].grade + "</td></tr>";
+		content += "<tr> <td>" + table[i].as_name + "</td><td>" + coalesce(table[i].grade, "N/A") + "</td></tr>";
 	}
 	content += tableFoot;
 
@@ -230,6 +230,10 @@ function hidePanels() {
 function showPanels() {
 	$("#well1").show();
 	$("#well2").show();
+}
+
+function coalesce(value1, value2) {
+	return value1 == null ? value2 : value1;
 }
 
 </script>
