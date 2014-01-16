@@ -71,6 +71,7 @@
 					<textarea id="feedback-text" class="field span12"></textarea>
 					<br><br>
 					<button class="btn btn-primary pull-right" id="send">Send feedback</button>
+					<div id="feedback_confirmation" class="pull-right">Feedback has been sent.</div>
 				</div>
 			</div>
 	            </div>
@@ -107,6 +108,7 @@
 		$('#question-text').fadeOut(600,0);
 	        curr_assignment = assignment_id;
 		getDataFromServer("get-students-in-class/",{'course_id' : class_id}, showStudentsOnCourse);
+		$("#feedback_confirmation").fadeOut();
 	}
 
 	function showStudentsOnCourse(table)
@@ -153,10 +155,11 @@
 	//in parameter binding
 	function getSubmissionFunction(stu, asgn, stu_full_name)
 	{
-		curr_student = stu_full_name;
-		curr_student_id = stu;
-		$("#feedback-window-text").text("Submit feedback for " + curr_student);
 		return	function() { 
+				curr_student = stu_full_name;
+				curr_student_id = stu;
+				$("#feedback-window-text").text("Submit feedback for " + curr_student);
+				$("#feedback_confirmation").fadeOut();
 				getDataFromServer('get-student-submission/',{'student_id':stu, 'assign_id':asgn}, showSubmissionContent);
 			};
 	}
@@ -180,7 +183,7 @@
 				},
 			success: function(response) 
 				{
-					//MAYBE ALERT SUBMITTED FEEDBACK
+					$("#feedback_confirmation").fadeIn();
 				}
 		});
 
