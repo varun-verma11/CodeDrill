@@ -50,6 +50,8 @@ class StudentSubmission(models.Model):
     content = models.TextField('Content', blank=True)
     submit_time = models.DateTimeField('Time of Submission',
         auto_now_add=True)
+    # optional result (TODO: change it to mandatory by adjusting queries)
+    result = models.IntegerField('Result', blank=True, null=True)
     def __str__(self):
         return str(self.stu_id)
     def __repr__(self):
@@ -69,6 +71,8 @@ class Test(models.Model):
 class AssignedExercises(models.Model):
     ex_id = models.ForeignKey('Exercise', to_field='ex_id')
     c_id = models.ForeignKey('Course', to_field='c_id')
+    # for setting deadlines (optional)
+    deadline = models.DateTimeField("Deadline", blank=True, null=True)
     def __str__(self):
         return self.ex_id.__str__()
     def __repr__(self):
