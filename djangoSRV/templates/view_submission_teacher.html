@@ -71,15 +71,17 @@
 					<textarea id="feedback-text" class="field span12"></textarea>
 					<br><br>
 					<button class="btn btn-primary pull-right" id="send">Send feedback</button>
-					<div id="feedback_confirmation" class="pull-right">Feedback has been sent.</div>
 				</div>
 			</div>
-	            </div>
+			<div id="feedback_confirmation">Feedback has been sent.</div>
+	        </div>
 		</div>
 	<script>
 
 	var curr_assignment;
 	var curr_student, curr_student_id;
+
+	$("#feedback_confirmation").hide();
 
 	function getDataFromServer(url, data, callback)
 	{
